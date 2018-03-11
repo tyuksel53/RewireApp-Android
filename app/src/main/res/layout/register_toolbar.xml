@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="fill_horizontal" >
+    android:layout_gravity="fill_horizontal"
+    tools:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:id="@+id/btn1"
+        android:id="@+id/ivRegisterCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,17 +19,16 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="27dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:ellipsize="end"
         android:lineSpacingExtra="18sp"
         android:text="Sigarayla Mücadele"
         android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn1"
-        app:layout_constraintStart_toEndOf="@+id/btn1"
-        app:layout_constraintTop_toTopOf="@+id/btn1" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivRegisterCancel"
+        app:layout_constraintStart_toEndOf="@+id/ivRegisterCancel"
+        app:layout_constraintTop_toTopOf="@+id/ivRegisterCancel" />
 
 
 </android.support.constraint.ConstraintLayout>

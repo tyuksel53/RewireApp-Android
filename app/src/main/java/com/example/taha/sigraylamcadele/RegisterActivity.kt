@@ -1,16 +1,23 @@
 package com.example.taha.sigraylamcadele
 
 import android.content.Context
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
-import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.Library.Portal
 import kotlinx.android.synthetic.main.activity_register.*
-import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.view.LayoutInflater
-
+import android.view.MenuItem
+import android.view.View
+import com.example.taha.sigraylamcadele.API.ApiClient
+import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Model.User
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.register_toolbar.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        tvRegisterError.visibility = View.INVISIBLE
         val inflator = this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val v = inflator.inflate(R.layout.register_toolbar, null)
@@ -26,9 +34,16 @@ class RegisterActivity : AppCompatActivity() {
         actionBar.setDisplayShowHomeEnabled(false)
         actionBar.setDisplayShowCustomEnabled(true)
         actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setCustomView(v)
+        actionBar.customView = v
+
+        ivRegisterCancel.setOnClickListener {
+            this@RegisterActivity.finish()
+        }
 
         btnRegister.setOnClickListener {
+            tvRegisterError.visibility = View.INVISIBLE
+            btnRegister.isEnabled = false
+            pbRegisterLoading.visibility = View.VISIBLE
 
             var registerControl:Boolean = true
             if(edRegisterMail.text.isNullOrEmpty() || edRegisterMail.text.isBlank())
@@ -74,10 +89,59 @@ class RegisterActivity : AppCompatActivity() {
 
             if(registerControl)
             {
-                Toast.makeText(this@RegisterActivity,"Control doğru",Toast.LENGTH_SHORT).show()
+                var newUser = User(edRegisterUserName.text.toString(),
+                        edRegisterPass.text.toString(),
+                        "user",
+                        edRegisterMail.text.toString())
+
+
+                var apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
+
+                var result = apiInterface?.userRegister("application/json",newUser)
+
+                result?.enqueue(object: Callback<String>{
+
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        btnRegister.isEnabled = true
+                        pbRegisterLoading.visibility = View.INVISIBLE
+                        var mundi = response?.message()?.toString()
+                        var body = response?.errorBody()?.string()
+
+                        if(response?.message()?.toString() == "OK")
+                        {
+                            body = response?.body()
+                            Toast.makeText(this@RegisterActivity,"Kayıt Başarılı",
+                                    Toast.LENGTH_SHORT).show()
+
+                        }else
+                        {
+                            if(body == "\"Bu kullanıcı adı zaten alınmış\"")
+                            {
+                                edRegisterUserName.error = "Bu kullanıcı adı zaten alınmış"
+                                Toast.makeText(this@RegisterActivity,"Bu kullanıcı adı zaten alınmış",
+                                        Toast.LENGTH_SHORT).show()
+                            }else
+                            {
+                                tvRegisterError.visibility = View.VISIBLE
+                                Toast.makeText(this@RegisterActivity,"Bir şeyler ters gitti",
+                                        Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
+                })
+            }else
+            {
+                btnRegister.isClickable = true
+                pbRegisterLoading.visibility = View.INVISIBLE
             }
 
         }
 
     }
+
 }

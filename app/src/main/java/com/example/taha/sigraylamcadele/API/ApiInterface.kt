@@ -1,11 +1,9 @@
 package com.example.taha.sigraylamcadele.API
 
 import com.example.taha.sigraylamcadele.Model.LoginResponse
+import com.example.taha.sigraylamcadele.Model.User
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by Taha on 28-Feb-18.
@@ -18,6 +16,9 @@ interface ApiInterface {
                 @Field("password") password:String,
                 @Field("grant_type") grant_type:String):Call<LoginResponse>
 
+
+    @POST("Register/RegisterUser")
+    fun userRegister(@Header("Content-Type") content_type:String,@Body user: User):Call<String>
 
 
 }
