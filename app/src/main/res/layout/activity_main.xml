@@ -5,48 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.taha.sigraylamcadele.MainActivity">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edLoginUsername"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_action_user"
             android:ems="10"
-            android:hint="Kullanici Adiniz"
+            android:hint="Kullanici Adi"
             android:inputType="textPersonName"
+            android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoginError"
+            app:met_baseColor="#d6e3e3"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#f1f1f1" />
 
-        <EditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edLoginPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:drawableLeft="@drawable/ic_action_lock_closed"
             android:ems="10"
-            android:hint="Şifreniz"
-            android:inputType="textPersonName"
+            android:hint="Şifre"
+            android:inputType="textPersonName|textPassword"
+            android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edLoginUsername" />
+            app:layout_constraintTop_toBottomOf="@+id/edLoginUsername"
+            app:met_baseColor="#d6e3e3"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#f1f1f1" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="79dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:background="#1E88E5"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_dalgalanma"
             android:text="Giris"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,9 +71,9 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -68,15 +85,13 @@
             android:id="@+id/tvLoginError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Yanlış kullanici adi veya şifre"
             android:textAlignment="center"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="#ff0000"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/edLoginUsername"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -94,6 +109,56 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNewUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Kayıt Olun"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivNewUser"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivNewUser"
+            app:layout_constraintTop_toTopOf="@+id/ivNewUser" />
+
+        <ImageView
+            android:id="@+id/ivNewUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:tint="#d6e3e3"
+            app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnLogin"
+            app:srcCompat="@drawable/ic_person_add" />
+
+        <ImageView
+            android:id="@+id/ivForgetPass"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:tint="#d6e3e3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivNewUser"
+            app:layout_constraintTop_toBottomOf="@+id/ivNewUser"
+            app:srcCompat="@drawable/ic_lock_open" />
+
+        <TextView
+            android:id="@+id/tvForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Şifremi Unuttum"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivForgetPass"
+            app:layout_constraintStart_toEndOf="@+id/ivForgetPass"
+            app:layout_constraintTop_toTopOf="@+id/ivForgetPass" />
+
     </android.support.constraint.ConstraintLayout>
 
 
