@@ -63,6 +63,13 @@ class RegisterActivity : AppCompatActivity() {
             {
                 edRegisterUserName.error = "Kullanici adi boş olamaz"
                 registerControl = false
+            }else
+            {
+                if(edRegisterUserName.text.toString().length < 4)
+                {
+                    edRegisterUserName.error = "Kullanıcı adi 4 küçük karakterden olmamalıdır"
+                    registerControl = false
+                }
             }
 
             if(edRegisterPassConfirm.text.isNullOrEmpty() || edRegisterPassConfirm.text.isBlank())
@@ -77,6 +84,12 @@ class RegisterActivity : AppCompatActivity() {
                 registerControl = false
             }else
             {
+                if(edRegisterPass.text.toString().length < 4)
+                {
+                    edRegisterPass.error = "Şifreniz 4 karakterden küçük olmamalıdır"
+                    registerControl = false
+                }
+                else
                 if(edRegisterPassConfirm.text.isNotBlank() && edRegisterPassConfirm.text.isNotEmpty())
                 {
                     if(edRegisterPassConfirm.text.toString() != edRegisterPass.text.toString())
@@ -116,6 +129,8 @@ class RegisterActivity : AppCompatActivity() {
                             body = response?.body()
                             Toast.makeText(this@RegisterActivity,"Kayıt Başarılı",
                                     Toast.LENGTH_SHORT).show()
+                            Portal.veriTabaniOlustur(this@RegisterActivity)
+                            /* veri tabanı işlemleri */
 
                         }else
                         {
@@ -136,7 +151,7 @@ class RegisterActivity : AppCompatActivity() {
                 })
             }else
             {
-                btnRegister.isClickable = true
+                btnRegister.isEnabled = true
                 pbRegisterLoading.visibility = View.INVISIBLE
             }
 

@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Database.DatabaseHelper
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
