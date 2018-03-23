@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_action_user"
+        android:title="Anasayfa" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_action_bars"
+        android:title="İstatistikler" />
+
+    <item
+        android:id="@+id/navigation_group"
+        android:icon="@drawable/ic_group"
+        android:title="Grup" />
+
+    <item
+        android:id="@+id/navigation_questions"
+        android:icon="@drawable/ic_question_answer"
+        android:title="SoruCevap" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Ayarlar" />
+
+</menu>
