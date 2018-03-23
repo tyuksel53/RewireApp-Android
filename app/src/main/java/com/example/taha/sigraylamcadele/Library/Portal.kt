@@ -47,7 +47,7 @@ class Portal {
             }
         }
 
-        private fun guncelle(context:Context)
+        fun kullaniciGuncelle(context:Context)
         {
             var helper = DatabaseHelper(context)
             var db =  helper.readableDatabase
@@ -63,9 +63,9 @@ class Portal {
 
         }
 
-        private fun sil()
+        fun kullanicilariSil(context:Context)
         {
-            val helper = DatabaseHelper(this@LoginActivity)
+            val helper = DatabaseHelper(context)
             val db = helper.readableDatabase
             var args = arrayOf("100")
 
@@ -74,9 +74,9 @@ class Portal {
                     args)
         }
 
-        private fun kayitlariOku() {
+        fun kullanicilariOku(context:Context) {
 
-            var helper = DatabaseHelper(this@LoginActivity)
+            var helper = DatabaseHelper(context)
             var db = helper.readableDatabase
 
             var protection = arrayOf(DbContract.UserEntry.COLUMN_USERNAME,
@@ -84,7 +84,7 @@ class Portal {
                     DbContract.UserEntry.COLUMN_PASSWORD,
                     DbContract.UserEntry.COLUMN_ROLE)
 
-            var selection = DbContract.UserEntry._ID + " < ?"
+            var selection = DbContract.UserEntry._ID + " = 1"
 
             var selectionAgs = arrayOf("100")
 
@@ -109,7 +109,7 @@ class Portal {
             db.close()
         }
 
-        private fun kayitEkle(username:String,password:String,email:String,role:String,context:Context) {
+         fun yeniKullaniciEkle(username:String,password:String,email:String,role:String,context:Context) {
 
             var helper = DatabaseHelper(context)
             var db = helper.writableDatabase

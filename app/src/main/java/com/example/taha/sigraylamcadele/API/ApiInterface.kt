@@ -20,5 +20,8 @@ interface ApiInterface {
     @POST("Register/RegisterUser")
     fun userRegister(@Header("Content-Type") content_type:String,@Body user: User):Call<String>
 
+    @GET("User/GetUserInfo")
+    fun userInfo(@Header("Authorization") access_token:String):Call<User>
+
 
 }

@@ -17,6 +17,7 @@ class DbContract {
             var COLUMN_ROLE = "role"
             var COLUMN_EMAIL = "email"
             var COLUMN_PASSWORD = "password"
+            var COLUMN_ACCESSTOKEN = "accesstoken"
         }
     }
 

@@ -10,6 +10,7 @@ import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         tvNewUser.setOnClickListener {
             var intent = Intent(this@LoginActivity,RegisterActivity::class.java)
@@ -56,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                             var body = response?.body()
                             Toast.makeText(this@LoginActivity,"Giris basarili",Toast.LENGTH_LONG).show()
                             var intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
+                            intent.putExtra("accessToken",body?.access_token)
                             startActivity(intent)
                             finish()
                         }else
