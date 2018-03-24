@@ -7,7 +7,7 @@
         android:title="Anasayfa" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_statistics"
         android:icon="@drawable/ic_action_bars"
         android:title="İstatistikler" />
 

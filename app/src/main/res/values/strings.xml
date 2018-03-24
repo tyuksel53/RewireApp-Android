@@ -4,4 +4,7 @@
     <string name="title_home">Anasayfa</string>
     <string name="title_dashboard">İstatistikler</string>
     <string name="title_notifications">Grup</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
