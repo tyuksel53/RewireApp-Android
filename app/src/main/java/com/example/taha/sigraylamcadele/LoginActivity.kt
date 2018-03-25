@@ -1,6 +1,5 @@
 package com.example.taha.sigraylamcadele
 
-import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,10 +7,9 @@ import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
-import com.example.taha.sigraylamcadele.Database.DatabaseHelper
-import com.example.taha.sigraylamcadele.Database.DbContract
-import com.example.taha.sigraylamcadele.Library.Portal
+import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
+import com.example.taha.sigraylamcadele.Model.User
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,10 +53,15 @@ class LoginActivity : AppCompatActivity() {
                         pbLogin.visibility = View.INVISIBLE
                         if(response?.message()?.toString() == "OK")
                         {
-                            var body = response?.body()
+                            val body = response?.body()
                             Toast.makeText(this@LoginActivity,"Giris basarili",Toast.LENGTH_LONG).show()
-                            var intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
-                            intent.putExtra("accessToken",body?.access_token)
+                            val intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
+
+                            val loggedInUser = User(edLoginUsername.text.toString(),
+                                    edLoginPassword.text.toString(),"user",null,body?.access_token)
+
+                            UserPortal.loggedInUser = loggedInUser
+                            UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
                             startActivity(intent)
                             finish()
                         }else

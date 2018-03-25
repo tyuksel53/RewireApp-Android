@@ -105,7 +105,8 @@ class RegisterActivity : AppCompatActivity() {
                 var newUser = User(edRegisterUserName.text.toString(),
                         edRegisterPass.text.toString(),
                         "user",
-                        edRegisterMail.text.toString())
+                        edRegisterMail.text.toString(),
+                        accessToken = null)
 
 
                 var apiInterface =  ApiClient.client?.create(ApiInterface::class.java)

@@ -4,12 +4,15 @@ import android.content.ContentValues
 import android.content.Context
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
+import com.example.taha.sigraylamcadele.Model.User
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class Portal {
 
     companion object {
+
+
         fun isEmailValid(input:String):Boolean
         {
             var expression:String = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
@@ -47,6 +50,7 @@ class Portal {
             }
         }
 
+
         fun kullaniciGuncelle(context:Context)
         {
             var helper = DatabaseHelper(context)
@@ -72,6 +76,41 @@ class Portal {
             var resultCount = db.delete(DbContract.UserEntry.TABLE_NAME,
                     DbContract.UserEntry._ID + " < ?",
                     args)
+        }
+
+        fun autoLogin(context:Context):User?
+        {
+            val helper = DatabaseHelper(context)
+            val db = helper.readableDatabase
+
+            val protection = arrayOf(DbContract.UserEntry.COLUMN_ACCESSTOKEN,
+                    DbContract.UserEntry.COLUMN_USERNAME,
+                    DbContract.UserEntry.COLUMN_PASSWORD,
+                    DbContract.UserEntry.COLUMN_ROLE,
+                    DbContract.UserEntry.COLUMN_EMAIL)
+
+            val selection = DbContract.UserEntry._ID + " = ?"
+            val selectionAgrs = arrayOf("1")
+            val myCorsor = db.query(DbContract.UserEntry.TABLE_NAME,protection,selection,selectionAgrs,
+                    null,null,null)
+            val count = myCorsor.count
+            var myUser = User()
+            if(count >= 1)
+            {
+
+                while(myCorsor.moveToNext())
+                {
+                    myUser.AccessToken = myCorsor.getString(0)
+                    myUser.Username = myCorsor.getString(1)
+                    myUser.Password = myCorsor.getString(2)
+                    myUser.Role = myCorsor.getString(3)
+                    myUser.Email = myCorsor.getString(4)
+                    break
+                }
+                return myUser
+            }else
+                return null
+
         }
 
         fun kullanicilariOku(context:Context) {

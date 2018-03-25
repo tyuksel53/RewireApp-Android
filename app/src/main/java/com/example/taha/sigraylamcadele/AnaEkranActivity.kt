@@ -1,11 +1,15 @@
 package com.example.taha.sigraylamcadele
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.taha.sigraylamcadele.Fragments.*
+import com.example.taha.sigraylamcadele.Library.UserPortal
 import kotlinx.android.synthetic.main.ana_ekran_activity.*
 
 class AnaEkranActivity : AppCompatActivity() {
@@ -13,7 +17,6 @@ class AnaEkranActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ana_ekran_activity)
-        title = "Sigarayla Mücadele"
 
         var transaction = supportFragmentManager.beginTransaction()
         transaction.replace(android.R.id.content,AnasayfaFragment())
@@ -52,5 +55,30 @@ class AnaEkranActivity : AppCompatActivity() {
             transaction.commit()
             true
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.ana_ekran_menu,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId)
+        {
+            R.id.appLogOut ->{
+                if(UserPortal.deleteLoggedInUser(this@AnaEkranActivity))
+                {
+                    val intent = Intent(this@AnaEkranActivity,LoginActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this@AnaEkranActivity,"Çıkış başarılı",Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
