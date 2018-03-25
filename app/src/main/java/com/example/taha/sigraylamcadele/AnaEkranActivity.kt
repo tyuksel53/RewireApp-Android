@@ -71,6 +71,7 @@ class AnaEkranActivity : AppCompatActivity() {
                 if(UserPortal.deleteLoggedInUser(this@AnaEkranActivity))
                 {
                     val intent = Intent(this@AnaEkranActivity,LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     Toast.makeText(this@AnaEkranActivity,"Çıkış başarılı",Toast.LENGTH_SHORT).show()
                     finish()

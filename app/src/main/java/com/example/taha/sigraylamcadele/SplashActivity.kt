@@ -3,6 +3,7 @@ package com.example.taha.sigraylamcadele
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
@@ -48,9 +49,21 @@ class SplashActivity : AppCompatActivity() {
             })
         }else
         {
-            var intent = Intent(this@SplashActivity,LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+
+            object:CountDownTimer(1000,100)
+            {
+                override fun onFinish() {
+                    val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+
+                }
+
+            }.start()
+
         }
 
     }

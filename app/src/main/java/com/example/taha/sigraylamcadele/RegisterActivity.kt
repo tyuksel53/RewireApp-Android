@@ -1,6 +1,7 @@
 package com.example.taha.sigraylamcadele
 
 import android.content.Context
+import android.content.Intent
 import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.register_toolbar.*
@@ -116,22 +119,59 @@ class RegisterActivity : AppCompatActivity() {
                 result?.enqueue(object: Callback<String>{
 
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
-
+                        Toast.makeText(this@RegisterActivity,
+                                "Lütfen internet bağlantınızı kontrol edin",
+                                Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                        btnRegister.isEnabled = true
-                        pbRegisterLoading.visibility = View.INVISIBLE
+
                         var mundi = response?.message()?.toString()
                         var body = response?.errorBody()?.string()
 
                         if(response?.message()?.toString() == "OK")
                         {
-                            body = response?.body()
-                            Toast.makeText(this@RegisterActivity,"Kayıt Başarılı",
-                                    Toast.LENGTH_SHORT).show()
-                            Portal.veriTabaniOlustur(this@RegisterActivity)
-                            /* veri tabanı işlemleri */
+
+                            val getToken = apiInterface?.tokenAl(newUser.Username!!,newUser.Password!!
+                                    ,"password")
+                            getToken?.enqueue(object:Callback<LoginResponse>{
+                                override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
+                                    Toast.makeText(this@RegisterActivity,
+                                            "Lütfen internet bağlantınızı kontrol edin",
+                                            Toast.LENGTH_SHORT).show()
+                                    btnRegister.isEnabled = true
+                                    pbRegisterLoading.visibility = View.INVISIBLE
+                                }
+
+                                override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
+                                    if(response?.message()?.toString() == "OK")
+                                    {
+                                        val tokenBody = response.body()
+                                        newUser.AccessToken = tokenBody?.access_token
+
+                                        Toast.makeText(this@RegisterActivity,"Kayıt Başarılı",
+                                                Toast.LENGTH_SHORT).show()
+                                        UserPortal.deleteLoggedInUser(this@RegisterActivity)
+                                        UserPortal.loggedInUser = newUser
+                                        UserPortal.insertNewUser(this@RegisterActivity, newUser)
+
+                                        var intent = Intent(this@RegisterActivity,AnaEkranActivity::class.java)
+                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        startActivity(intent)
+                                        finish()
+
+                                    }else
+                                    {
+                                        Toast.makeText(this@RegisterActivity,
+                                                "Bir şeyler ters gitti",
+                                                Toast.LENGTH_SHORT).show()
+                                    }
+                                    btnRegister.isEnabled = true
+                                    pbRegisterLoading.visibility = View.INVISIBLE
+                                }
+
+                            })
+
 
                         }else
                         {
@@ -146,6 +186,9 @@ class RegisterActivity : AppCompatActivity() {
                                 Toast.makeText(this@RegisterActivity,"Bir şeyler ters gitti",
                                         Toast.LENGTH_SHORT).show()
                             }
+
+                            btnRegister.isEnabled = true
+                            pbRegisterLoading.visibility = View.INVISIBLE
                         }
                     }
 

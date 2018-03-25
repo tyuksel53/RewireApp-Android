@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
                         btnLogin.setEnabled(true)
                         pbLogin.visibility = View.INVISIBLE
-                        Toast.makeText(this@LoginActivity,"Bir şeyler ters gitti",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity,"İnternet bağlantınızı kontrol edin",Toast.LENGTH_LONG).show()
                     }
 
                     override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {

@@ -2,6 +2,7 @@ package com.example.taha.sigraylamcadele.Library
 
 import android.content.ContentValues
 import android.content.Context
+import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
 import com.example.taha.sigraylamcadele.Model.User
@@ -13,6 +14,15 @@ object UserPortal {
 
     var loggedInUser: User? = null
 
+
+    override  fun toString(): String {
+
+
+        return "${loggedInUser?.Username} , " +
+                "${loggedInUser?.Password}, " +
+                "${loggedInUser?.AccessToken}, "+
+                "${loggedInUser?.Role}"
+    }
     fun insertNewUser(context:Context, newUser:User)
     {
         val helper = DatabaseHelper(context)
@@ -55,5 +65,4 @@ object UserPortal {
 
         return false
     }
-
 }
