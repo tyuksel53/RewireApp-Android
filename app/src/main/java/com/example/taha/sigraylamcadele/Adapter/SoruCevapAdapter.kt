@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.card_view_share.view.*
 /**
  * Created by Taha on 26-Mar-18.
  */
-class SoruCevapAdapter(var dataSource:ArrayList<Shares>): RecyclerView.Adapter<SoruCevapAdapter.SoruCevapViewHolder>() {
+class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCevapAdapter.SoruCevapViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SoruCevapViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
@@ -45,10 +45,10 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>): RecyclerView.Adapter<S
 
         fun setData(share:Shares)
         {
-            message.text = share.message
-            userId.text = share.userId
-            upVoteCount.text = share.upVoteCount.toString()
-            date.text = share.publishedTime
+            message.text = share.Message
+            userId.text = share.UserID
+            upVoteCount.text = share.UpVoteCount.toString()
+            date.text = share.PublishedTime
 
         }
 

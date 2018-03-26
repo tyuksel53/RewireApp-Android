@@ -43,6 +43,10 @@ class SplashActivity : AppCompatActivity() {
                         UserPortal.loggedInUser = myUser
                         startActivity(intent)
                         finish()
+                    }else
+                    {
+                        redirectToLogin()
+                        UserPortal.deleteLoggedInUser(this@SplashActivity)
                     }
                 }
 

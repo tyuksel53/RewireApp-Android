@@ -1,6 +1,7 @@
 package com.example.taha.sigraylamcadele.API
 
 import com.example.taha.sigraylamcadele.Model.LoginResponse
+import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.Model.User
 import retrofit2.Call
 import retrofit2.http.*
@@ -22,6 +23,9 @@ interface ApiInterface {
 
     @GET("User/GetUserInfo")
     fun userInfo(@Header("Authorization") access_token:String):Call<User>
+
+    @GET("User/GetShares")
+    fun getShares(@Header("Authorization") access_token: String):Call<List<Shares>>
 
 
 }

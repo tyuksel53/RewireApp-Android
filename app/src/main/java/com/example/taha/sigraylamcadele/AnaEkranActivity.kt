@@ -19,7 +19,7 @@ class AnaEkranActivity : AppCompatActivity() {
         setContentView(R.layout.ana_ekran_activity)
 
         var transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(android.R.id.content,AnasayfaFragment())
+        transaction.replace(R.id.fragmentContainer,AnasayfaFragment())
         transaction.commit()
 
         navigation.setOnNavigationItemSelectedListener { item ->
@@ -51,7 +51,7 @@ class AnaEkranActivity : AppCompatActivity() {
                 }
             }
             var transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(android.R.id.content,selectedFragment)
+            transaction.replace(R.id.fragmentContainer,selectedFragment)
             transaction.commit()
             true
         }

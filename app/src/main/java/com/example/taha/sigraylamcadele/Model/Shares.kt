@@ -3,17 +3,17 @@ package com.example.taha.sigraylamcadele.Model
 
 class Shares{
 
-    var message:String? = null
-    var userId:String? = null
-    var publishedTime:String? = null
-    var upVoteCount:Int? = null
+    var Message:String? = null
+    var UserID:String? = null
+    var PublishedTime:String? = null
+    var UpVoteCount:Int? = null
 
     constructor(message:String,userId:String,publishedTime:String,upvoteCount:Int)
     {
-        this.message = message
-        this.publishedTime = publishedTime
-        this.userId = userId
-        this.upVoteCount = upVoteCount
+        this.Message = message
+        this.PublishedTime = publishedTime
+        this.UserID = userId
+        this.UpVoteCount = upvoteCount
     }
     constructor()
     {
