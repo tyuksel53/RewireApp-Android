@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
 
             result?.enqueue(object: Callback<LoginResponse>{
                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
-
+                    redirectToLogin()
                 }
 
                 override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
@@ -49,22 +49,26 @@ class SplashActivity : AppCompatActivity() {
             })
         }else
         {
-
-            object:CountDownTimer(1000,100)
-            {
-                override fun onFinish() {
-                    val intent = Intent(this@SplashActivity,LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-
-                override fun onTick(millisUntilFinished: Long) {
-
-                }
-
-            }.start()
-
+            redirectToLogin()
         }
 
+    }
+
+
+    private fun redirectToLogin()
+    {
+        object:CountDownTimer(1000,100)
+        {
+            override fun onFinish() {
+                val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+        }.start()
     }
 }

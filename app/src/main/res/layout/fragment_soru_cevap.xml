@@ -5,9 +5,9 @@
     tools:context="com.example.taha.sigraylamcadele.Fragments.SoruCevapFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="SoruCevap Fragment" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSoruCevap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>
