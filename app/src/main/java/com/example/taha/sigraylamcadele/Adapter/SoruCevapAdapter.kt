@@ -42,13 +42,21 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
         var userId = cardInfo.tvShareUserID
         var upVoteCount = cardInfo.tvUpVoteCount
         var date = cardInfo.tvShareDate
+        var header = cardInfo.tvShareHeader
+        var yorumCount = cardInfo.tvYorumCount
 
         fun setData(share:Shares)
         {
-            message.text = share.Message
+            if(share.Message!!.length > 200)
+            {
+                message.text = share.Message!!.substring(0..200) + "..."
+            }
+            header.text = share.Header
             userId.text = share.UserID
             upVoteCount.text = share.UpVoteCount.toString()
             date.text = share.PublishedTime
+            yorumCount.text = share.YorumCount.toString()
+
 
         }
 
