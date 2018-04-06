@@ -21,32 +21,37 @@ class AnaEkranActivity : AppCompatActivity() {
         var transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer,AnasayfaFragment())
         transaction.commit()
+        var anasayfaFragment = AnasayfaFragment()
+        var istatistikFragment = IstatistikFragment()
+        var grupFragment = GrupFragment()
+        var soruCevapFragment = SoruCevapFragment()
+        var ayarlarFragment = AyarlarFragment()
 
         navigation.setOnNavigationItemSelectedListener { item ->
             var selectedFragment:Fragment? = null
 
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    selectedFragment = AnasayfaFragment()
+                    selectedFragment = anasayfaFragment
 
                 }
                 R.id.navigation_statistics -> {
 
-                    selectedFragment = IstatistikFragment()
+                    selectedFragment = istatistikFragment
 
                 }
                 R.id.navigation_group -> {
-                    selectedFragment = GrupFragment()
+                    selectedFragment = grupFragment
 
                 }
 
                 R.id.navigation_questions -> {
-                    selectedFragment = SoruCevapFragment()
+                    selectedFragment = soruCevapFragment
 
                 }
 
                 R.id.navigation_settings -> {
-                    selectedFragment = AyarlarFragment()
+                    selectedFragment = ayarlarFragment
 
                 }
             }

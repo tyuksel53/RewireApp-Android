@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
+import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.Model.User
 
 /**
@@ -13,7 +14,8 @@ import com.example.taha.sigraylamcadele.Model.User
 object UserPortal {
 
     var loggedInUser: User? = null
-
+    var shares:List<Shares>? = null
+    var counter:Int = 0
 
     override  fun toString(): String {
 
