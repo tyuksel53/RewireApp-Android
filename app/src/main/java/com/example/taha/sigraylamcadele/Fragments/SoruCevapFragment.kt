@@ -26,15 +26,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class SoruCevapFragment : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
 
@@ -44,8 +39,6 @@ class SoruCevapFragment : Fragment() {
 
         var recyclerV = view.findViewById<RecyclerView>(R.id.rvSoruCevap)
 
-        val constraintLayout = view.findViewById<ConstraintLayout>(R.id.container)
-        val navi = activity.findViewById<BottomNavigationView>(R.id.navigation)
 
 
 
