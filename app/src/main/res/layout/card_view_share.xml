@@ -30,7 +30,7 @@
             android:background="#888888"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7">
+            app:layout_constraintTop_toBottomOf="@+id/ivUserProfile">
 
         </View>
 
@@ -51,9 +51,9 @@
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/simple_oval"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintBottom_toBottomOf="@+id/ivUserProfile"
             app:layout_constraintStart_toEndOf="@+id/tvShareUserID"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+            app:layout_constraintTop_toTopOf="@+id/ivUserProfile" />
 
         <View
             android:id="@+id/view31"
@@ -120,7 +120,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/ivUserProfile"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
@@ -141,9 +141,9 @@
             android:text="UserId"
             android:textColor="@color/textColorTertiary"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivUserProfile"
+            app:layout_constraintStart_toEndOf="@+id/ivUserProfile"
+            app:layout_constraintTop_toTopOf="@+id/ivUserProfile" />
 
         <TextView
             android:id="@+id/tvShareDate"

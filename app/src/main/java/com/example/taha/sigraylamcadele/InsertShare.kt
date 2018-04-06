@@ -5,8 +5,17 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import com.example.taha.sigraylamcadele.API.ApiClient
+import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.Model.Shares
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_insert_share.*
 import kotlinx.android.synthetic.main.insert_share_toolbar.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class InsertShare : AppCompatActivity() {
 
@@ -23,6 +32,11 @@ class InsertShare : AppCompatActivity() {
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.customView = view
         pbInsertShare.visibility = View.INVISIBLE
+
+        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+
+
+
         ivInsertShareCancel.setOnClickListener {
             this@InsertShare.finish()
         }
@@ -61,6 +75,35 @@ class InsertShare : AppCompatActivity() {
             if(control)
             {
                 pbInsertShare.visibility = View.VISIBLE
+                val share = Shares()
+                share.Header = edShareHeader.text.toString()
+                share.Message = edShareDescription.text.toString()
+                val postShare = apiInterface?.postShare("Bearer "+UserPortal?.loggedInUser?.AccessToken!!,share)
+                postShare?.enqueue(object: Callback<String> {
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        pbInsertShare.visibility = View.INVISIBLE
+                        Toasty.error(this@InsertShare,"Bir şeyler ters gitti." +
+                                " İnternet bağlantınızı kontrol edin.",Toast.LENGTH_LONG,true)
+                                .show()
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        pbInsertShare.visibility = View.INVISIBLE
+                        if(response?.code() == 200)
+                        {
+                            Toasty.success(this@InsertShare,"İşlem başarılı",
+                                    Toast.LENGTH_LONG,true).show()
+                            UserPortal.newShare = true
+                            finish()
+                        }else
+                        {
+                            Toasty.error(this@InsertShare,"Bir şeyler ters gitti."
+                                    ,Toast.LENGTH_LONG,true)
+                                    .show()
+                        }
+                    }
+
+                })
             }
 
 

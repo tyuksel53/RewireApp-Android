@@ -1,10 +1,13 @@
 package com.example.taha.sigraylamcadele.Adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.R
 import kotlinx.android.synthetic.main.card_view_share.view.*
@@ -44,15 +47,28 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
         var date = cardInfo.tvShareDate
         var header = cardInfo.tvShareHeader
         var yorumCount = cardInfo.tvYorumCount
+        var profile = cardInfo.ivUserProfile
 
+        @SuppressLint("ResourceAsColor")
         fun setData(share:Shares)
         {
             if(share.Message!!.length > 200)
             {
                 message.text = share.Message!!.substring(0..200) + "..."
+            }else
+            {
+                message.text = share.Message
             }
             header.text = share.Header
-            userId.text = share.UserID
+
+            if(share.UserID == UserPortal.loggedInUser?.Username)
+            {
+                userId.text = share.UserID
+            }else
+            {
+                userId.text = share.UserID
+            }
+
             upVoteCount.text = share.UpVoteCount.toString()
             date.text = share.PublishedTime
             yorumCount.text = share.YorumCount.toString()

@@ -64,6 +64,10 @@ class LoginActivity : AppCompatActivity() {
                             UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
                             startActivity(intent)
                             finish()
+                        }else if(response?.code() == 500)
+                        {
+                            Toast.makeText(this@LoginActivity,"Bir şeyler ters gitti",
+                                    Toast.LENGTH_LONG).show()
                         }else
                         {
                             tvLoginError.visibility = View.VISIBLE

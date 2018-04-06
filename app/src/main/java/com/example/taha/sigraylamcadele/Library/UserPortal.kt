@@ -16,6 +16,7 @@ object UserPortal {
     var loggedInUser: User? = null
     var shares:List<Shares>? = null
     var counter:Int = 0
+    var newShare:Boolean = false
 
     override  fun toString(): String {
 

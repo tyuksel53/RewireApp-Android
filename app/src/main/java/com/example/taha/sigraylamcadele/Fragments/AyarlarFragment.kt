@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.taha.sigraylamcadele.R
 
 
-class AyarlarFragment : Fragment() {
+class AyarlarFragment : android.app.Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

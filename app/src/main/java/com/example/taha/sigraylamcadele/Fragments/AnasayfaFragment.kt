@@ -15,7 +15,7 @@ import com.example.taha.sigraylamcadele.R
 /**
  * A simple [Fragment] subclass.
  */
-class AnasayfaFragment : Fragment() {
+class AnasayfaFragment : android.app.Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -1,5 +1,6 @@
 package com.example.taha.sigraylamcadele
 
+import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -18,17 +19,18 @@ class AnaEkranActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ana_ekran_activity)
 
-        var transaction = supportFragmentManager.beginTransaction()
+        val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer,AnasayfaFragment())
         transaction.commit()
-        var anasayfaFragment = AnasayfaFragment()
-        var istatistikFragment = IstatistikFragment()
-        var grupFragment = GrupFragment()
-        var soruCevapFragment = SoruCevapFragment()
-        var ayarlarFragment = AyarlarFragment()
+
+        val anasayfaFragment = AnasayfaFragment()
+        val istatistikFragment = IstatistikFragment()
+        val grupFragment = GrupFragment()
+        val soruCevapFragment = SoruCevapFragment()
+        val ayarlarFragment = AyarlarFragment()
 
         navigation.setOnNavigationItemSelectedListener { item ->
-            var selectedFragment:Fragment? = null
+            var selectedFragment:android.app.Fragment? = null
 
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -55,7 +57,7 @@ class AnaEkranActivity : AppCompatActivity() {
 
                 }
             }
-            var transaction = supportFragmentManager.beginTransaction()
+            var transaction = fragmentManager.beginTransaction()
             transaction.replace(R.id.fragmentContainer,selectedFragment)
             transaction.commit()
             true

@@ -24,8 +24,13 @@ interface ApiInterface {
     @GET("User/GetUserInfo")
     fun userInfo(@Header("Authorization") access_token:String):Call<User>
 
-    @GET("User/GetShares")
+    @GET("Share/GetShares")
     fun getShares(@Header("Authorization") access_token: String):Call<List<Shares>>
+
+    @POST("Share/AddShare")
+    fun postShare(@Header("Authorization") access_token:String
+                  ,@Body share:Shares,
+                  @Header("Content-type") content_type:String = "application/json"):Call<String>
 
 
 }
