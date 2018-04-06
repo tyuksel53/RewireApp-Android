@@ -1,10 +1,12 @@
 package com.example.taha.sigraylamcadele.Fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
@@ -19,6 +21,7 @@ import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Adapter.SoruCevapAdapter
+import com.example.taha.sigraylamcadele.InsertShare
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.Model.User
@@ -43,6 +46,13 @@ class SoruCevapFragment : Fragment() {
         recyclerV = view.findViewById<RecyclerView>(R.id.rvSoruCevap)
         val progressBar = view.findViewById<ProgressBar>(R.id.pbSoruCevap)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipeSoruCevap)
+        val fb = view.findViewById<FloatingActionButton>(R.id.fbInsertShare)
+
+        fb.setOnClickListener {
+            var intent = Intent(activity,InsertShare::class.java)
+            startActivity(intent)
+
+        }
 
         swipeRefresh.setOnRefreshListener {
             result?.clone()?.enqueue(object:Callback<List<Shares>>{
