@@ -36,7 +36,13 @@ interface ApiInterface {
 
     @GET("Comment/GetComments")
     fun getComments(@Query("shareId") shareId:Int,
-                    @Header("Authorization") access_token:String):Call<List<Comment>>
+                    @Header("Authorization") access_token:String):Call<ArrayList<Comment>>
+
+    @POST("Comment/PostComment")
+    fun postComment(@Header("Authorization") access_token: String,
+                    @Body comment:Comment,
+                    @Header("Content-type") content_type:String = "application/json"):Call<String>
+
 
 
 }

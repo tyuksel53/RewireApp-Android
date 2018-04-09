@@ -31,7 +31,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
 
         var currentShare = dataSource[position]
 
-        holder?.setData(currentShare)
+        holder?.setData(currentShare,position)
     }
 
 
@@ -39,7 +39,6 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
 
         return dataSource.size
     }
-
 
     inner class SoruCevapViewHolder(itemView: View?):RecyclerView.ViewHolder(itemView) {
 
@@ -54,12 +53,13 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
         var profile = cardInfo.ivUserProfile
 
         @SuppressLint("ResourceAsColor")
-        fun setData(share:Shares)
+        fun setData(share:Shares,position: Int)
         {
             cardInfo.setOnClickListener {
 
                 var intent = Intent(it.context,SoruCevapDetay::class.java)
                 intent.putExtra("currentShare",share)
+                intent.putExtra("position",position)
                 it.context.startActivity(intent)
             }
 

@@ -17,6 +17,7 @@ object UserPortal {
     var shares:List<Shares>? = null
     var counter:Int = 0
     var newShare:Boolean = false
+    var hasSharesChanged = false
 
     override  fun toString(): String {
 

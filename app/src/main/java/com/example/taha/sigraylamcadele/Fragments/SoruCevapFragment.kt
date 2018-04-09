@@ -134,6 +134,13 @@ class SoruCevapFragment : android.app.Fragment() {
                 }
 
             })
+        }else if(UserPortal.hasSharesChanged)
+        {
+            UserPortal.hasSharesChanged = false
+            if(UserPortal.shares != null)
+            {
+                recyclerV!!.adapter = SoruCevapAdapter(UserPortal.shares!!)
+            }
         }
     }
     fun initRecyclerView(source:List<Shares>?)

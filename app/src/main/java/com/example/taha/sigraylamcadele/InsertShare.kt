@@ -19,6 +19,7 @@ import retrofit2.Response
 
 class InsertShare : AppCompatActivity() {
 
+    var isUserCanClick = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_share)
@@ -42,69 +43,79 @@ class InsertShare : AppCompatActivity() {
         }
 
         ivInsertShareOK.setOnClickListener {
+            if(isUserCanClick)
+            {
+                isUserCanClick = false
+                var control = true
+                if(edShareHeader.text.toString().isNullOrBlank() || edShareHeader.text.toString().isNullOrEmpty())
+                {
+                    control = false
+                    edShareHeader.error = "Başlık boş olamaz"
+                }else if( edShareHeader.text.toString().length < 3)
+                {
+                    control = false
+                    edShareHeader.error = "Başlık 3 karakterden küçük olmamalıdır"
+                }else if(edShareHeader.text.toString().length > 200)
+                {
+                    control = false
+                    edShareHeader.error = "Başlık 200 karakterden büyük olmamalıdır"
+                }
 
-            var control = true
-            if(edShareHeader.text.toString().isNullOrBlank() || edShareHeader.text.toString().isNullOrEmpty())
-            {
-                control = false
-                edShareHeader.error = "Başlık boş olamaz"
-            }else if( edShareHeader.text.toString().length < 3)
-            {
-                control = false
-                edShareHeader.error = "Başlık 3 karakterden küçük olmamalıdır"
-            }else if(edShareHeader.text.toString().length > 200)
-            {
-                control = false
-                edShareHeader.error = "Başlık 200 karakterden büyük olmamalıdır"
-            }
+                if(edShareDescription.text.toString().isNullOrBlank() || edShareDescription.text.toString().isNullOrEmpty())
+                {
+                    control = false
+                    edShareDescription.error = "Açıklama boş olamaz"
+                }else if( edShareDescription.text.toString().length < 3)
+                {
+                    control = false
+                    edShareDescription.error = "Açıklama 3 karakterden küçük olmamalıdır"
+                }else if(edShareDescription.text.toString().length > 40000)
+                {
+                    control = false
+                    edShareDescription.error = "Açıklama 40000 karakterden büyük olmamalıdır"
+                }
 
-            if(edShareDescription.text.toString().isNullOrBlank() || edShareDescription.text.toString().isNullOrEmpty())
-            {
-                control = false
-                edShareDescription.error = "Açıklama boş olamaz"
-            }else if( edShareDescription.text.toString().length < 3)
-            {
-                control = false
-                edShareDescription.error = "Açıklama 3 karakterden küçük olmamalıdır"
-            }else if(edShareDescription.text.toString().length > 40000)
-            {
-                control = false
-                edShareDescription.error = "Açıklama 40000 karakterden büyük olmamalıdır"
-            }
+                if(control)
+                {
+                    pbInsertShare.visibility = View.VISIBLE
+                    val share = Shares()
+                    share.Header = edShareHeader.text.toString()
+                    share.Message = edShareDescription.text.toString()
+                    val postShare = apiInterface?.postShare("Bearer "+UserPortal?.loggedInUser?.AccessToken!!,share)
 
-            if(control)
-            {
-                pbInsertShare.visibility = View.VISIBLE
-                val share = Shares()
-                share.Header = edShareHeader.text.toString()
-                share.Message = edShareDescription.text.toString()
-                val postShare = apiInterface?.postShare("Bearer "+UserPortal?.loggedInUser?.AccessToken!!,share)
-                postShare?.enqueue(object: Callback<String> {
-                    override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        pbInsertShare.visibility = View.INVISIBLE
-                        Toasty.error(this@InsertShare,"Bir şeyler ters gitti." +
-                                " İnternet bağlantınızı kontrol edin.",Toast.LENGTH_LONG,true)
-                                .show()
-                    }
-
-                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                        pbInsertShare.visibility = View.INVISIBLE
-                        if(response?.code() == 200)
-                        {
-                            Toasty.success(this@InsertShare,"İşlem başarılı",
-                                    Toast.LENGTH_LONG,true).show()
-                            UserPortal.newShare = true
-                            finish()
-                        }else
-                        {
-                            Toasty.error(this@InsertShare,"Bir şeyler ters gitti."
-                                    ,Toast.LENGTH_LONG,true)
+                    postShare?.enqueue(object: Callback<String> {
+                        override fun onFailure(call: Call<String>?, t: Throwable?) {
+                            isUserCanClick = true
+                            pbInsertShare.visibility = View.INVISIBLE
+                            Toasty.error(this@InsertShare,"Bir şeyler ters gitti." +
+                                    " İnternet bağlantınızı kontrol edin.",Toast.LENGTH_LONG,true)
                                     .show()
                         }
-                    }
 
-                })
+                        override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                            isUserCanClick = true
+                            pbInsertShare.visibility = View.INVISIBLE
+                            if(response?.code() == 200)
+                            {
+                                Toasty.success(this@InsertShare,"İşlem başarılı",
+                                        Toast.LENGTH_LONG,true).show()
+                                UserPortal.newShare = true
+                                finish()
+                            }else
+                            {
+                                Toasty.error(this@InsertShare,"Bir şeyler ters gitti."
+                                        ,Toast.LENGTH_LONG,true)
+                                        .show()
+                            }
+                        }
+
+                    })
+                }else
+                {
+                    isUserCanClick = true
+                }
             }
+
 
 
 

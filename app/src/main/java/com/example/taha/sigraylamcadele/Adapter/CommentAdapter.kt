@@ -11,7 +11,7 @@ import com.example.taha.sigraylamcadele.R
 import kotlinx.android.synthetic.main.share_detay_comment.view.*
 import kotlinx.android.synthetic.main.share_detay_comment_header.view.*
 
-class CommentAdapter(var allComments:List<Comment>,var headerShare:Shares): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         if(holder is CommentAdapter.CommentViewHolder)
@@ -40,12 +40,24 @@ class CommentAdapter(var allComments:List<Comment>,var headerShare:Shares): Recy
 
     }
 
+    fun add(comment:Comment)
+    {
+        allComments.add(0,comment)
+        notifyItemInserted(1)
+        notifyItemRangeChanged(0,allComments.size+1)
+    }
+
+    fun commentCountChangend()
+    {
+        headerShare.YorumCount = headerShare.YorumCount!! + 1
+        notifyItemChanged(0)
+    }
     override fun getItemViewType(position: Int): Int {
-        if(position == 0)
+        return if(position == 0)
         {
-            return 1
+            1
         }else
-            return 0
+            0
     }
 
     override fun getItemCount(): Int {

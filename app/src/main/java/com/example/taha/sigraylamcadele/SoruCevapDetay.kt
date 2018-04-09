@@ -23,6 +23,8 @@ import retrofit2.Callback
 
 class SoruCevapDetay : AppCompatActivity() {
 
+    var adapter:CommentAdapter? = null
+    var isUserCanClick = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_soru_cevap_detay)
@@ -37,29 +39,70 @@ class SoruCevapDetay : AppCompatActivity() {
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.customView = v
 
+        val inComingShare = intent.getSerializableExtra("currentShare") as Shares
+        val position = intent.getIntExtra("position",0)
         ivRegisterCancel.setOnClickListener {
             finish()
         }
 
         ivShareDetayCommentSend.setOnClickListener {
-
-            if(edShareDetayComment.text.isNullOrEmpty() || edShareDetayComment.text.isNullOrBlank() )
+            if(isUserCanClick)
             {
-                edShareDetayComment.setError("Mesaj boş olamaz")
-                return@setOnClickListener
+                isUserCanClick = false
+                if(edShareDetayComment.text.isNullOrEmpty() || edShareDetayComment.text.isNullOrBlank() )
+                {
+                    edShareDetayComment.setError("Mesaj boş olamaz")
+                    isUserCanClick = true
+                    return@setOnClickListener
+                }
+
+                if(edShareDetayComment.text.length < 3)
+                {
+                    edShareDetayComment.setError("Mesajınızın uzunluğu minimum 3 karakter olmalıdır !")
+                    isUserCanClick = true
+                    return@setOnClickListener
+                }
+                pbShareDetay.visibility = View.VISIBLE
+                var comment = Comment()
+                comment.Username = UserPortal.loggedInUser!!.Username
+                comment.ShareId = inComingShare.ID
+                comment.Message = edShareDetayComment.text.toString()
+                val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+                val result = apiInterface?.postComment(
+                        "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                        comment)
+
+                result?.enqueue(object:Callback<String>{
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        pbShareDetay.visibility = View.INVISIBLE
+                        isUserCanClick = true
+                        Toasty.error(this@SoruCevapDetay,"İnternet bağlantınızı kontrol edin",
+                                Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        pbShareDetay.visibility = View.INVISIBLE
+                        isUserCanClick = true
+                        if(response?.code() == 200)
+                        {
+                            UserPortal.shares!![position].YorumCount =
+                                    UserPortal.shares!![position].YorumCount!! + 1
+
+                            UserPortal.hasSharesChanged = true
+                            comment.Date = "şimdi"
+                            rvShareDetayComments.scrollToPosition(1)
+                            adapter!!.add(comment)
+                            adapter!!.commentCountChangend()
+                            edShareDetayComment.setText("")
+                        }
+                    }
+
+                })
             }
 
-            if(edShareDetayComment.text.length < 3)
-            {
-                edShareDetayComment.setError("Mesajınızın uzunluğu minimum 3 karakter olmalıdır !")
-                return@setOnClickListener
-            }
-
-            
 
         }
 
-        val inComingShare = intent.getSerializableExtra("currentShare") as Shares
 
 
         val apiInterFace = ApiClient.client?.create(ApiInterface::class.java)
@@ -67,19 +110,19 @@ class SoruCevapDetay : AppCompatActivity() {
         val getComments = apiInterFace?.getComments(inComingShare.ID!!,
                 "Bearer "+UserPortal.loggedInUser?.AccessToken!!)
 
-        val enqueue = getComments?.enqueue(object : Callback<List<Comment>> {
-            override fun onFailure(call: Call<List<Comment>>?, t: Throwable?) {
+        val enqueue = getComments?.enqueue(object : Callback<ArrayList<Comment>> {
+            override fun onFailure(call: Call<ArrayList<Comment>>?, t: Throwable?) {
                 pbShareDetay.visibility = View.INVISIBLE
                 Toasty.error(this@SoruCevapDetay,"İnternet Bağlantınızı Kontrol Edin",
                         Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<List<Comment>>?, response: Response<List<Comment>>?) {
+            override fun onResponse(call: Call<ArrayList<Comment>>?, response: Response<ArrayList<Comment>>?) {
                 pbShareDetay.visibility = View.INVISIBLE
                 if(response?.code() == 200)
                 {
                     var body = response?.body()
-                    var adapter = CommentAdapter(body!!,inComingShare)
+                    adapter = CommentAdapter(body!!,inComingShare)
                     rvShareDetayComments.adapter = adapter
                     val myManager = LinearLayoutManager(this@SoruCevapDetay,LinearLayoutManager.VERTICAL,false)
                     rvShareDetayComments!!.layoutManager = myManager
