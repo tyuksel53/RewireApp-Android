@@ -122,8 +122,7 @@ class SoruCevapFragment : android.app.Fragment() {
                 }
 
                 override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
-                    UserPortal.counter++
-                    Toast.makeText(activity,"Counter:${UserPortal.counter}",Toast.LENGTH_LONG).show()
+
                     if(response?.message()?.toString() == "OK") {
                         val body = response.body()
                         UserPortal.shares = body

@@ -21,7 +21,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_shadow_start_color">
 
             <TextView
                 android:id="@+id/tvCommentUsername"
@@ -30,14 +31,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Username"
-                android:textColor="@color/textColorSecondary"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view15"
                 android:layout_width="0dp"
-                android:layout_height="3dp"
+                android:layout_height="2dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -63,19 +66,22 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="tarih"
+                android:textColor="@color/textColorSecondary"
                 app:layout_constraintStart_toEndOf="@+id/view16"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvCommentMessage"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/textColorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view15" />
         </android.support.constraint.ConstraintLayout>
@@ -85,9 +91,12 @@
         android:id="@+id/imageView7"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView2"
+        android:tint="#888888"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_reply" />
 </android.support.constraint.ConstraintLayout>

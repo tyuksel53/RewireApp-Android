@@ -1,5 +1,6 @@
 package com.example.taha.sigraylamcadele.API
 
+import com.example.taha.sigraylamcadele.Model.Comment
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.Model.User
@@ -19,7 +20,8 @@ interface ApiInterface {
 
 
     @POST("Register/RegisterUser")
-    fun userRegister(@Header("Content-Type") content_type:String,@Body user: User):Call<String>
+    fun userRegister(@Header("Content-Type") content_type:String,
+                     @Body user: User):Call<String>
 
     @GET("User/GetUserInfo")
     fun userInfo(@Header("Authorization") access_token:String):Call<User>
@@ -28,9 +30,13 @@ interface ApiInterface {
     fun getShares(@Header("Authorization") access_token: String):Call<List<Shares>>
 
     @POST("Share/AddShare")
-    fun postShare(@Header("Authorization") access_token:String
-                  ,@Body share:Shares,
+    fun postShare(@Header("Authorization") access_token:String,
+                  @Body share:Shares,
                   @Header("Content-type") content_type:String = "application/json"):Call<String>
+
+    @GET("Comment/GetComments")
+    fun getComments(@Query("shareId") shareId:Int,
+                    @Header("Authorization") access_token:String):Call<List<Comment>>
 
 
 }
