@@ -36,7 +36,7 @@
             app:met_primaryColor="#f1f1f1" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edLoginPassword"
+            android:id="@+id/edShareDetayComment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
             android:text="Giris"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edLoginPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/edShareDetayComment" />
 
         <ImageView
             android:id="@+id/imageView2"

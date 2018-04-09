@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InsertShare"></activity>
+        <activity android:name=".InsertShare" />
+        <activity android:name=".SoruCevapDetay"></activity>
     </application>
 
 </manifest>

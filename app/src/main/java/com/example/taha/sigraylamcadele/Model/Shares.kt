@@ -1,7 +1,9 @@
 package com.example.taha.sigraylamcadele.Model
 
+import java.io.Serializable
 
-class Shares{
+
+class Shares:Serializable{
 
     var Header:String? = null
     var Message:String? = null

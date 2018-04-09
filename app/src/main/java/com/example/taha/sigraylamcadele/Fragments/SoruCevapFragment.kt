@@ -3,19 +3,13 @@ package com.example.taha.sigraylamcadele.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
@@ -24,11 +18,9 @@ import com.example.taha.sigraylamcadele.Adapter.SoruCevapAdapter
 import com.example.taha.sigraylamcadele.InsertShare
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
-import com.example.taha.sigraylamcadele.Model.User
 
 import com.example.taha.sigraylamcadele.R
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fragment_soru_cevap.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,7 +1,10 @@
 package com.example.taha.sigraylamcadele.Adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,6 +13,7 @@ import android.view.ViewGroup
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.R
+import com.example.taha.sigraylamcadele.SoruCevapDetay
 import kotlinx.android.synthetic.main.card_view_share.view.*
 
 /**
@@ -52,6 +56,14 @@ class SoruCevapAdapter(var dataSource:List<Shares>): RecyclerView.Adapter<SoruCe
         @SuppressLint("ResourceAsColor")
         fun setData(share:Shares)
         {
+            cardInfo.setOnClickListener {
+
+                var intent = Intent(it.context,SoruCevapDetay::class.java)
+                intent.putExtra("currentShare",share)
+                it.context.startActivity(intent)
+            }
+
+
             if(share.Message!!.length > 200)
             {
                 message.text = share.Message!!.substring(0..200) + "..."

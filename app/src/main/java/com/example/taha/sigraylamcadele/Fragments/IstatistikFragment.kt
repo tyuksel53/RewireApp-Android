@@ -2,7 +2,6 @@ package com.example.taha.sigraylamcadele.Fragments
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.util.*
 import kotlin.collections.HashMap
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class IstatistikFragment : android.app.Fragment() {
 
     var hashMap:HashMap<CalendarDay,Int> = HashMap()

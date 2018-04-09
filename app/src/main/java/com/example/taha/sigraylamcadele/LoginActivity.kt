@@ -36,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
             btnLogin.setEnabled(false)
             tvLoginError.visibility = View.INVISIBLE
             pbLogin.visibility = View.VISIBLE
-            if( edLoginUsername.text.toString().isNotEmpty() && edLoginPassword.text.isNotEmpty() )
+            if( edLoginUsername.text.toString().isNotEmpty() && edShareDetayComment.text.isNotEmpty() )
             {
                 var result = apiInterface?.tokenAl(edLoginUsername.text.toString(),
-                        edLoginPassword.text.toString(),"password")
+                        edShareDetayComment.text.toString(),"password")
 
                 result?.enqueue(object: Callback<LoginResponse>{
                     override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
 
                             val loggedInUser = User(edLoginUsername.text.toString(),
-                                    edLoginPassword.text.toString(),"user",null,body?.access_token)
+                                    edShareDetayComment.text.toString(),"user",null,body?.access_token)
 
                             UserPortal.loggedInUser = loggedInUser
                             UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
@@ -81,8 +81,8 @@ class LoginActivity : AppCompatActivity() {
             {
                 if(edLoginUsername.text.toString().isEmpty())
                     edLoginUsername.setError("Kullanici Adi boş olamaz")
-                if(edLoginPassword.text.toString().isEmpty())
-                    edLoginPassword.setError("Şifre boş olamaz")
+                if(edShareDetayComment.text.toString().isEmpty())
+                    edShareDetayComment.setError("Şifre boş olamaz")
 
                 pbLogin.visibility = View.INVISIBLE
                 btnLogin.setEnabled(true)
