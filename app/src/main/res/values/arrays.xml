@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="languages">
+        <item>english</item>
+        <item>русский</item>
+        <item>français</item>
+        <item>italiano</item>
+        <item>türkçe</item>
+        <item>español</item>
+    </array>
+
+    <array name="timezones">
+        <item>E. Europe Standard Time</item>
+        <item>UTC-11</item>
+        <item>Aleutian Standard Time</item>
+        <item>Hawaiian Standard Time</item>
+        <item>Marquesas Standard Time</item>
+        <item>Alaskan Standard Time</item>
+        <item>UTC-09</item>
+        <item>Pacific Standard Time (Mexico)</item>
+        <item>UTC-08</item>
+        <item>Pacific Standard Time</item>
+        <item>US Mountain Standard Time</item>
+        <item>Mountain Standard Time (Mexico)</item>
+        <item>Mountain Standard Time</item>
+        <item>Central America Standard Time</item>
+        <item>Central Standard Time</item>
+        <item>Easter Island Standard Time</item>
+        <item>Central Standard Time (Mexico)</item>
+        <item>Canada Central Standard Time</item>
+        <item>SA Pacific Standard Time</item>
+        <item>Eastern Standard Time (Mexico)</item>
+        <item>Eastern Standard Time</item>
+        <item>Haiti Standard Time</item>
+        <item>Cuba Standard Time</item>
+        <item>US Eastern Standard Time</item>
+        <item>Paraguay Standard Time</item>
+        <item>Atlantic Standard Time</item>
+        <item>Venezuela Standard Time</item>
+        <item>Central Brazilian Standard Time</item>
+        <item>SA Western Standard Time</item>
+        <item>Pacific SA Standard Time</item>
+        <item>Newfoundland Standard Time</item>
+        <item>Tocantins Standard Time</item>
+        <item>E. South America Standard Time</item>
+        <item>SA Eastern Standard Time</item>
+        <item>Argentina Standard Time</item>
+        <item>Greenland Standard Time</item>
+        <item>Montevideo Standard Time</item>
+        <item>Magallanes Standard Time</item>
+        <item>Saint Pierre Standard Time</item>
+        <item>Bahia Standard Time</item>
+        <item>UTC-02</item>
+        <item>Mid-Atlantic Standard Time</item>
+        <item>Azores Standard Time</item>
+        <item>Cape Verde Standard Time</item>
+        <item>UTC</item>
+        <item>Morocco Standard Time</item>
+        <item>GMT Standard Time</item>
+        <item>Greenwich Standard Time</item>
+        <item>W. Europe Standard Time</item>
+        <item>Central Europe Standard Time</item>
+        <item>Romance Standard Time</item>
+        <item>Central European Standard Time</item>
+        <item>W. Central Africa Standard Time</item>
+        <item>Jordan Standard Time</item>
+        <item>GTB Standard Time</item>
+        <item>Middle East Standard Time</item>
+        <item>Egypt Standard Time</item>
+        <item>Syria Standard Time</item>
+        <item>West Bank Standard Time</item>
+        <item>South Africa Standard Time</item>
+        <item>FLE Standard Time</item>
+        <item>Israel Standard Time</item>
+        <item>Kaliningrad Standard Time</item>
+        <item>Sudan Standard Time</item>
+        <item>Libya Standard Time</item>
+        <item>Namibia Standard Time</item>
+        <item>Arabic Standard Time</item>
+        <item>Turkey Standard Time</item>
+        <item>Arab Standard Time</item>
+        <item>Belarus Standard Time</item>
+        <item>Russian Standard Time</item>
+        <item>E. Africa Standard Time</item>
+        <item>Iran Standard Time</item>
+        <item>Arabian Standard Time</item>
+        <item>Astrakhan Standard Time</item>
+        <item>Azerbaijan Standard Time</item>
+        <item>Russia Time Zone 3</item>
+        <item>Mauritius Standard Time</item>
+        <item>Saratov Standard Time</item>
+        <item>Georgian Standard Time</item>
+        <item>Caucasus Standard Time</item>
+        <item>Afghanistan Standard Time</item>
+        <item>West Asia Standard Time</item>
+        <item>Ekaterinburg Standard Time</item>
+        <item>Pakistan Standard Time</item>
+        <item>India Standard Time</item>
+        <item>Sri Lanka Standard Time</item>
+        <item>Nepal Standard Time</item>
+        <item>Central Asia Standard Time</item>
+        <item>Bangladesh Standard Time</item>
+        <item>Omsk Standard Time</item>
+        <item>Myanmar Standard Time</item>
+        <item>SE Asia Standard Time</item>
+        <item>Altai Standard Time</item>
+        <item>W. Mongolia Standard Time</item>
+        <item>North Asia Standard Time</item>
+        <item>N. Central Asia Standard Time</item>
+        <item>Tomsk Standard Time</item>
+        <item>China Standard Time</item>
+        <item>North Asia East Standard Time</item>
+        <item>Singapore Standard Time</item>
+        <item>W. Australia Standard Time</item>
+        <item>Taipei Standard Time</item>
+        <item>Ulaanbaatar Standard Time</item>
+        <item>North Korea Standard Time</item>
+        <item>Aus Central W. Standard Time</item>
+        <item>Transbaikal Standard Time</item>
+        <item>Tokyo Standard Time</item>
+        <item>Korea Standard Time</item>
+        <item>Yakutsk Standard Time</item>
+        <item>Cen. Australia Standard Time</item>
+        <item>AUS Central Standard Time</item>
+        <item>E. Australia Standard Time</item>
+        <item>AUS Eastern Standard Time</item>
+        <item>West Pacific Standard Time</item>
+        <item>Tasmania Standard Time</item>
+        <item>Vladivostok Standard Time</item>
+        <item>Lord Howe Standard Time</item>
+        <item>Bougainville Standard Time</item>
+        <item>Russia Time Zone 10</item>
+        <item>Magadan Standard Time</item>
+        <item>Norfolk Standard Time</item>
+        <item>Sakhalin Standard Time</item>
+        <item>Central Pacific Standard Time</item>
+        <item>Russia Time Zone 11</item>
+        <item>New Zealand Standard Time</item>
+        <item>UTC+12</item>
+        <item>Fiji Standard Time</item>
+        <item>Kamchatka Standard Time</item>
+        <item>Chatham Islands Standard Time</item>
+        <item>UTC+13</item>
+        <item>Tonga Standard Time</item>
+        <item>Samoa Standard Time</item>
+        <item>Line Islands Standard Time</item>
+    </array>
+
+
+</resources>

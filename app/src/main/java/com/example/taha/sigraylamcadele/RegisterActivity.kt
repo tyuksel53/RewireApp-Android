@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
@@ -29,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         tvRegisterError.visibility = View.INVISIBLE
+
         val inflator = this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val v = inflator.inflate(R.layout.register_toolbar, null)
@@ -38,6 +40,16 @@ class RegisterActivity : AppCompatActivity() {
         actionBar.setDisplayShowCustomEnabled(true)
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.customView = v
+
+        val languages = resources.getStringArray(R.array.languages)
+        val timezones = resources.getStringArray(R.array.timezones)
+        val languageAdapter = ArrayAdapter(this,
+                android.R.layout.simple_dropdown_item_1line,languages)
+        val timeZoneAdapter = ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,
+                timezones)
+        spLanguage.adapter = languageAdapter
+        spTimeZones.adapter = timeZoneAdapter
+
 
         ivRegisterCancel.setOnClickListener {
             this@RegisterActivity.finish()
@@ -105,11 +117,13 @@ class RegisterActivity : AppCompatActivity() {
 
             if(registerControl)
             {
-                var newUser = User(edRegisterUserName.text.toString(),
-                        edRegisterPass.text.toString(),
-                        "user",
-                        edRegisterMail.text.toString(),
-                        accessToken = null)
+                var newUser = User(username = edRegisterUserName.text.toString(),
+                        password = edRegisterPass.text.toString(),
+                        role = "user",
+                        email = edRegisterMail.text.toString(),
+                        accessToken = null,
+                        timeZoneId = spTimeZones.getSelectedItem().toString(),
+                        language = spLanguage.getSelectedItem().toString())
 
 
                 var apiInterface =  ApiClient.client?.create(ApiInterface::class.java)

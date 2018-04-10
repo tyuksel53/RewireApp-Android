@@ -30,7 +30,7 @@ class DatabaseHelper : SQLiteOpenHelper {
     companion object {
 
         val DATABSE_NAME = "sigaraylamucadele.db"
-        private val DATABASE_VERSION = 2
+        private val DATABASE_VERSION = 3
 
         private val TABLE_USERS_CREATE = "CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
                 UserEntry._ID + " INTEGER PRIMARY KEY, " +
@@ -38,6 +38,8 @@ class DatabaseHelper : SQLiteOpenHelper {
                 UserEntry.COLUMN_PASSWORD + " TEXT, " +
                 UserEntry.COLUMN_EMAIL + " TEXT, " +
                 UserEntry.COLUMN_ROLE + " TEXT, "+
-                UserEntry.COLUMN_ACCESSTOKEN + " TEXT)"
+                UserEntry.COLUMN_ACCESSTOKEN + " TEXT, "+
+                UserEntry.COLUMN_TIMEZONEID + " TEXT, "+
+                UserEntry.COLUMN_LANGUAGE + " TEXT)"
     }
 }

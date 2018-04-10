@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.taha.sigraylamcadele.LoginActivity">
@@ -14,6 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:id="@+id/view18"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            android:background="@color/cardview_dark_background"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edLoginUsername"
             android:layout_width="0dp"
@@ -22,7 +35,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:drawableLeft="@drawable/ic_action_user"
+            android:drawableStart="@drawable/ic_action_user"
             android:ems="10"
             android:hint="Kullanici Adi"
             android:inputType="textPersonName"
@@ -31,9 +44,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLoginError"
-            app:met_baseColor="#d6e3e3"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edShareDetayComment"
@@ -46,28 +61,37 @@
             android:ems="10"
             android:hint="Şifre"
             android:inputType="textPersonName|textPassword"
-            android:textColorHint="#888888"
+            android:textColorHint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edLoginUsername"
-            app:met_baseColor="#d6e3e3"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
-        <Button
+        <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnLogin"
-            android:layout_width="79dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/button_dalgalanma"
-            android:text="Giris"
+            android:text="Giris Yap"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edShareDetayComment" />
+            app:layout_constraintEnd_toEndOf="@+id/edShareDetayComment"
+            app:layout_constraintStart_toStartOf="@+id/edShareDetayComment"
+            app:layout_constraintTop_toBottomOf="@+id/edShareDetayComment"
+            fancy:fb_borderColor="@color/cardview_shadow_end_color"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#0d47a1"
+            fancy:fb_focusColor="@color/colorAccent"
+            fancy:fb_iconPosition="left"
+            fancy:fb_radius="6dp"
+            fancy:fb_text="Giris Yap"
+            fancy:fb_textColor="@color/textColorPrimary" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -90,7 +114,7 @@
             android:layout_marginTop="8dp"
             android:text="Yanlış kullanici adı veya şifre"
             android:textAlignment="center"
-            android:textColor="#e7492e"
+            android:textColor="@color/myRed"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,41 +134,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvNewUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="52dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Kayıt Olun"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivNewUser"
-            app:layout_constraintTop_toTopOf="@+id/ivNewUser" />
-
-        <ImageView
-            android:id="@+id/ivNewUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:tint="#d6e3e3"
-            app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnLogin"
-            app:srcCompat="@drawable/ic_person_add" />
-
         <ImageView
             android:id="@+id/ivForgetPass"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:tint="#d6e3e3"
+            android:layout_marginTop="16dp"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginRegister"
             app:srcCompat="@drawable/ic_lock_open" />
 
         <TextView
@@ -153,10 +152,56 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Şifremi Unuttum"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivForgetPass"
             app:layout_constraintStart_toEndOf="@+id/ivForgetPass"
             app:layout_constraintTop_toTopOf="@+id/ivForgetPass" />
+
+        <View
+            android:id="@+id/view17"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/cardview_dark_background"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintEnd_toStartOf="@+id/textView17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="veya"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnLoginRegister"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Kayıt Ol"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            fancy:fb_borderColor="@color/cardview_shadow_end_color"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_radius="6dp"
+            fancy:fb_defaultColor="#0d47a1"
+            fancy:fb_focusColor="@color/colorAccent"
+            fancy:fb_iconPosition="left"
+            fancy:fb_textColor="@color/textColorPrimary" />
 
     </android.support.constraint.ConstraintLayout>
 

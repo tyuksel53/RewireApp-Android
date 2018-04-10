@@ -18,6 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spLanguage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/edRegisterPassConfirm"
+            app:layout_constraintStart_toStartOf="@+id/edRegisterPassConfirm"
+            app:layout_constraintTop_toBottomOf="@+id/edRegisterPassConfirm" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="35dp"
@@ -25,6 +33,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:tint="#888888"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterPassConfirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edRegisterPassConfirm"
@@ -45,11 +54,11 @@
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="#888888"
+            android:background="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -72,10 +81,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toBottomOf="@+id/edRegisterUserName"
-            app:met_baseColor="#d6e3e3"
+            tools:ignore="RtlHardcoded"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1"
-            tools:ignore="RtlHardcoded" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edRegisterPass"
@@ -91,10 +102,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toBottomOf="@+id/edRegisterMail"
-            app:met_baseColor="#d6e3e3"
+            tools:ignore="RtlHardcoded"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1"
-            tools:ignore="RtlHardcoded" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edRegisterPassConfirm"
@@ -110,10 +123,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/edRegisterPass"
-            app:met_baseColor="#d6e3e3"
+            tools:ignore="RtlHardcoded"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1"
-            tools:ignore="RtlHardcoded" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edRegisterUserName"
@@ -129,10 +144,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView8"
             app:layout_constraintTop_toBottomOf="@+id/view"
-            app:met_baseColor="#d6e3e3"
+            tools:ignore="RtlHardcoded"
+            android:textColor="@color/textColorSecondary"
+            app:met_baseColor="@color/textColorSecondary"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#f1f1f1"
-            tools:ignore="RtlHardcoded" />
+            app:met_primaryColor="@color/colorAccent"
+            app:met_textColorHint="@color/textColorPrimary"/>
 
         <TextView
             android:id="@+id/textView"
@@ -142,10 +159,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Yeni Hesap"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view"
-            app:layout_constraintTop_toBottomOf="@+id/tvRegisterError" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterError"
+            tools:ignore="RtlHardcoded" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -154,6 +173,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
+            android:tint="#888888"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterUserName"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view"
@@ -165,6 +185,7 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:tint="#888888"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterPass"
@@ -179,7 +200,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:color="#888888"
+            android:tint="#888888"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterMail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edRegisterMail"
@@ -189,13 +210,11 @@
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:text="Kayıt Ol"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/edRegisterPassConfirm"
-            app:layout_constraintTop_toBottomOf="@+id/edRegisterPassConfirm" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spTimeZones" />
 
         <ProgressBar
             android:id="@+id/pbRegisterLoading"
@@ -226,6 +245,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/spLanguage"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            android:tint="#888888"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/spLanguage"
+            app:srcCompat="@drawable/ic_language" />
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spTimeZones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/spLanguage"
+            app:layout_constraintStart_toStartOf="@+id/spLanguage"
+            app:layout_constraintTop_toBottomOf="@+id/spLanguage" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:tint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/spTimeZones"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="@+id/imageView11"
+            app:layout_constraintTop_toTopOf="@+id/spTimeZones"
+            app:srcCompat="@drawable/ic_access_time" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -18,6 +18,8 @@ class DbContract {
             var COLUMN_EMAIL = "email"
             var COLUMN_PASSWORD = "password"
             var COLUMN_ACCESSTOKEN = "accesstoken"
+            var COLUMN_TIMEZONEID = "timezoneid"
+            var COLUMN_LANGUAGE = "language"
         }
     }
 

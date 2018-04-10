@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-        tvNewUser.setOnClickListener {
+        btnLoginRegister.setOnClickListener {
             var intent = Intent(this@LoginActivity,RegisterActivity::class.java)
             startActivity(intent)
         }
@@ -58,7 +58,12 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
 
                             val loggedInUser = User(edLoginUsername.text.toString(),
-                                    edShareDetayComment.text.toString(),"user",null,body?.access_token)
+                                    edShareDetayComment.text.toString(),
+                                    "user",
+                                    null,
+                                    body?.access_token,
+                                    null,
+                                    null)
 
                             UserPortal.loggedInUser = loggedInUser
                             UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
