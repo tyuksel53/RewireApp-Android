@@ -1,5 +1,6 @@
 package com.example.taha.sigraylamcadele
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,8 @@ import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,10 +20,22 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        Paper.init(this)
+        val lang = Paper.book().read<String>("language")
+        if(lang == null)
+        {
+            Paper.book().write("language","en")
+        }
+
+        updateView(Paper.book().read("language"))
 
         btnLoginRegister.setOnClickListener {
             var intent = Intent(this@LoginActivity,RegisterActivity::class.java)
@@ -31,15 +46,14 @@ class LoginActivity : AppCompatActivity() {
         pbLogin.visibility = View.INVISIBLE
 
         var apiInterface = ApiClient.client?.create(ApiInterface::class.java)
-
         btnLogin.setOnClickListener {
             btnLogin.setEnabled(false)
             tvLoginError.visibility = View.INVISIBLE
             pbLogin.visibility = View.VISIBLE
-            if( edLoginUsername.text.toString().isNotEmpty() && edShareDetayComment.text.isNotEmpty() )
+            if( edLoginUsername.text.toString().isNotEmpty() && edLoginPassword.text.isNotEmpty() )
             {
                 var result = apiInterface?.tokenAl(edLoginUsername.text.toString(),
-                        edShareDetayComment.text.toString(),"password")
+                        edLoginPassword.text.toString(),"password")
 
                 result?.enqueue(object: Callback<LoginResponse>{
                     override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
@@ -58,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
 
                             val loggedInUser = User(edLoginUsername.text.toString(),
-                                    edShareDetayComment.text.toString(),
+                                    edLoginPassword.text.toString(),
                                     "user",
                                     null,
                                     body?.access_token,
@@ -86,8 +100,8 @@ class LoginActivity : AppCompatActivity() {
             {
                 if(edLoginUsername.text.toString().isEmpty())
                     edLoginUsername.setError("Kullanici Adi boş olamaz")
-                if(edShareDetayComment.text.toString().isEmpty())
-                    edShareDetayComment.setError("Şifre boş olamaz")
+                if(edLoginPassword.text.toString().isEmpty())
+                    edLoginPassword.setError("Şifre boş olamaz")
 
                 pbLogin.visibility = View.INVISIBLE
                 btnLogin.setEnabled(true)
@@ -95,6 +109,20 @@ class LoginActivity : AppCompatActivity() {
 
 
         }
+
+    }
+
+    fun updateView(lang:String)
+    {
+        var context = LocaleHelper.setLocale(this@LoginActivity,lang)
+        var resources = context.resources
+
+        edLoginUsername.setHint(resources.getString(R.string.kullanici_adi))
+        edLoginPassword.setHint(resources.getString(R.string.sifre))
+        tvForgetPassword.setText(resources.getString(R.string.sifremi_unuttum))
+
+        tvLoginError.setText(resources.getString(R.string.yanlis_kullanici_adi_veya_sifre))
+        tvLoginYada.setText(resources.getString(R.string.veya))
 
     }
 

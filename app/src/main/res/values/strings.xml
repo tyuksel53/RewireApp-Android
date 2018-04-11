@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sigarayla Mücadele</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -7,4 +8,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kullanici_adi">Kullanici Adi</string>
+    <string name="sifre">Şifre</string>
+    <string name="giris_yap">Giris Yap</string>
+    <string name="yanlis_kullanici_adi_veya_sifre">Yanlış kullanici adı veya şifre</string>
+    <string name="sifremi_unuttum">Şifremi Unuttum</string>
+    <string name="veya">veya</string>
+    <string name="kayit_ol">Kayıt Ol</string>
 </resources>

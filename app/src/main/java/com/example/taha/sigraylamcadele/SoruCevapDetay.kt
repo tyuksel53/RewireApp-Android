@@ -1,7 +1,6 @@
 package com.example.taha.sigraylamcadele
 
 import android.content.Context
-import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -49,16 +48,16 @@ class SoruCevapDetay : AppCompatActivity() {
             if(isUserCanClick)
             {
                 isUserCanClick = false
-                if(edShareDetayComment.text.isNullOrEmpty() || edShareDetayComment.text.isNullOrBlank() )
+                if(edShareComment.text.isNullOrEmpty() || edShareComment.text.isNullOrBlank() )
                 {
-                    edShareDetayComment.setError("Mesaj boş olamaz")
+                    edShareComment.setError("Mesaj boş olamaz")
                     isUserCanClick = true
                     return@setOnClickListener
                 }
 
-                if(edShareDetayComment.text.length < 3)
+                if(edShareComment.text.length < 3)
                 {
-                    edShareDetayComment.setError("Mesajınızın uzunluğu minimum 3 karakter olmalıdır !")
+                    edShareComment.setError("Mesajınızın uzunluğu minimum 3 karakter olmalıdır !")
                     isUserCanClick = true
                     return@setOnClickListener
                 }
@@ -66,7 +65,7 @@ class SoruCevapDetay : AppCompatActivity() {
                 var comment = Comment()
                 comment.Username = UserPortal.loggedInUser!!.Username
                 comment.ShareId = inComingShare.ID
-                comment.Message = edShareDetayComment.text.toString()
+                comment.Message = edShareComment.text.toString()
                 val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
                 val result = apiInterface?.postComment(
                         "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
@@ -93,7 +92,7 @@ class SoruCevapDetay : AppCompatActivity() {
                             rvShareDetayComments.scrollToPosition(1)
                             adapter!!.add(comment)
                             adapter!!.commentCountChangend()
-                            edShareDetayComment.setText("")
+                            edShareComment.setText("")
                         }
                     }
 
