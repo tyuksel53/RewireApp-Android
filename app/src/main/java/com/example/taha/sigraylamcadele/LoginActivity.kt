@@ -2,6 +2,7 @@ package com.example.taha.sigraylamcadele
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,6 +21,7 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
+    lateinit var myResources: Resources
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
     }
@@ -59,7 +61,8 @@ class LoginActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
                         btnLogin.setEnabled(true)
                         pbLogin.visibility = View.INVISIBLE
-                        Toast.makeText(this@LoginActivity,"İnternet bağlantınızı kontrol edin",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity,myResources.getString(R.string.hataBaglantiBozuk)
+                                ,Toast.LENGTH_LONG).show()
                     }
 
                     override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
@@ -68,7 +71,6 @@ class LoginActivity : AppCompatActivity() {
                         if(response?.message()?.toString() == "OK")
                         {
                             val body = response?.body()
-                            Toast.makeText(this@LoginActivity,"Giris basarili",Toast.LENGTH_LONG).show()
                             val intent = Intent(this@LoginActivity,AnaEkranActivity::class.java)
 
                             val loggedInUser = User(edLoginUsername.text.toString(),
@@ -85,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         }else if(response?.code() == 500)
                         {
-                            Toast.makeText(this@LoginActivity,"Bir şeyler ters gitti",
+                            Toast.makeText(this@LoginActivity,myResources.getString(R.string.hataBirSeylerTers),
                                     Toast.LENGTH_LONG).show()
                         }else
                         {
@@ -99,9 +101,9 @@ class LoginActivity : AppCompatActivity() {
             }else
             {
                 if(edLoginUsername.text.toString().isEmpty())
-                    edLoginUsername.setError("Kullanici Adi boş olamaz")
+                    edLoginUsername.setError(myResources.getString(R.string.hataGirisKullanıcıadi))
                 if(edLoginPassword.text.toString().isEmpty())
-                    edLoginPassword.setError("Şifre boş olamaz")
+                    edLoginPassword.setError(myResources.getString(R.string.hataGirisSifre))
 
                 pbLogin.visibility = View.INVISIBLE
                 btnLogin.setEnabled(true)
@@ -115,14 +117,15 @@ class LoginActivity : AppCompatActivity() {
     fun updateView(lang:String)
     {
         var context = LocaleHelper.setLocale(this@LoginActivity,lang)
-        var resources = context.resources
+        myResources = context.resources
 
-        edLoginUsername.setHint(resources.getString(R.string.kullanici_adi))
-        edLoginPassword.setHint(resources.getString(R.string.sifre))
-        tvForgetPassword.setText(resources.getString(R.string.sifremi_unuttum))
-
-        tvLoginError.setText(resources.getString(R.string.yanlis_kullanici_adi_veya_sifre))
-        tvLoginYada.setText(resources.getString(R.string.veya))
+        edLoginUsername.setHint(myResources.getString(R.string.kullanici_adi))
+        edLoginPassword.setHint(myResources.getString(R.string.sifre))
+        tvForgetPassword.setText(myResources.getString(R.string.sifremi_unuttum))
+        btnLogin.setText(myResources.getString(R.string.giris_yap))
+        btnLoginRegister.setText(myResources.getString(R.string.kayit_ol))
+        tvLoginError.setText(myResources.getString(R.string.yanlis_kullanici_adi_veya_sifre))
+        tvLoginYada.setText(myResources.getString(R.string.veya))
 
     }
 

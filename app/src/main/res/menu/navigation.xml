@@ -4,26 +4,26 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_action_user"
-        android:title="Anasayfa" />
+        android:title="@string/anasayfa" />
 
     <item
         android:id="@+id/navigation_statistics"
         android:icon="@drawable/ic_action_bars"
-        android:title="İstatistikler" />
+        android:title="@string/statistikler" />
 
     <item
         android:id="@+id/navigation_group"
         android:icon="@drawable/ic_group"
-        android:title="Grup" />
+        android:title="@string/grup" />
 
     <item
         android:id="@+id/navigation_questions"
         android:icon="@drawable/ic_question_answer"
-        android:title="SoruCevap" />
+        android:title="@string/sorucevap" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Ayarlar" />
+        android:title="@string/ayarlar" />
 
 </menu>

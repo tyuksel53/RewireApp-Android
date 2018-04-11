@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sigarayla Mücadele</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_home">HOme</string>
-    <string name="title_dashboard">Stastics</string>
-    <string name="title_notifications">Group</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,4 +11,47 @@
     <string name="sifremi_unuttum">Forget password</string>
     <string name="veya">or</string>
     <string name="kayit_ol">Register</string>
+
+
+    <string name="hataGirisKullanıcıadi">Username cannot be empty</string>
+    <string name="hataGirisSifre">Password cannot be empty</string>
+    <string name="hataBaglantiBozuk">Please check your Internet connection !</string>
+    <string name="hataBirSeylerTers">Something went wrong</string>
+
+    <string name="mail_adresiniz">Email Address</string>
+    <string name="sifrenizi_girin">Password</string>
+    <string name="sifre_tekrar">Password Again</string>
+    <string name="yeni_hesap">Sign Up</string>
+
+    <string name="mailHataBos">Email cannot be empty</string>
+    <string name="mailHataFormat">Email Address is not valid</string>
+    <string name="mailHataUzunluk">Email Address length cannot be longer than 255 characters</string>
+    <string name="hataKullaniciAdiMinUzunluk">Username length cannot be shorter than 4</string>
+    <string name="hataKullaniciAdiMaxUzunluk">Username length cannot be longer than 50 characters</string>
+    <string name="hataSifreUzunluk">Password length cannot be shorter than 4</string>
+    <string name="hataSifreEslesme">Passwords don\'t match</string>
+    <string name="kayitBasarili">Registration  successful</string>
+    <string name="kullaniciAdiAlinmis">Username is already taken</string>
+    <string name="dil_secin">Select Language:</string>
+    <string name="zaman_dilimi_secin">Select Timezone:</string>
+
+    <string name="cikis_basarili">Exit successful</string>
+    <string name="anasayfa">Home</string>
+    <string name="statistikler">Statistics</string>
+    <string name="grup">Group</string>
+    <string name="sorucevap">QuestionAnswer</string>
+    <string name="ayarlar">Settings</string>
+    <string name="cikis_yap">Exit</string>
+
+    <string name="hataShareBaslik">Header cannot be empty</string>
+    <string name="hataShareBaslikUzunlukMin">Header length cannot be shorter than 3</string>
+    <string name="hataShareBaslikUzunlukMax">Header length cannot be longer than 200</string>
+    <string name="hataShareAciklama">Body cannot be empty</string>
+    <string name="hataShareAciklamaUzunlukMin">Body length cannot be shorter than 3</string>
+    <string name="hataShareAciklamaUzunlukMax">Body length cannot be longer than 40000</string>
+    <string name="islem_basarili">Successful</string>
+    <string name="baslik_girin">Share your thoughts </string>
+    <string name="aciklama_girin">Describe in more detail</string>
+    <string name="bir_seyler_paylas">Share something today</string>
+
 </resources>

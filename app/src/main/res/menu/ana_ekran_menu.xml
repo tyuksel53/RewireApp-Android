@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/appLogOut"
-          android:title="Çıkış Yap"
+          android:title="@string/cikis_yap"
           android:icon="@drawable/ic_exit_to_app"
           app:showAsAction="always">
     </item>

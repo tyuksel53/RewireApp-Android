@@ -2,6 +2,7 @@ package com.example.taha.sigraylamcadele
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,9 @@ import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
+import es.dmoral.toasty.Toasty
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.register_toolbar.*
 import retrofit2.Call
@@ -26,10 +30,27 @@ import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
+    lateinit var myResources: Resources
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        Paper.init(this)
+        val lang = Paper.book().read<String>("language")
+        if(lang == null)
+        {
+            Paper.book().write("language","en")
+        }
+
+        updateView(Paper.book().read("language"))
+
+
         tvRegisterError.visibility = View.INVISIBLE
+
 
         val inflator = this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -60,48 +81,56 @@ class RegisterActivity : AppCompatActivity() {
             btnRegister.isEnabled = false
             pbRegisterLoading.visibility = View.VISIBLE
 
-            var registerControl:Boolean = true
+            var registerControl = true
             if(edRegisterMail.text.isNullOrEmpty() || edRegisterMail.text.isBlank())
             {
-                edRegisterMail.error = "Mail adresi boş olamaz"
+                edRegisterMail.error = myResources.getString(R.string.mailHataBos)
                 registerControl = false
             }else
             {
                 if(!Portal.isEmailValid(edRegisterMail.text.toString()))
                 {
                     registerControl = false
-                    edRegisterMail.error = "Lütfen düzgün formatta mail adresi giriniz"
+                    edRegisterMail.error = myResources.getString(R.string.mailHataFormat)
+                }else if(edRegisterMail.text.toString().length > 254)
+                {
+                    registerControl = false
+                    edRegisterMail.error = myResources.getString(R.string.mailHataUzunluk)
                 }
             }
 
             if(edRegisterUserName.text.isNullOrEmpty() || edRegisterUserName.text.isBlank())
             {
-                edRegisterUserName.error = "Kullanici adi boş olamaz"
+                edRegisterUserName.error = myResources.getString(R.string.hataGirisKullanıcıadi)
                 registerControl = false
             }else
             {
                 if(edRegisterUserName.text.toString().length < 4)
                 {
-                    edRegisterUserName.error = "Kullanıcı adi 4 küçük karakterden olmamalıdır"
+                    edRegisterUserName.error = myResources.getString(R.string.hataKullaniciAdiMinUzunluk)
+                    registerControl = false
+                }else if(edRegisterUserName.text.toString().length > 50)
+                {
+                    edRegisterUserName.error = myResources.getString(R.string.hataKullaniciAdiMaxUzunluk)
                     registerControl = false
                 }
             }
 
             if(edRegisterPassConfirm.text.isNullOrEmpty() || edRegisterPassConfirm.text.isBlank())
             {
-                edRegisterPassConfirm.error = "Şifre boş olamaz"
+                edRegisterPassConfirm.error = myResources.getString(R.string.hataGirisSifre)
                 registerControl = false
             }
 
             if(edRegisterPass.text.isNullOrEmpty() || edRegisterPass.text.isBlank())
             {
-                edRegisterPass.error = "Şifre boş olamaz"
+                edRegisterPass.error = myResources.getString(R.string.hataGirisSifre)
                 registerControl = false
             }else
             {
                 if(edRegisterPass.text.toString().length < 4)
                 {
-                    edRegisterPass.error = "Şifreniz 4 karakterden küçük olmamalıdır"
+                    edRegisterPass.error = myResources.getString(R.string.hataSifreUzunluk)
                     registerControl = false
                 }
                 else
@@ -109,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
                 {
                     if(edRegisterPassConfirm.text.toString() != edRegisterPass.text.toString())
                     {
-                        edRegisterPassConfirm.error = "Şifreler eşleşmiyor"
+                        edRegisterPassConfirm.error = myResources.getString(R.string.hataSifreEslesme)
                         registerControl = false
                     }
                 }
@@ -133,14 +162,16 @@ class RegisterActivity : AppCompatActivity() {
                 result?.enqueue(object: Callback<String>{
 
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        Toast.makeText(this@RegisterActivity,
-                                "Lütfen internet bağlantınızı kontrol edin",
+                        Toasty.error(this@RegisterActivity,
+                                myResources.getString(R.string.hataBaglantiBozuk),
                                 Toast.LENGTH_SHORT).show()
+                        btnRegister.isEnabled = true
+                        pbRegisterLoading.visibility = View.INVISIBLE
+
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
 
-                        var mundi = response?.message()?.toString()
                         var body = response?.errorBody()?.string()
 
                         if(response?.message()?.toString() == "OK")
@@ -150,8 +181,8 @@ class RegisterActivity : AppCompatActivity() {
                                     ,"password")
                             getToken?.enqueue(object:Callback<LoginResponse>{
                                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
-                                    Toast.makeText(this@RegisterActivity,
-                                            "Lütfen internet bağlantınızı kontrol edin",
+                                    Toasty.error(this@RegisterActivity,
+                                            myResources.getString(R.string.hataBaglantiBozuk),
                                             Toast.LENGTH_SHORT).show()
                                     btnRegister.isEnabled = true
                                     pbRegisterLoading.visibility = View.INVISIBLE
@@ -163,7 +194,8 @@ class RegisterActivity : AppCompatActivity() {
                                         val tokenBody = response.body()
                                         newUser.AccessToken = tokenBody?.access_token
 
-                                        Toast.makeText(this@RegisterActivity,"Kayıt Başarılı",
+                                        Toasty.success(this@RegisterActivity,
+                                                myResources.getString(R.string.kayitBasarili),
                                                 Toast.LENGTH_SHORT).show()
                                         UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                         UserPortal.loggedInUser = newUser
@@ -177,7 +209,7 @@ class RegisterActivity : AppCompatActivity() {
                                     }else
                                     {
                                         Toast.makeText(this@RegisterActivity,
-                                                "Bir şeyler ters gitti",
+                                                myResources.getString(R.string.hataBirSeylerTers),
                                                 Toast.LENGTH_SHORT).show()
                                     }
                                     btnRegister.isEnabled = true
@@ -191,13 +223,16 @@ class RegisterActivity : AppCompatActivity() {
                         {
                             if(body == "\"Bu kullanıcı adı zaten alınmış\"")
                             {
-                                edRegisterUserName.error = "Bu kullanıcı adı zaten alınmış"
-                                Toast.makeText(this@RegisterActivity,"Bu kullanıcı adı zaten alınmış",
+                                edRegisterUserName.error = myResources.getString(R.string.kullaniciAdiAlinmis)
+                                Toasty.error(this@RegisterActivity,
+                                        myResources.getString(R.string.kullaniciAdiAlinmis),
                                         Toast.LENGTH_SHORT).show()
+
                             }else
                             {
                                 tvRegisterError.visibility = View.VISIBLE
-                                Toast.makeText(this@RegisterActivity,"Bir şeyler ters gitti",
+                                Toast.makeText(this@RegisterActivity,
+                                        myResources.getString(R.string.hataBirSeylerTers),
                                         Toast.LENGTH_SHORT).show()
                             }
 
@@ -215,6 +250,19 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun updateView(lang: String) {
+        val context = LocaleHelper.setLocale(this@RegisterActivity,lang)
+        myResources = context.resources
+
+        edRegisterMail.setHint(myResources.getString(R.string.mail_adresiniz))
+        edRegisterPass.setHint(myResources.getString(R.string.sifrenizi_girin))
+        edRegisterPassConfirm.setHint(myResources.getString(R.string.sifre_tekrar))
+        edRegisterUserName.setHint(myResources.getString(R.string.kullanici_adi))
+        tvRegisterError.setText(myResources.getString(R.string.hataBirSeylerTers))
+        btnRegister.setText(myResources.getString(R.string.yeni_hesap))
+        tvRegisterYeniHesap.setText(myResources.getString(R.string.yeni_hesap))
     }
 
 }

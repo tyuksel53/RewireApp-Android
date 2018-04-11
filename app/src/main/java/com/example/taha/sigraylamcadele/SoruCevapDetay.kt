@@ -109,7 +109,7 @@ class SoruCevapDetay : AppCompatActivity() {
         val getComments = apiInterFace?.getComments(inComingShare.ID!!,
                 "Bearer "+UserPortal.loggedInUser?.AccessToken!!)
 
-        val enqueue = getComments?.enqueue(object : Callback<ArrayList<Comment>> {
+        getComments?.enqueue(object : Callback<ArrayList<Comment>> {
             override fun onFailure(call: Call<ArrayList<Comment>>?, t: Throwable?) {
                 pbShareDetay.visibility = View.INVISIBLE
                 Toasty.error(this@SoruCevapDetay,"İnternet Bağlantınızı Kontrol Edin",

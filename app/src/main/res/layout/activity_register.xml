@@ -8,7 +8,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -22,10 +22,10 @@
             android:id="@+id/spLanguage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/edRegisterPassConfirm"
             app:layout_constraintStart_toStartOf="@+id/edRegisterPassConfirm"
-            app:layout_constraintTop_toBottomOf="@+id/edRegisterPassConfirm" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterSelectLanugage" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="35dp"
@@ -33,7 +33,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterPassConfirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edRegisterPassConfirm"
@@ -63,7 +63,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterYeniHesap">
 
         </View>
 
@@ -75,7 +75,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Mail Adresiniz"
+            android:hint="@string/mail_adresiniz"
             android:inputType="textEmailAddress"
             android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Şifrenizi Girin"
+            android:hint="@string/sifrenizi_girin"
             android:inputType="textPassword"
             android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +117,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Şifre Tekrar"
+            android:hint="@string/sifre_tekrar"
             android:inputType="textPassword"
             android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +138,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Kullanıcı Adı"
+            android:hint="@string/kullanici_adi"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:textColorHint="#888888"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,13 +152,13 @@
             app:met_textColorHint="@color/textColorPrimary"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvRegisterYeniHesap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Yeni Hesap"
+            android:text="@string/yeni_hesap"
             android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -173,7 +173,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterUserName"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view"
@@ -185,7 +185,7 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterPass"
@@ -200,7 +200,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/edRegisterMail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edRegisterMail"
@@ -212,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
-            android:text="Kayıt Ol"
+            android:text="@string/kayit_ol"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spTimeZones" />
 
@@ -238,7 +238,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Bir şeyler ters gitti !"
+            android:text="@string/hataBirSeylerTers"
             android:textColor="#e7492e"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -251,7 +251,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/spLanguage"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/spLanguage"
             app:srcCompat="@drawable/ic_language" />
@@ -260,21 +260,43 @@
             android:id="@+id/spTimeZones"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/spLanguage"
             app:layout_constraintStart_toStartOf="@+id/spLanguage"
-            app:layout_constraintTop_toBottomOf="@+id/spLanguage" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterSelectTimeZone" />
 
         <ImageView
             android:id="@+id/imageView16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:tint="#888888"
+            android:tint="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/spTimeZones"
             app:layout_constraintEnd_toEndOf="@+id/imageView11"
             app:layout_constraintStart_toStartOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="@+id/spTimeZones"
             app:srcCompat="@drawable/ic_access_time" />
+
+        <TextView
+            android:id="@+id/tvRegisterSelectLanugage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/dil_secin"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/spLanguage"
+            app:layout_constraintTop_toBottomOf="@+id/edRegisterPassConfirm" />
+
+        <TextView
+            android:id="@+id/tvRegisterSelectTimeZone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/zaman_dilimi_secin"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/spTimeZones"
+            app:layout_constraintTop_toBottomOf="@+id/spLanguage" />
 
     </android.support.constraint.ConstraintLayout>
 
