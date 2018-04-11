@@ -2,6 +2,7 @@ package com.example.taha.sigraylamcadele.Fragments
 
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.widget.SwipeRefreshLayout
@@ -18,21 +19,33 @@ import com.example.taha.sigraylamcadele.Adapter.SoruCevapAdapter
 import com.example.taha.sigraylamcadele.InsertShare
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
 import es.dmoral.toasty.Toasty
+import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SoruCevapFragment : android.app.Fragment() {
-
+    lateinit var myResources: Resources
     var recyclerV:RecyclerView? = null
     var result:Call<List<Shares>>? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
 
+
+        Paper.init(activity)
+        val lang = Paper.book().read<String>("language")
+        if(lang == null)
+        {
+            Paper.book().write("language","en")
+        }
+
+
+        updateView(Paper.book().read("language"))
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
         result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser?.AccessToken}")
@@ -50,21 +63,23 @@ class SoruCevapFragment : android.app.Fragment() {
         swipeRefresh.setOnRefreshListener {
             result?.clone()?.enqueue(object:Callback<List<Shares>>{
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
-                    UserPortal.counter++
-                    Toast.makeText(activity,"Counter:${UserPortal.counter}",Toast.LENGTH_LONG).show()
                     swipeRefresh.setRefreshing(false)
+                    Toasty.error(activity,
+                            myResources.getString(R.string.hataBaglantiBozuk)
+                            ,Toast.LENGTH_LONG)
+                            .show()
                 }
 
                 override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
-                    UserPortal.counter++
-                    Toast.makeText(activity,"Counter:${UserPortal.counter}",Toast.LENGTH_LONG).show()
                     if(response?.message()?.toString() == "OK") {
                         val body = response.body()
                         UserPortal.shares = body
                         initRecyclerView(body)
                         swipeRefresh.setRefreshing(false)
                     }else {
-                        Toast.makeText(activity,"Bir şeyler ters gitti",Toast.LENGTH_LONG)
+                        Toasty.error(activity,
+                                myResources.getString(R.string.hataBirSeylerTers)
+                                ,Toast.LENGTH_LONG)
                                 .show()
                         swipeRefresh.setRefreshing(false)
                     }
@@ -78,12 +93,12 @@ class SoruCevapFragment : android.app.Fragment() {
             result?.enqueue(object:Callback<List<Shares>>{
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
                     progressBar.visibility = View.INVISIBLE
-                    UserPortal.counter++
-                    Toast.makeText(activity,"Counter:${UserPortal.counter}",Toast.LENGTH_LONG).show()
+                    Toasty.error(activity,
+                            myResources.getString(R.string.hataBaglantiBozuk)
+                            ,Toast.LENGTH_LONG)
+                            .show()
                 }
                 override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
-                    UserPortal.counter++
-                    Toast.makeText(activity,"Counter:${UserPortal.counter}",Toast.LENGTH_LONG).show()
                     progressBar.visibility = View.INVISIBLE
                     if(response?.message()?.toString() == "OK")
                     {
@@ -93,7 +108,9 @@ class SoruCevapFragment : android.app.Fragment() {
 
                     }else
                     {
-                        Toast.makeText(activity,"Bir şeyler ters gitti",Toast.LENGTH_LONG)
+                        Toasty.error(activity,
+                                myResources.getString(R.string.hataBirSeylerTers)
+                                ,Toast.LENGTH_LONG)
                                 .show()
                     }}
 
@@ -109,6 +126,12 @@ class SoruCevapFragment : android.app.Fragment() {
         return view
     }
 
+    private fun updateView(lang: String) {
+        val context = LocaleHelper.setLocale(activity,lang)
+        myResources = context.resources
+
+    }
+
     override fun onResume() {
         super.onResume()
         if(UserPortal.newShare)
@@ -116,8 +139,8 @@ class SoruCevapFragment : android.app.Fragment() {
             UserPortal.newShare = false
             result?.clone()?.enqueue(object:Callback<List<Shares>>{
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
-                    Toasty.error(activity,"Bir şeyler ters gitti" +
-                            ". İnternet bağlantınızı kontrol edin.",Toast.LENGTH_LONG)
+                    Toasty.error(activity,
+                            myResources.getString(R.string.hataBaglantiBozuk),Toast.LENGTH_LONG)
                             .show()
                 }
 
@@ -128,7 +151,9 @@ class SoruCevapFragment : android.app.Fragment() {
                         UserPortal.shares = body
                         initRecyclerView(body)
                     }else {
-                        Toasty.error(activity,"Bir şeyler ters gitti",Toast.LENGTH_LONG)
+                        Toasty.error(activity,
+                                myResources.getString(R.string.hataBirSeylerTers)
+                                ,Toast.LENGTH_LONG)
                                 .show()
                     }
                 }

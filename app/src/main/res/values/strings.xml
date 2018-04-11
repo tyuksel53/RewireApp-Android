@@ -58,5 +58,23 @@
     <string name="aciklama_girin">Biraz daha açıklayın</string>
     <string name="bir_seyler_paylas">Bir şeyler paylaşın</string>
 
+    <string name="Cevapla">Cevapla</string>
+    <string name="simdi">şimdi</string>
+    <string name="hataYorumMinLength">Mesajınızın uzunluğu minimum 3 karakter olmalıdır !</string>
+    <string name="hataYorumBos">Mesaj boş olamaz</string>
+    <string name="hataYorumUzunlukMax">Mesajınız 400 karakterden büyük olmamalıdır</string>
+
+    <string name="paylas">Paylaş</string>
+    <string name="CevapYaz">Cevap Yazın</string>
+
+    <string name="Ingilizce">english</string>
+    <string name="almanca">deutsch</string>
+    <string name="Italyanca">italiano</string>
+    <string name="Rusça">русский</string>
+    <string name="Ispanyolca">español</string>
+    <string name="fransizca">français</string>
+    <string name="Turkce">türkçe</string>
+    <string name="kapat">Kapat</string>
+
 
 </resources>

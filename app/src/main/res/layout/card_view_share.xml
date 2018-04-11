@@ -204,7 +204,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view31" />
 
         <ImageView
-            android:id="@+id/ivShareCevapla"
+            android:id="@+id/ivShareRespond"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -214,15 +214,15 @@
             app:srcCompat="@drawable/ic_reply" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tvShareResponde"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Cevapla"
+            android:text="@string/Cevapla"
             android:textColor="@color/textColorTertiary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/view11"
-            app:layout_constraintStart_toEndOf="@+id/ivShareCevapla"
+            app:layout_constraintStart_toEndOf="@+id/ivShareRespond"
             app:layout_constraintTop_toTopOf="@+id/view11" />
 
         <TextView

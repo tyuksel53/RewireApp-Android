@@ -97,10 +97,10 @@ class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares):
             yourmCount.text = inComingShare.YorumCount.toString()
             if(inComingShare.PublishedTime == "şimdi")
             {
-                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime} yazdı"
+                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
             }else
             {
-                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime} önce yazdı"
+                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
             }
             header.text = inComingShare.Header
             message.text = inComingShare.Message

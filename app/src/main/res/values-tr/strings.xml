@@ -38,4 +38,42 @@
     <string name="dil_secin">Dil Seçin:</string>
     <string name="zaman_dilimi_secin">Zaman Dilimi Seçin:</string>
 
+
+    <string name="cikis_basarili">Çıkış başarılı</string>
+    <string name="anasayfa">Anasayfa</string>
+    <string name="statistikler">İstatistikler</string>
+    <string name="grup">Grup</string>
+    <string name="sorucevap">SoruCevap</string>
+    <string name="ayarlar">Ayarlar</string>
+    <string name="cikis_yap">Çıkış Yap</string>
+
+    <string name="hataShareBaslik">Başlık boş olamaz</string>
+    <string name="hataShareBaslikUzunlukMin">Başlık 3 karakterden küçük olmamalıdır</string>
+    <string name="hataShareBaslikUzunlukMax">Başlık 200 karakterden büyük olmamalıdır</string>
+    <string name="hataShareAciklama">Açıklama boş olamaz</string>
+    <string name="hataShareAciklamaUzunlukMin">Açıklama 3 karakterden küçük olmamalıdır</string>
+    <string name="hataShareAciklamaUzunlukMax">Açıklama 40000 karakterden büyük olmamalıdır</string>
+    <string name="islem_basarili">İşlem başarılı</string>
+    <string name="baslik_girin">Düşüncelerinizi paylaşın</string>
+    <string name="aciklama_girin">Biraz daha açıklayın</string>
+    <string name="bir_seyler_paylas">Bir şeyler paylaşın</string>
+
+    <string name="Cevapla">Cevapla</string>
+    <string name="simdi">şimdi</string>
+    <string name="hataYorumMinLength">Mesajınızın uzunluğu minimum 3 karakter olmalıdır !</string>
+    <string name="hataYorumBos">Mesaj boş olamaz</string>
+    <string name="hataYorumUzunlukMax">Mesajınız 400 karakterden büyük olmamalıdır</string>
+
+    <string name="paylas">Paylaş</string>
+    <string name="CevapYaz">Cevap Yazın</string>
+
+    <string name="Ingilizce">english</string>
+    <string name="almanca">deutsch</string>
+    <string name="Italyanca">italiano</string>
+    <string name="Rusça">русский</string>
+    <string name="Ispanyolca">español</string>
+    <string name="fransizca">français</string>
+    <string name="Turkce">türkçe</string>
+    <string name="kapat">Kapat</string>
+
 </resources>

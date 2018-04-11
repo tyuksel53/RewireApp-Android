@@ -22,7 +22,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InsertShare : AppCompatActivity() {
-lateinit var myResources: Resources
+    lateinit var myResources: Resources
     var isUserCanClick = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,8 @@ lateinit var myResources: Resources
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.customView = view
         pbInsertShare.visibility = View.INVISIBLE
-        updateView(Paper.book().read("language"))
+
+        updateView(Paper.book().read<String>("language"))
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
 

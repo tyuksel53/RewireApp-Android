@@ -26,7 +26,7 @@
     <string name="mailHataBos">Email cannot be empty</string>
     <string name="mailHataFormat">Email Address is not valid</string>
     <string name="mailHataUzunluk">Email Address length cannot be longer than 255 characters</string>
-    <string name="hataKullaniciAdiMinUzunluk">Username length cannot be shorter than 4</string>
+    <string name="hataKullaniciAdiMinUzunluk">Username length cannot be shorter than 4 characters</string>
     <string name="hataKullaniciAdiMaxUzunluk">Username length cannot be longer than 50 characters</string>
     <string name="hataSifreUzunluk">Password length cannot be shorter than 4</string>
     <string name="hataSifreEslesme">Passwords don\'t match</string>
@@ -44,14 +44,22 @@
     <string name="cikis_yap">Exit</string>
 
     <string name="hataShareBaslik">Header cannot be empty</string>
-    <string name="hataShareBaslikUzunlukMin">Header length cannot be shorter than 3</string>
-    <string name="hataShareBaslikUzunlukMax">Header length cannot be longer than 200</string>
+    <string name="hataShareBaslikUzunlukMin">Header length cannot be shorter than 3 characters</string>
+    <string name="hataShareBaslikUzunlukMax">Header length cannot be longer than 200 characters</string>
     <string name="hataShareAciklama">Body cannot be empty</string>
-    <string name="hataShareAciklamaUzunlukMin">Body length cannot be shorter than 3</string>
-    <string name="hataShareAciklamaUzunlukMax">Body length cannot be longer than 40000</string>
+    <string name="hataShareAciklamaUzunlukMin">Body length cannot be shorter than 3 characters</string>
+    <string name="hataShareAciklamaUzunlukMax">Body length cannot be longer than 40000 characters</string>
     <string name="islem_basarili">Successful</string>
     <string name="baslik_girin">Share your thoughts </string>
     <string name="aciklama_girin">Describe in more detail</string>
     <string name="bir_seyler_paylas">Share something today</string>
 
+    <string name="Cevapla">Reply</string>
+    <string name="simdi">now</string>
+    <string name="hataYorumMinLength">Comment length cannot be shorter than 3 characters</string>
+    <string name="hataYorumBos">Comment cannot be empty</string>
+    <string name="hataYorumUzunlukMax">Header length cannot be longer than 400 characters</string>
+
+    <string name="paylas">Share</string>
+    <string name="CevapYaz">Add Comment</string>
 </resources>

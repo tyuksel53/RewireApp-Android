@@ -1,6 +1,7 @@
 package com.example.taha.sigraylamcadele
 
 import android.content.Context
+import android.content.res.Resources
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +14,9 @@ import com.example.taha.sigraylamcadele.Adapter.CommentAdapter
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Comment
 import com.example.taha.sigraylamcadele.Model.Shares
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import es.dmoral.toasty.Toasty
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_soru_cevap_detay.*
 import kotlinx.android.synthetic.main.register_toolbar.*
 import retrofit2.Call
@@ -24,10 +27,19 @@ class SoruCevapDetay : AppCompatActivity() {
 
     var adapter:CommentAdapter? = null
     var isUserCanClick = true
+    lateinit var myResources: Resources
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_soru_cevap_detay)
+        Paper.init(this)
+        val lang = Paper.book().read<String>("language")
+        if(lang == null)
+        {
+            Paper.book().write("language","en")
+        }
 
+        updateView(Paper.book().read<String>("language"))
         val inflator = this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val v = inflator.inflate(R.layout.register_toolbar, null)
@@ -50,17 +62,25 @@ class SoruCevapDetay : AppCompatActivity() {
                 isUserCanClick = false
                 if(edShareComment.text.isNullOrEmpty() || edShareComment.text.isNullOrBlank() )
                 {
-                    edShareComment.setError("Mesaj boş olamaz")
+                    edShareComment.setError(myResources.getString(R.string.hataYorumBos))
                     isUserCanClick = true
                     return@setOnClickListener
                 }
 
                 if(edShareComment.text.length < 3)
                 {
-                    edShareComment.setError("Mesajınızın uzunluğu minimum 3 karakter olmalıdır !")
+                    edShareComment.setError(myResources.getString(R.string.hataYorumMinLength))
                     isUserCanClick = true
                     return@setOnClickListener
                 }
+
+                if(edShareComment.text.length > 400)
+                {
+                    edShareComment.setError(myResources.getString(R.string.hataYorumUzunlukMax))
+                    isUserCanClick = true
+                    return@setOnClickListener
+                }
+
                 pbShareDetay.visibility = View.VISIBLE
                 var comment = Comment()
                 comment.Username = UserPortal.loggedInUser!!.Username
@@ -75,7 +95,8 @@ class SoruCevapDetay : AppCompatActivity() {
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
                         pbShareDetay.visibility = View.INVISIBLE
                         isUserCanClick = true
-                        Toasty.error(this@SoruCevapDetay,"İnternet bağlantınızı kontrol edin",
+                        Toasty.error(this@SoruCevapDetay,
+                                myResources.getString(R.string.hataBaglantiBozuk),
                                 Toast.LENGTH_LONG).show()
                     }
 
@@ -88,7 +109,7 @@ class SoruCevapDetay : AppCompatActivity() {
                                     UserPortal.shares!![position].YorumCount!! + 1
 
                             UserPortal.hasSharesChanged = true
-                            comment.Date = "şimdi"
+                            comment.Date = myResources.getString(R.string.simdi)
                             rvShareDetayComments.scrollToPosition(1)
                             adapter!!.add(comment)
                             adapter!!.commentCountChangend()
@@ -112,7 +133,8 @@ class SoruCevapDetay : AppCompatActivity() {
         getComments?.enqueue(object : Callback<ArrayList<Comment>> {
             override fun onFailure(call: Call<ArrayList<Comment>>?, t: Throwable?) {
                 pbShareDetay.visibility = View.INVISIBLE
-                Toasty.error(this@SoruCevapDetay,"İnternet Bağlantınızı Kontrol Edin",
+                Toasty.error(this@SoruCevapDetay,
+                        myResources.getString(R.string.hataBaglantiBozuk),
                         Toast.LENGTH_SHORT).show()
             }
 
@@ -131,5 +153,12 @@ class SoruCevapDetay : AppCompatActivity() {
         })
 
 
+    }
+
+    private fun updateView(lang: String?) {
+        val context = LocaleHelper.setLocale(this@SoruCevapDetay,lang)
+        myResources = context.resources
+
+        edShareComment.setHint(myResources.getString(R.string.CevapYaz))
     }
 }
