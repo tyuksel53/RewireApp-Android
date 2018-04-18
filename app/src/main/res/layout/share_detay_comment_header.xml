@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#292929">
@@ -8,15 +9,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/view13"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:background="@color/colorBackgroundLight"
-            app:layout_constraintBottom_toBottomOf="@+id/view12"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/view12" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline4"
@@ -30,9 +22,9 @@
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:background="@color/colorBackgroundLight"
-            app:layout_constraintBottom_toBottomOf="@+id/ivShareDetayDown"
+            app:layout_constraintBottom_toBottomOf="@+id/ivShareDetayLike"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/ivShareDetayDown" />
+            app:layout_constraintTop_toTopOf="@+id/ivShareDetayLike" />
 
         <TextView
             android:id="@+id/tvShareDetayHeader"
@@ -69,47 +61,36 @@
             app:layout_constraintGuide_percent="0.33" />
 
         <ImageView
-            android:id="@+id/ivShareDetayUp"
+            android:id="@+id/ivShareDetayLike"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvShareDetayMessage"
-            app:srcCompat="@drawable/ic_action_arrow_top" />
-
-        <ImageView
-            android:id="@+id/ivShareDetayDown"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/view12"
-            app:layout_constraintTop_toBottomOf="@+id/tvShareDetayMessage"
-            app:srcCompat="@drawable/ic_action_arrow_bottom" />
+            app:srcCompat="@drawable/ic_action_heart" />
 
         <TextView
             android:id="@+id/tvShareDetayUpVoteCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="0"
-            app:layout_constraintBottom_toBottomOf="@+id/ivShareDetayUp"
-            app:layout_constraintEnd_toStartOf="@+id/ivShareDetayDown"
-            app:layout_constraintStart_toEndOf="@+id/ivShareDetayUp"
-            app:layout_constraintTop_toTopOf="@+id/ivShareDetayUp" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivShareDetayLike"
+            app:layout_constraintStart_toEndOf="@+id/ivShareDetayLike"
+            app:layout_constraintTop_toTopOf="@+id/ivShareDetayLike" />
 
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/view13"
+            app:layout_constraintBottom_toBottomOf="@+id/view12"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@+id/view12"
-            app:layout_constraintTop_toTopOf="@+id/ivShareDetayDown"
+            app:layout_constraintTop_toTopOf="@+id/view12"
             app:srcCompat="@drawable/ic_comment" />
 
         <TextView
@@ -121,28 +102,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView12"
             app:layout_constraintStart_toEndOf="@+id/imageView12"
             app:layout_constraintTop_toTopOf="@+id/imageView12" />
-
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view13"
-            app:layout_constraintTop_toTopOf="@+id/view13"
-
-            app:srcCompat="@drawable/ic_action_share" />
-
-        <TextView
-            android:id="@+id/tvShareDetayPaylas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/paylas"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView14"
-            app:layout_constraintStart_toEndOf="@+id/imageView14"
-            app:layout_constraintTop_toTopOf="@+id/imageView14" />
 
         <View
             android:id="@+id/view14"

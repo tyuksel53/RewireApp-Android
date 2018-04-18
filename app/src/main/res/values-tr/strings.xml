@@ -76,4 +76,8 @@
     <string name="Turkce">türkçe</string>
     <string name="kapat">Kapat</string>
 
+    <string name="Dil_degistirin">Dil Değiştrin</string>
+    <string name="genel">Genel</string>
+    <string name="bildirim">Bildirim</string>
+
 </resources>

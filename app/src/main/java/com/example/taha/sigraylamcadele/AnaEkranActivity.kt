@@ -24,6 +24,8 @@ class AnaEkranActivity : AppCompatActivity() {
 
         updateView(Paper.book().read("language"))
 
+        UserPortal.getLikes()
+
         val anasayfaFragment = AnasayfaFragment()
         val istatistikFragment = IstatistikFragment()
         val grupFragment = GrupFragment()
@@ -96,6 +98,7 @@ class AnaEkranActivity : AppCompatActivity() {
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     Toast.makeText(this@AnaEkranActivity,UserPortal.myLangResource!!.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
+                    UserPortal.reset()
                     finish()
                 }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.example.taha.sigraylamcadele.Dialogs.DilSecDialog
 
 import com.example.taha.sigraylamcadele.R
@@ -17,9 +18,9 @@ class AyarlarFragment : android.app.Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater!!.inflate(R.layout.fragment_ayarlar, container, false)
 
-        var btn = view.findViewById<Button>(R.id.deneme)
+        var language = view.findViewById<TextView>(R.id.tvSettingsLanguage)
 
-        btn.setOnClickListener {
+        language.setOnClickListener {
             val dialog = DilSecDialog()
             dialog.show(fragmentManager,"tag")
         }

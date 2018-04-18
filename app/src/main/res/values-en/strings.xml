@@ -62,4 +62,17 @@
 
     <string name="paylas">Share</string>
     <string name="CevapYaz">Add Comment</string>
+
+    <string name="Ingilizce">english</string>
+    <string name="almanca">deutsch</string>
+    <string name="Italyanca">italiano</string>
+    <string name="Rusça">русский</string>
+    <string name="Ispanyolca">español</string>
+    <string name="fransizca">français</string>
+    <string name="Turkce">türkçe</string>
+
+    <string name="kapat">Close</string>
+    <string name="Dil_degistirin">Change Lanugage</string>
+    <string name="genel">General</string>
+    <string name="bildirim">Notification</string>
 </resources>

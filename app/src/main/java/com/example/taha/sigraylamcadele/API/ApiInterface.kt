@@ -1,9 +1,6 @@
 package com.example.taha.sigraylamcadele.API
 
-import com.example.taha.sigraylamcadele.Model.Comment
-import com.example.taha.sigraylamcadele.Model.LoginResponse
-import com.example.taha.sigraylamcadele.Model.Shares
-import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.Model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -47,6 +44,13 @@ interface ApiInterface {
     @PUT("User/UpdateUserLanguage")
     fun updateUserLang(@Header("Authorization") access_token:String,
                        @Query("lang") language:String):Call<String>
+
+    @GET("Share/GetLikes")
+    fun getLikes(@Header("Authorization") access_token:String):Call<ArrayList<ShareLike>>
+
+    @POST("Share/UserLiked")
+    fun userLiked(@Header("Authorization") access_token:String,
+                  @Body like:ShareLike):Call<String>
 
 
 

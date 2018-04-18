@@ -1,17 +1,20 @@
 package com.example.taha.sigraylamcadele.Adapter
 
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Comment
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.R
 import kotlinx.android.synthetic.main.share_detay_comment.view.*
 import kotlinx.android.synthetic.main.share_detay_comment_header.view.*
 
-class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares,var context:Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         if(holder is CommentAdapter.CommentViewHolder)
@@ -91,17 +94,18 @@ class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares):
         var header = cardView.tvShareDetayHeader
         var message = cardView.tvShareDetayMessage
         var upvoteCount = cardView.tvShareDetayUpVoteCount
+        var likeImg = cardView.ivShareDetayLike
 
         fun setData(inComingShare: Shares)
         {
-            yourmCount.text = inComingShare.YorumCount.toString()
-            if(inComingShare.PublishedTime == "şimdi")
+            val like = UserPortal.getLikes()?.find { x->x.ShareId == inComingShare.ID }
+            if(like != null)
             {
-                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
-            }else
-            {
-                username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
+                likeImg.setColorFilter(ContextCompat.getColor(context, R.color.myRed),
+                        android.graphics.PorterDuff.Mode.SRC_IN)
             }
+            yourmCount.text = inComingShare.YorumCount.toString()
+            username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
             header.text = inComingShare.Header
             message.text = inComingShare.Message
             upvoteCount.text = inComingShare.UpVoteCount.toString()
