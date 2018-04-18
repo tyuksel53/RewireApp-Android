@@ -17,57 +17,52 @@ import io.paperdb.Paper
 import kotlinx.android.synthetic.main.ana_ekran_activity.*
 
 class AnaEkranActivity : AppCompatActivity() {
-    lateinit var myResources: Resources
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ana_ekran_activity)
 
-        Paper.init(this)
-        val lang = Paper.book().read<String>("language")
-        if(lang == null)
-        {
-            Paper.book().write("language","en")
-        }
-
         updateView(Paper.book().read("language"))
-
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer,AnasayfaFragment())
-        transaction.commit()
 
         val anasayfaFragment = AnasayfaFragment()
         val istatistikFragment = IstatistikFragment()
         val grupFragment = GrupFragment()
         val soruCevapFragment = SoruCevapFragment()
         val ayarlarFragment = AyarlarFragment()
+        var menu = navigation.getMenu().findItem(R.id.navigation_home)
+        menu.setTitle(UserPortal.myLangResource!!.getString(R.string.anasayfa))
+
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer,anasayfaFragment)
+        transaction.commit()
+
 
         navigation.setOnNavigationItemSelectedListener { item ->
             var selectedFragment:android.app.Fragment? = null
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    item.setTitle(myResources.getString(R.string.anasayfa))
+                    item.setTitle(UserPortal.myLangResource!!.getString(R.string.anasayfa))
                     selectedFragment = anasayfaFragment
 
                 }
                 R.id.navigation_statistics -> {
-                    item.setTitle(myResources.getString(R.string.statistikler))
+                    item.setTitle(UserPortal.myLangResource!!.getString(R.string.statistikler))
                     selectedFragment = istatistikFragment
                 }
                 R.id.navigation_group -> {
-                    item.setTitle(myResources.getString(R.string.grup))
+                    item.setTitle(UserPortal.myLangResource!!.getString(R.string.grup))
                     selectedFragment = grupFragment
 
                 }
 
                 R.id.navigation_questions -> {
-                    item.setTitle(myResources.getString(R.string.sorucevap))
+                    item.setTitle(UserPortal.myLangResource!!.getString(R.string.sorucevap))
                     selectedFragment = soruCevapFragment
 
                 }
 
                 R.id.navigation_settings -> {
-                    item.setTitle(myResources.getString(R.string.ayarlar))
+                    item.setTitle(UserPortal.myLangResource!!.getString(R.string.ayarlar))
                     selectedFragment = ayarlarFragment
 
                 }
@@ -81,7 +76,7 @@ class AnaEkranActivity : AppCompatActivity() {
 
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(this@AnaEkranActivity,lang)
-        myResources = context.resources
+        UserPortal.myLangResource = context.resources
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,7 +95,7 @@ class AnaEkranActivity : AppCompatActivity() {
                     val intent = Intent(this@AnaEkranActivity,LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-                    Toast.makeText(this@AnaEkranActivity,resources.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AnaEkranActivity,UserPortal.myLangResource!!.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
                     finish()
                 }
 
@@ -108,5 +103,10 @@ class AnaEkranActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        updateView(Paper.book().read<String>("language"))
+        super.onResume()
     }
 }

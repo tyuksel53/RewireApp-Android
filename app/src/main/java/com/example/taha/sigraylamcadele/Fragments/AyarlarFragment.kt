@@ -2,12 +2,11 @@ package com.example.taha.sigraylamcadele.Fragments
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.example.taha.sigraylamcadele.Dialogs.DilSecFragment
+import com.example.taha.sigraylamcadele.Dialogs.DilSecDialog
 
 import com.example.taha.sigraylamcadele.R
 
@@ -21,7 +20,7 @@ class AyarlarFragment : android.app.Fragment() {
         var btn = view.findViewById<Button>(R.id.deneme)
 
         btn.setOnClickListener {
-            val dialog = DilSecFragment()
+            val dialog = DilSecDialog()
             dialog.show(fragmentManager,"tag")
         }
 

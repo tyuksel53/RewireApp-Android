@@ -22,19 +22,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InsertShare : AppCompatActivity() {
-    lateinit var myResources: Resources
     var isUserCanClick = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_share)
-
-        Paper.init(this)
-        val lang = Paper.book().read<String>("language")
-        if(lang == null)
-        {
-            Paper.book().write("language","en")
-        }
-
 
 
         val inflator = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -64,29 +55,29 @@ class InsertShare : AppCompatActivity() {
                 if(edShareHeader.text.toString().isNullOrBlank() || edShareHeader.text.toString().isNullOrEmpty())
                 {
                     control = false
-                    edShareHeader.error = myResources.getString(R.string.hataShareBaslik)
+                    edShareHeader.error = UserPortal.myLangResource!!.getString(R.string.hataShareBaslik)
                 }else if( edShareHeader.text.toString().length < 3)
                 {
                     control = false
-                    edShareHeader.error = myResources.getString(R.string.hataShareBaslikUzunlukMin)
+                    edShareHeader.error = UserPortal.myLangResource!!.getString(R.string.hataShareBaslikUzunlukMin)
                 }else if(edShareHeader.text.toString().length > 200)
                 {
                     control = false
-                    edShareHeader.error = myResources.getString(R.string.hataShareBaslikUzunlukMax)
+                    edShareHeader.error = UserPortal.myLangResource!!.getString(R.string.hataShareBaslikUzunlukMax)
                 }
 
                 if(edShareDescription.text.toString().isNullOrBlank() || edShareDescription.text.toString().isNullOrEmpty())
                 {
                     control = false
-                    edShareDescription.error = myResources.getString(R.string.hataShareAciklama)
+                    edShareDescription.error = UserPortal.myLangResource!!.getString(R.string.hataShareAciklama)
                 }else if( edShareDescription.text.toString().length < 3)
                 {
                     control = false
-                    edShareDescription.error = myResources.getString(R.string.hataShareAciklamaUzunlukMin)
+                    edShareDescription.error = UserPortal.myLangResource!!.getString(R.string.hataShareAciklamaUzunlukMin)
                 }else if(edShareDescription.text.toString().length > 40000)
                 {
                     control = false
-                    edShareDescription.error = myResources.getString(R.string.hataShareAciklamaUzunlukMax)
+                    edShareDescription.error = UserPortal.myLangResource!!.getString(R.string.hataShareAciklamaUzunlukMax)
                 }
 
                 if(control)
@@ -102,7 +93,7 @@ class InsertShare : AppCompatActivity() {
                             isUserCanClick = true
                             pbInsertShare.visibility = View.INVISIBLE
                             Toasty.error(this@InsertShare,
-                                    myResources.getString(R.string.hataBaglantiBozuk)
+                                    UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
                                     ,Toast.LENGTH_LONG,true)
                                     .show()
                         }
@@ -113,14 +104,14 @@ class InsertShare : AppCompatActivity() {
                             if(response?.code() == 200)
                             {
                                 Toasty.success(this@InsertShare,
-                                        myResources.getString(R.string.islem_basarili),
+                                        UserPortal.myLangResource!!.getString(R.string.islem_basarili),
                                         Toast.LENGTH_LONG,true).show()
                                 UserPortal.newShare = true
                                 finish()
                             }else
                             {
                                 Toasty.error(this@InsertShare,
-                                        myResources.getString(R.string.hataBirSeylerTers)
+                                        UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
                                         ,Toast.LENGTH_LONG,true)
                                         .show()
                             }
@@ -141,12 +132,17 @@ class InsertShare : AppCompatActivity() {
 
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(this@InsertShare,lang)
-        myResources = context.resources
+        UserPortal.myLangResource = context.resources
 
-        edShareHeader.setHint(myResources.getString(R.string.baslik_girin))
-        edShareDescription.setHint(myResources.getString(R.string.aciklama_girin))
+        edShareHeader.setHint(UserPortal.myLangResource!!.getString(R.string.baslik_girin))
+        edShareDescription.setHint(UserPortal.myLangResource!!.getString(R.string.aciklama_girin))
         var text = findViewById<TextView>(R.id.tvShareSometing)
-        text.setText(myResources.getString(R.string.bir_seyler_paylas))
+        text.setText(UserPortal.myLangResource!!.getString(R.string.bir_seyler_paylas))
 
+    }
+
+    override fun onResume() {
+        updateView(Paper.book().read<String>("language"))
+        super.onResume()
     }
 }

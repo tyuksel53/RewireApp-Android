@@ -2,6 +2,7 @@ package com.example.taha.sigraylamcadele.Library
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.res.Resources
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
@@ -15,9 +16,9 @@ object UserPortal {
 
     var loggedInUser: User? = null
     var shares:List<Shares>? = null
-    var counter:Int = 0
     var newShare:Boolean = false
     var hasSharesChanged = false
+    var myLangResource: Resources? = null
 
     override  fun toString(): String {
 

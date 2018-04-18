@@ -10,6 +10,9 @@ import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
+import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
+import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +22,16 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        Paper.init(this)
+        val lang = Paper.book().read<String>("language")
+        if(lang == null)
+        {
+            Paper.book().write("language","en")
+        }
+        val context = LocaleHelper.setLocale(this,lang)
+        UserPortal.myLangResource = context.resources
+
 
         var myUser = Portal.autoLogin(this)
 
@@ -36,8 +49,7 @@ class SplashActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
                     if(response?.message()?.toString() == "OK")
                     {
-                        var body = response?.body()
-                        Toast.makeText(this@SplashActivity,"Giris basarili", Toast.LENGTH_LONG).show()
+                        val body = response?.body()
                         var intent = Intent(this@SplashActivity,AnaEkranActivity::class.java)
                         myUser.AccessToken = body?.access_token
                         UserPortal.loggedInUser = myUser

@@ -30,7 +30,6 @@ import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
-    lateinit var myResources: Resources
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
     }
@@ -38,13 +37,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        Paper.init(this)
-        val lang = Paper.book().read<String>("language")
-        if(lang == null)
-        {
-            Paper.book().write("language","en")
-        }
 
         updateView(Paper.book().read("language"))
 
@@ -84,53 +76,53 @@ class RegisterActivity : AppCompatActivity() {
             var registerControl = true
             if(edRegisterMail.text.isNullOrEmpty() || edRegisterMail.text.isBlank())
             {
-                edRegisterMail.error = myResources.getString(R.string.mailHataBos)
+                edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataBos)
                 registerControl = false
             }else
             {
                 if(!Portal.isEmailValid(edRegisterMail.text.toString()))
                 {
                     registerControl = false
-                    edRegisterMail.error = myResources.getString(R.string.mailHataFormat)
+                    edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataFormat)
                 }else if(edRegisterMail.text.toString().length > 254)
                 {
                     registerControl = false
-                    edRegisterMail.error = myResources.getString(R.string.mailHataUzunluk)
+                    edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataUzunluk)
                 }
             }
 
             if(edRegisterUserName.text.isNullOrEmpty() || edRegisterUserName.text.isBlank())
             {
-                edRegisterUserName.error = myResources.getString(R.string.hataGirisKullanıcıadi)
+                edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataGirisKullanıcıadi)
                 registerControl = false
             }else
             {
                 if(edRegisterUserName.text.toString().length < 4)
                 {
-                    edRegisterUserName.error = myResources.getString(R.string.hataKullaniciAdiMinUzunluk)
+                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMinUzunluk)
                     registerControl = false
                 }else if(edRegisterUserName.text.toString().length > 50)
                 {
-                    edRegisterUserName.error = myResources.getString(R.string.hataKullaniciAdiMaxUzunluk)
+                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMaxUzunluk)
                     registerControl = false
                 }
             }
 
             if(edRegisterPassConfirm.text.isNullOrEmpty() || edRegisterPassConfirm.text.isBlank())
             {
-                edRegisterPassConfirm.error = myResources.getString(R.string.hataGirisSifre)
+                edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
                 registerControl = false
             }
 
             if(edRegisterPass.text.isNullOrEmpty() || edRegisterPass.text.isBlank())
             {
-                edRegisterPass.error = myResources.getString(R.string.hataGirisSifre)
+                edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
                 registerControl = false
             }else
             {
                 if(edRegisterPass.text.toString().length < 4)
                 {
-                    edRegisterPass.error = myResources.getString(R.string.hataSifreUzunluk)
+                    edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataSifreUzunluk)
                     registerControl = false
                 }
                 else
@@ -138,7 +130,7 @@ class RegisterActivity : AppCompatActivity() {
                 {
                     if(edRegisterPassConfirm.text.toString() != edRegisterPass.text.toString())
                     {
-                        edRegisterPassConfirm.error = myResources.getString(R.string.hataSifreEslesme)
+                        edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataSifreEslesme)
                         registerControl = false
                     }
                 }
@@ -163,7 +155,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
                         Toasty.error(this@RegisterActivity,
-                                myResources.getString(R.string.hataBaglantiBozuk),
+                                UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
                                 Toast.LENGTH_SHORT).show()
                         btnRegister.isEnabled = true
                         pbRegisterLoading.visibility = View.INVISIBLE
@@ -182,7 +174,7 @@ class RegisterActivity : AppCompatActivity() {
                             getToken?.enqueue(object:Callback<LoginResponse>{
                                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
                                     Toasty.error(this@RegisterActivity,
-                                            myResources.getString(R.string.hataBaglantiBozuk),
+                                            UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
                                             Toast.LENGTH_SHORT).show()
                                     btnRegister.isEnabled = true
                                     pbRegisterLoading.visibility = View.INVISIBLE
@@ -195,7 +187,7 @@ class RegisterActivity : AppCompatActivity() {
                                         newUser.AccessToken = tokenBody?.access_token
 
                                         Toasty.success(this@RegisterActivity,
-                                                myResources.getString(R.string.kayitBasarili),
+                                                UserPortal.myLangResource!!.getString(R.string.kayitBasarili),
                                                 Toast.LENGTH_SHORT).show()
                                         UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                         UserPortal.loggedInUser = newUser
@@ -209,7 +201,7 @@ class RegisterActivity : AppCompatActivity() {
                                     }else
                                     {
                                         Toast.makeText(this@RegisterActivity,
-                                                myResources.getString(R.string.hataBirSeylerTers),
+                                                UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                                 Toast.LENGTH_SHORT).show()
                                     }
                                     btnRegister.isEnabled = true
@@ -223,16 +215,16 @@ class RegisterActivity : AppCompatActivity() {
                         {
                             if(body == "\"Bu kullanıcı adı zaten alınmış\"")
                             {
-                                edRegisterUserName.error = myResources.getString(R.string.kullaniciAdiAlinmis)
+                                edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis)
                                 Toasty.error(this@RegisterActivity,
-                                        myResources.getString(R.string.kullaniciAdiAlinmis),
+                                        UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis),
                                         Toast.LENGTH_SHORT).show()
 
                             }else
                             {
                                 tvRegisterError.visibility = View.VISIBLE
                                 Toast.makeText(this@RegisterActivity,
-                                        myResources.getString(R.string.hataBirSeylerTers),
+                                        UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                         Toast.LENGTH_SHORT).show()
                             }
 
@@ -254,15 +246,15 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(this@RegisterActivity,lang)
-        myResources = context.resources
+        UserPortal.myLangResource = context.resources
 
-        edRegisterMail.setHint(myResources.getString(R.string.mail_adresiniz))
-        edRegisterPass.setHint(myResources.getString(R.string.sifrenizi_girin))
-        edRegisterPassConfirm.setHint(myResources.getString(R.string.sifre_tekrar))
-        edRegisterUserName.setHint(myResources.getString(R.string.kullanici_adi))
-        tvRegisterError.setText(myResources.getString(R.string.hataBirSeylerTers))
-        btnRegister.setText(myResources.getString(R.string.yeni_hesap))
-        tvRegisterYeniHesap.setText(myResources.getString(R.string.yeni_hesap))
+        edRegisterMail.setHint(UserPortal.myLangResource!!.getString(R.string.mail_adresiniz))
+        edRegisterPass.setHint(UserPortal.myLangResource!!.getString(R.string.sifrenizi_girin))
+        edRegisterPassConfirm.setHint(UserPortal.myLangResource!!.getString(R.string.sifre_tekrar))
+        edRegisterUserName.setHint(UserPortal.myLangResource!!.getString(R.string.kullanici_adi))
+        tvRegisterError.setText(UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers))
+        btnRegister.setText(UserPortal.myLangResource!!.getString(R.string.yeni_hesap))
+        tvRegisterYeniHesap.setText(UserPortal.myLangResource!!.getString(R.string.yeni_hesap))
     }
 
 }

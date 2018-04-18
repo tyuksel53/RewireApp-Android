@@ -161,4 +161,9 @@ class SoruCevapDetay : AppCompatActivity() {
 
         edShareComment.setHint(myResources.getString(R.string.CevapYaz))
     }
+
+    override fun onResume() {
+        updateView(Paper.book().read<String>("language"))
+        super.onResume()
+    }
 }

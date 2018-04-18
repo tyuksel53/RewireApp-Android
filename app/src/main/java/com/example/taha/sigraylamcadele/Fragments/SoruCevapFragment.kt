@@ -29,7 +29,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SoruCevapFragment : android.app.Fragment() {
-    lateinit var myResources: Resources
     var recyclerV:RecyclerView? = null
     var result:Call<List<Shares>>? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,7 +47,7 @@ class SoruCevapFragment : android.app.Fragment() {
         updateView(Paper.book().read("language"))
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
-        result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser?.AccessToken}")
+        result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser?.AccessToken}",0)
         recyclerV = view.findViewById<RecyclerView>(R.id.rvSoruCevap)
         val progressBar = view.findViewById<ProgressBar>(R.id.pbSoruCevap)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipeSoruCevap)
@@ -65,7 +64,7 @@ class SoruCevapFragment : android.app.Fragment() {
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
                     swipeRefresh.setRefreshing(false)
                     Toasty.error(activity,
-                            myResources.getString(R.string.hataBaglantiBozuk)
+                            UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
                             ,Toast.LENGTH_LONG)
                             .show()
                 }
@@ -78,7 +77,7 @@ class SoruCevapFragment : android.app.Fragment() {
                         swipeRefresh.setRefreshing(false)
                     }else {
                         Toasty.error(activity,
-                                myResources.getString(R.string.hataBirSeylerTers)
+                                UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
                                 ,Toast.LENGTH_LONG)
                                 .show()
                         swipeRefresh.setRefreshing(false)
@@ -94,7 +93,7 @@ class SoruCevapFragment : android.app.Fragment() {
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
                     progressBar.visibility = View.INVISIBLE
                     Toasty.error(activity,
-                            myResources.getString(R.string.hataBaglantiBozuk)
+                            UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
                             ,Toast.LENGTH_LONG)
                             .show()
                 }
@@ -109,7 +108,7 @@ class SoruCevapFragment : android.app.Fragment() {
                     }else
                     {
                         Toasty.error(activity,
-                                myResources.getString(R.string.hataBirSeylerTers)
+                                UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
                                 ,Toast.LENGTH_LONG)
                                 .show()
                     }}
@@ -128,19 +127,19 @@ class SoruCevapFragment : android.app.Fragment() {
 
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(activity,lang)
-        myResources = context.resources
+        UserPortal.myLangResource = context.resources
 
     }
 
     override fun onResume() {
-        super.onResume()
+        updateView(Paper.book().read<String>("language"))
         if(UserPortal.newShare)
         {
             UserPortal.newShare = false
             result?.clone()?.enqueue(object:Callback<List<Shares>>{
                 override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
                     Toasty.error(activity,
-                            myResources.getString(R.string.hataBaglantiBozuk),Toast.LENGTH_LONG)
+                            UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),Toast.LENGTH_LONG)
                             .show()
                 }
 
@@ -152,7 +151,7 @@ class SoruCevapFragment : android.app.Fragment() {
                         initRecyclerView(body)
                     }else {
                         Toasty.error(activity,
-                                myResources.getString(R.string.hataBirSeylerTers)
+                                UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
                                 ,Toast.LENGTH_LONG)
                                 .show()
                     }
@@ -164,13 +163,14 @@ class SoruCevapFragment : android.app.Fragment() {
             UserPortal.hasSharesChanged = false
             if(UserPortal.shares != null)
             {
-                recyclerV!!.adapter = SoruCevapAdapter(UserPortal.shares!!)
+                recyclerV!!.adapter = SoruCevapAdapter(UserPortal.shares!!,activity)
             }
         }
+        super.onResume()
     }
     fun initRecyclerView(source:List<Shares>?)
     {
-        recyclerV!!.adapter = SoruCevapAdapter(source!!)
+        recyclerV!!.adapter = SoruCevapAdapter(source!!,activity)
         val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         recyclerV!!.layoutManager = myManager
     }

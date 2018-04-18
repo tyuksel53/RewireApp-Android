@@ -27,7 +27,8 @@ interface ApiInterface {
     fun userInfo(@Header("Authorization") access_token:String):Call<User>
 
     @GET("Share/GetShares")
-    fun getShares(@Header("Authorization") access_token: String):Call<List<Shares>>
+    fun getShares(@Header("Authorization") access_token: String,
+                  @Query("skip") skip:Int):Call<List<Shares>>
 
     @POST("Share/AddShare")
     fun postShare(@Header("Authorization") access_token:String,
@@ -42,6 +43,10 @@ interface ApiInterface {
     fun postComment(@Header("Authorization") access_token: String,
                     @Body comment:Comment,
                     @Header("Content-type") content_type:String = "application/json"):Call<String>
+
+    @PUT("User/UpdateUserLanguage")
+    fun updateUserLang(@Header("Authorization") access_token:String,
+                       @Query("lang") language:String):Call<String>
 
 
 

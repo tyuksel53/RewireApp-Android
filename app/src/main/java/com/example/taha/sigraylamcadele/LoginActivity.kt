@@ -21,7 +21,6 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var myResources: Resources
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
     }
@@ -29,13 +28,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        Paper.init(this)
-        val lang = Paper.book().read<String>("language")
-        if(lang == null)
-        {
-            Paper.book().write("language","en")
-        }
 
         updateView(Paper.book().read("language"))
 
@@ -61,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
                         btnLogin.setEnabled(true)
                         pbLogin.visibility = View.INVISIBLE
-                        Toast.makeText(this@LoginActivity,myResources.getString(R.string.hataBaglantiBozuk)
+                        Toast.makeText(this@LoginActivity,UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
                                 ,Toast.LENGTH_LONG).show()
                     }
 
@@ -87,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         }else if(response?.code() == 500)
                         {
-                            Toast.makeText(this@LoginActivity,myResources.getString(R.string.hataBirSeylerTers),
+                            Toast.makeText(this@LoginActivity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                     Toast.LENGTH_LONG).show()
                         }else
                         {
@@ -101,9 +93,9 @@ class LoginActivity : AppCompatActivity() {
             }else
             {
                 if(edLoginUsername.text.toString().isEmpty())
-                    edLoginUsername.setError(myResources.getString(R.string.hataGirisKullanıcıadi))
+                    edLoginUsername.setError(UserPortal.myLangResource!!.getString(R.string.hataGirisKullanıcıadi))
                 if(edLoginPassword.text.toString().isEmpty())
-                    edLoginPassword.setError(myResources.getString(R.string.hataGirisSifre))
+                    edLoginPassword.setError(UserPortal.myLangResource!!.getString(R.string.hataGirisSifre))
 
                 pbLogin.visibility = View.INVISIBLE
                 btnLogin.setEnabled(true)
@@ -117,15 +109,15 @@ class LoginActivity : AppCompatActivity() {
     fun updateView(lang:String)
     {
         var context = LocaleHelper.setLocale(this@LoginActivity,lang)
-        myResources = context.resources
+        UserPortal.myLangResource = context.resources
 
-        edLoginUsername.setHint(myResources.getString(R.string.kullanici_adi))
-        edLoginPassword.setHint(myResources.getString(R.string.sifre))
-        tvForgetPassword.setText(myResources.getString(R.string.sifremi_unuttum))
-        btnLogin.setText(myResources.getString(R.string.giris_yap))
-        btnLoginRegister.setText(myResources.getString(R.string.kayit_ol))
-        tvLoginError.setText(myResources.getString(R.string.yanlis_kullanici_adi_veya_sifre))
-        tvLoginYada.setText(myResources.getString(R.string.veya))
+        edLoginUsername.setHint(UserPortal.myLangResource!!.getString(R.string.kullanici_adi))
+        edLoginPassword.setHint(UserPortal.myLangResource!!.getString(R.string.sifre))
+        tvForgetPassword.setText(UserPortal.myLangResource!!.getString(R.string.sifremi_unuttum))
+        btnLogin.setText(UserPortal.myLangResource!!.getString(R.string.giris_yap))
+        btnLoginRegister.setText(UserPortal.myLangResource!!.getString(R.string.kayit_ol))
+        tvLoginError.setText(UserPortal.myLangResource!!.getString(R.string.yanlis_kullanici_adi_veya_sifre))
+        tvLoginYada.setText(UserPortal.myLangResource!!.getString(R.string.veya))
 
     }
 
