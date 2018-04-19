@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.ArrayAdapter
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
@@ -26,6 +27,10 @@ import kotlinx.android.synthetic.main.card_view_share.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.Toast
+
 
 /**
  * Created by Taha on 26-Mar-18.
@@ -35,11 +40,16 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
     var likes = UserPortal.getLikes()
     var apiInterface:ApiInterface? = null
     var isUserCanClick = true
+    var userInteraction:Boolean = false
     init {
         apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
     }
 
+    fun updateUserInteraction()
+    {
+        userInteraction = true
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SoruCevapViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
@@ -61,6 +71,8 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
         return dataSource.size
     }
 
+
+
     inner class SoruCevapViewHolder(itemView: View?):RecyclerView.ViewHolder(itemView) {
 
         var cardInfo = itemView as CardView
@@ -78,9 +90,42 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
         @SuppressLint("ResourceAsColor")
         fun setData(share:Shares,position: Int)
         {
-            val adapter = ArrayAdapter(context,
-                    android.R.layout.simple_dropdown_item_1line, arrayOf("Report"))
-            spinner.adapter = adapter
+
+        var adp= ArrayAdapter<String>(context,
+                                    android.R.layout.simple_list_item_1,
+                arrayOf(UserPortal.myLangResource!!.getString(R.string.Raporla)))
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.setAdapter(adp)
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                if(userInteraction)
+                {
+                    Toasty.success(context,
+                        UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
+                        Toast.LENGTH_SHORT).show()
+
+                    val result = apiInterface?.shareReport(
+                        "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                        share.ID.toString())
+
+                    result?.enqueue(object:Callback<String>{
+                        override fun onFailure(call: Call<String>?, t: Throwable?) {
+
+                         }
+
+                        override fun onResponse(call: Call<String>?, response: Response<String>?) {
+
+                        }
+
+                     })
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                    // your code here
+            }
+
+        }
 
             val check = likes!!.find { x-> x.ShareId == share.ID }
             if(check != null)
@@ -116,22 +161,29 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
                                     newLike.UserID = UserPortal.loggedInUser!!.Username
                                     likes!!.add(newLike)
                                     UserPortal.insertLikes(newLike)
+
                                     likeHearth.setColorFilter(ContextCompat.getColor(context, R.color.myRed),
                                             android.graphics.PorterDuff.Mode.SRC_IN)
+
                                     var likeCounts = Integer.parseInt(LikeCount.text.toString())
                                     likeCounts++
+                                    UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    share.UpVoteCount = likeCounts
                                     LikeCount.text = "$likeCounts"
                                 }
 
                                 if(response?.code() == 202)
                                 {
+                                    val check202 = likes!!.find { x-> x.ShareId == share.ID }
                                     likeHearth.setColorFilter(ContextCompat.getColor(context, R.color.textColorPrimary),
                                             android.graphics.PorterDuff.Mode.SRC_IN)
                                     var likeCounts = Integer.parseInt(LikeCount.text.toString())
                                     likeCounts--
                                     LikeCount.text = "$likeCounts"
-                                    likes!!.remove(check)
-                                    UserPortal.removeLikes(check!!)
+                                    UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    share.UpVoteCount = likeCounts
+                                    likes!!.remove(check202)
+                                    UserPortal.removeLikes(check202!!)
                                 }
                             }
 
@@ -144,9 +196,9 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
             }
 
             cardInfo.setOnClickListener {
-
+                updateUserInteraction()
                 var intent = Intent(context,SoruCevapDetay::class.java)
-                intent.putExtra("currentShare",share)
+                intent.putExtra("currentShare",UserPortal.shares!![position])
                 intent.putExtra("position",position)
                 it.context.startActivity(intent)
             }

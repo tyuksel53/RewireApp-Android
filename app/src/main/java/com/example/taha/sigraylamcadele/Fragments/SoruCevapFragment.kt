@@ -170,9 +170,11 @@ class SoruCevapFragment : android.app.Fragment() {
     }
     fun initRecyclerView(source:List<Shares>?)
     {
-        recyclerV!!.adapter = SoruCevapAdapter(source!!,activity)
+        val adapter = SoruCevapAdapter(source!!,activity)
+        recyclerV!!.adapter = adapter
         val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         recyclerV!!.layoutManager = myManager
+        adapter.updateUserInteraction()
     }
 
 }// Required empty public constructor

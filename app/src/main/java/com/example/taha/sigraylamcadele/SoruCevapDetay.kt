@@ -136,6 +136,7 @@ class SoruCevapDetay : AppCompatActivity() {
                 Toasty.error(this@SoruCevapDetay,
                         myResources.getString(R.string.hataBaglantiBozuk),
                         Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onResponse(call: Call<ArrayList<Comment>>?, response: Response<ArrayList<Comment>>?) {

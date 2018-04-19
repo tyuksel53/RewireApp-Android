@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         {
             Paper.book().write("language","en")
         }
-        val context = LocaleHelper.setLocale(this,lang)
+        val context = LocaleHelper.setLocale(this,Paper.book().read<String>("language"))
         UserPortal.myLangResource = context.resources
 
 

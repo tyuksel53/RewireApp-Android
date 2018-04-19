@@ -79,6 +79,8 @@
     <string name="Dil_degistirin">Dil Değiştrin</string>
     <string name="genel">Genel</string>
     <string name="bildirim">Bildirim</string>
+    <string name="Rapor_Iletildi">Raporunuz iletildi</string>
+    <string name="Raporla">Report</string>
 
 
 </resources>

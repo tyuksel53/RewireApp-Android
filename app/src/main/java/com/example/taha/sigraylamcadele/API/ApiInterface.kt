@@ -52,6 +52,10 @@ interface ApiInterface {
     fun userLiked(@Header("Authorization") access_token:String,
                   @Body like:ShareLike):Call<String>
 
+    @POST("Share/ShareReport")
+    fun shareReport(@Header("Authorization") access_token:String,
+                    @Query("shareId") shareId:String):Call<String>
+
 
 
 }
