@@ -32,25 +32,14 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Toast
 
 
-/**
- * Created by Taha on 26-Mar-18.
- */
-class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): RecyclerView.Adapter<SoruCevapAdapter.SoruCevapViewHolder>() {
+class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): RecyclerView.Adapter<SoruCevapAdapter.SoruCevapViewHolder>() {
 
-    var likes = UserPortal.getLikes()
     var apiInterface:ApiInterface? = null
     var isUserCanClick = true
-    var userInteraction:Boolean = false
     init {
         apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
     }
-
-    fun updateUserInteraction()
-    {
-        userInteraction = true
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SoruCevapViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
         val myRow = inflater.inflate(R.layout.card_view_share,parent,false)
@@ -86,7 +75,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
         var viewLike = cardInfo.viewLike
         var spinner = cardInfo.shareSpinner
         var likeHearth = cardInfo.ivShareLike
-
+        var check=0
         @SuppressLint("ResourceAsColor")
         fun setData(share:Shares,position: Int)
         {
@@ -98,7 +87,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
         spinner.setAdapter(adp)
         spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                if(userInteraction)
+                if(++check > 1)
                 {
                     Toasty.success(context,
                         UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
@@ -108,7 +97,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
                         "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
                         share.ID.toString())
 
-                    result?.enqueue(object:Callback<String>{
+                    result?.clone()?.enqueue(object:Callback<String>{
                         override fun onFailure(call: Call<String>?, t: Throwable?) {
 
                          }
@@ -127,7 +116,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
 
         }
 
-            val check = likes!!.find { x-> x.ShareId == share.ID }
+            val check = UserPortal.getLikes()?.find { x-> x.ShareId == share.ID }
             if(check != null)
             {
                 likeHearth.setColorFilter(ContextCompat.getColor(context, R.color.myRed),
@@ -135,7 +124,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
             }
 
             viewLike.setOnClickListener {
-                if(likes != null)
+                if(UserPortal.getLikes() != null)
                 {
                     if(isUserCanClick)
                     {
@@ -159,7 +148,6 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
                                     var newLike = ShareLike()
                                     newLike.ShareId = share.ID
                                     newLike.UserID = UserPortal.loggedInUser!!.Username
-                                    likes!!.add(newLike)
                                     UserPortal.insertLikes(newLike)
 
                                     likeHearth.setColorFilter(ContextCompat.getColor(context, R.color.myRed),
@@ -174,7 +162,7 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
 
                                 if(response?.code() == 202)
                                 {
-                                    val check202 = likes!!.find { x-> x.ShareId == share.ID }
+                                    val check202 = UserPortal.getLikes()?.find { x-> x.ShareId == share.ID }
                                     likeHearth.setColorFilter(ContextCompat.getColor(context, R.color.textColorPrimary),
                                             android.graphics.PorterDuff.Mode.SRC_IN)
                                     var likeCounts = Integer.parseInt(LikeCount.text.toString())
@@ -182,7 +170,6 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
                                     LikeCount.text = "$likeCounts"
                                     UserPortal.shares!![position].UpVoteCount = likeCounts
                                     share.UpVoteCount = likeCounts
-                                    likes!!.remove(check202)
                                     UserPortal.removeLikes(check202!!)
                                 }
                             }
@@ -196,7 +183,6 @@ class SoruCevapAdapter(var dataSource:List<Shares>,var context:Context): Recycle
             }
 
             cardInfo.setOnClickListener {
-                updateUserInteraction()
                 var intent = Intent(context,SoruCevapDetay::class.java)
                 intent.putExtra("currentShare",UserPortal.shares!![position])
                 intent.putExtra("position",position)

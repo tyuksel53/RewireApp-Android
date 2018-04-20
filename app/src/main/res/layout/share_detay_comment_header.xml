@@ -73,7 +73,7 @@
             app:srcCompat="@drawable/ic_action_heart" />
 
         <TextView
-            android:id="@+id/tvShareDetayUpVoteCount"
+            android:id="@+id/tvShareDetayLikeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -106,7 +106,7 @@
         <View
             android:id="@+id/view14"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
 
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"

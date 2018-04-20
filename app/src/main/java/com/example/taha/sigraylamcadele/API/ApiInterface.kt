@@ -25,7 +25,7 @@ interface ApiInterface {
 
     @GET("Share/GetShares")
     fun getShares(@Header("Authorization") access_token: String,
-                  @Query("skip") skip:Int):Call<List<Shares>>
+                  @Query("skip") skip:Int):Call<ArrayList<Shares>>
 
     @POST("Share/AddShare")
     fun postShare(@Header("Authorization") access_token:String,
@@ -55,6 +55,10 @@ interface ApiInterface {
     @POST("Share/ShareReport")
     fun shareReport(@Header("Authorization") access_token:String,
                     @Query("shareId") shareId:String):Call<String>
+
+    @POST("Comment/ReportComment")
+    fun commentReport(@Header("Authorization") access_token:String,
+                      @Query("commentId") commnetId:String):Call<String>
 
 
 

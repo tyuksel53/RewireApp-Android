@@ -30,7 +30,8 @@ import retrofit2.Response
 
 class SoruCevapFragment : android.app.Fragment() {
     var recyclerV:RecyclerView? = null
-    var result:Call<List<Shares>>? = null
+    var result:Call<ArrayList<Shares>>? = null
+    var adapter:SoruCevapAdapter? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
@@ -60,8 +61,8 @@ class SoruCevapFragment : android.app.Fragment() {
         }
 
         swipeRefresh.setOnRefreshListener {
-            result?.clone()?.enqueue(object:Callback<List<Shares>>{
-                override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
+            result?.clone()?.enqueue(object:Callback<ArrayList<Shares>>{
+                override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
                     swipeRefresh.setRefreshing(false)
                     Toasty.error(activity,
                             UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
@@ -69,7 +70,7 @@ class SoruCevapFragment : android.app.Fragment() {
                             .show()
                 }
 
-                override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
+                override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
                     if(response?.message()?.toString() == "OK") {
                         val body = response.body()
                         UserPortal.shares = body
@@ -89,15 +90,15 @@ class SoruCevapFragment : android.app.Fragment() {
 
         if(UserPortal.shares == null)
         {
-            result?.enqueue(object:Callback<List<Shares>>{
-                override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
+            result?.enqueue(object:Callback<ArrayList<Shares>>{
+                override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
                     progressBar.visibility = View.INVISIBLE
                     Toasty.error(activity,
                             UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk)
                             ,Toast.LENGTH_LONG)
                             .show()
                 }
-                override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
+                override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
                     progressBar.visibility = View.INVISIBLE
                     if(response?.message()?.toString() == "OK")
                     {
@@ -136,14 +137,14 @@ class SoruCevapFragment : android.app.Fragment() {
         if(UserPortal.newShare)
         {
             UserPortal.newShare = false
-            result?.clone()?.enqueue(object:Callback<List<Shares>>{
-                override fun onFailure(call: Call<List<Shares>>?, t: Throwable?) {
+            result?.clone()?.enqueue(object:Callback<ArrayList<Shares>>{
+                override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
                     Toasty.error(activity,
                             UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),Toast.LENGTH_LONG)
                             .show()
                 }
 
-                override fun onResponse(call: Call<List<Shares>>?, response: Response<List<Shares>>?) {
+                override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
 
                     if(response?.message()?.toString() == "OK") {
                         val body = response.body()
@@ -168,13 +169,13 @@ class SoruCevapFragment : android.app.Fragment() {
         }
         super.onResume()
     }
-    fun initRecyclerView(source:List<Shares>?)
+    fun initRecyclerView(source:ArrayList<Shares>?)
     {
-        val adapter = SoruCevapAdapter(source!!,activity)
+        adapter = SoruCevapAdapter(source!!,activity)
         recyclerV!!.adapter = adapter
         val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         recyclerV!!.layoutManager = myManager
-        adapter.updateUserInteraction()
+
     }
 
 }// Required empty public constructor

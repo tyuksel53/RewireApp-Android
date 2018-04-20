@@ -20,10 +20,11 @@ import retrofit2.Response
 object UserPortal {
 
     var loggedInUser: User? = null
-    var shares:List<Shares>? = null
+    var shares:ArrayList<Shares>? = null
     var newShare:Boolean = false
     var hasSharesChanged = false
     var myLangResource: Resources? = null
+
     private var userLikeds:ArrayList<ShareLike>? = null
 
     override  fun toString(): String {
