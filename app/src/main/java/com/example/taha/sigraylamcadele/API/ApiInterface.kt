@@ -25,7 +25,9 @@ interface ApiInterface {
 
     @GET("Share/GetShares")
     fun getShares(@Header("Authorization") access_token: String,
-                  @Query("skip") skip:Int):Call<ArrayList<Shares>>
+                  @Query("skip") skip:Int,
+                  @Query("orderby")orderby:String,
+                  @Query("time") time:String):Call<ArrayList<Shares>>
 
     @POST("Share/AddShare")
     fun postShare(@Header("Authorization") access_token:String,
