@@ -61,6 +61,17 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
     }
 
 
+    fun newShares(body:ArrayList<Shares>?)
+    {
+        val defaultLength = dataSource.size
+        for(i in 0 until body!!.size)
+        {
+            dataSource.add(body[i])
+            notifyItemInserted(dataSource.size-1)
+
+        }
+        notifyItemRangeChanged(defaultLength,dataSource.size)
+    }
 
     inner class SoruCevapViewHolder(itemView: View?):RecyclerView.ViewHolder(itemView) {
 
@@ -75,7 +86,6 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
         var viewLike = cardInfo.viewLike
         var spinner = cardInfo.shareSpinner
         var likeHearth = cardInfo.ivShareLike
-        var check=0
         @SuppressLint("ResourceAsColor")
         fun setData(share:Shares,position: Int)
         {

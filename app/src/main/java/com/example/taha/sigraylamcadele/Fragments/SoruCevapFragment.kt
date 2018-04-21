@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,14 +42,17 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     var result:Call<ArrayList<Shares>>? = null
     var adapter:SoruCevapAdapter? = null
     var textSort:TextView? = null
-    var paramlist = arrayListOf<String>("yeni","Tum")
+    var paramlist = arrayListOf("yeni","Tum")
     var ivSort:ImageView? = null
     var progressBar:ProgressBar? = null
+    var lengthCheck = true
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
+        val view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
         textSort = view.findViewById(R.id.tvSortBy)
         ivSort = view.findViewById(R.id.ivSort)
+        ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
+                android.graphics.PorterDuff.Mode.SRC_IN)
         textSort?.setOnClickListener {
 
             val dialog = SortByDialog()
@@ -153,10 +157,11 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(activity,lang)
         UserPortal.myLangResource = context.resources
+
+        textSort?.setText(UserPortal.myLangResource?.getString(R.string.yeni_gonderiler))
     }
 
     override fun onResume() {
-        updateView(Paper.book().read<String>("language"))
         if(UserPortal.newShare)
         {
             UserPortal.newShare = false
@@ -199,17 +204,72 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
         val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         recyclerV!!.layoutManager = myManager
 
+        recyclerV!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val offset = recyclerV!!.computeVerticalScrollOffset()
+                val extent = recyclerV!!.computeVerticalScrollExtent()
+                val range = recyclerV!!.computeVerticalScrollRange()
+
+                val percentage = (100.0 * offset / (range - extent))
+
+                if( (UserPortal.shares?.size!! % 25)  == 0 && UserPortal.shares?.size != 0 && percentage >70 && lengthCheck)
+                {
+                    lengthCheck = false
+                    val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+                    result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                            UserPortal.shares!!.size,
+                            paramlist[0],paramlist[1])
+
+                    result?.clone()?.enqueue(object:Callback<ArrayList<Shares>>{
+                        override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
+                            lengthCheck = true
+                        }
+
+                        override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
+                            lengthCheck = true
+                            if(response?.message()?.toString() == "OK") {
+                                val body = response.body()
+                                if(body?.size == 0)
+                                {
+                                    lengthCheck = false
+                                }
+                                adapter?.newShares(body)
+                            }else {
+                                Toasty.error(activity,
+                                        UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
+                                        ,Toast.LENGTH_LONG)
+                                        .show()
+                            }
+                        }
+
+                    })
+
+                    result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                            0,
+                            paramlist[0],paramlist[1])
+                }
+
+            }
+        })
+
     }
 
     override fun sortSelected(selectedTime: String) {
         progressBar?.visibility = View.VISIBLE
+        lengthCheck = true
         val selectedParams = selectedTime.split("-")
         if(selectedParams[0] == "like")
         {
             ivSort?.setImageResource(R.drawable.ic_action_heart)
+            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.myRed),
+            android.graphics.PorterDuff.Mode.SRC_IN)
             textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.top_likes)} - ${selectedParams[2]}"
         }else if(selectedParams[0] == "yeni")
         {   ivSort?.setImageResource(R.drawable.ic_timeline)
+            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN)
             textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)}"
         }
 
