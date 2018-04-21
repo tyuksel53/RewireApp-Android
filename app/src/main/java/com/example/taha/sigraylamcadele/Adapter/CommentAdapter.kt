@@ -106,29 +106,36 @@ class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares,v
                     arrayOf(UserPortal.myLangResource!!.getString(R.string.Raporla)))
             adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.setAdapter(adp)
+
+            val listener = object:AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    Toasty.success(context,
+                            UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
+                            Toast.LENGTH_SHORT).show()
+
+                    val result = apiInterface?.commentReport(
+                            "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                            currentComment.ID.toString())
+
+                    result?.clone()?.enqueue(object:Callback<String>{
+                        override fun onFailure(call: Call<String>?, t: Throwable?) {
+
+                        }
+
+                        override fun onResponse(call: Call<String>?, response: Response<String>?) {
+
+                        }
+
+                    })
+                }
+            }
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                    if(++check > 1)
-                    {
-                        Toasty.success(context,
-                                UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
-                                Toast.LENGTH_SHORT).show()
-
-                        val result = apiInterface?.commentReport(
-                                "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                                currentComment.ID.toString())
-
-                        result?.clone()?.enqueue(object:Callback<String>{
-                            override fun onFailure(call: Call<String>?, t: Throwable?) {
-
-                            }
-
-                            override fun onResponse(call: Call<String>?, response: Response<String>?) {
-
-                            }
-
-                        })
-                    }
+                    spinner.setOnItemSelectedListener(listener)
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>) {
@@ -214,7 +221,7 @@ class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares,v
             }
 
             yourmCount.text = inComingShare.YorumCount.toString()
-            username.text = "${inComingShare.UserID}, ${inComingShare.PublishedTime}"
+            username.text = "${inComingShare.UserID}, ${UserPortal.fixDate(inComingShare.PublishedTime!!)}"
             header.text = inComingShare.Header
             message.text = inComingShare.Message
             LikeCount.text = inComingShare.UpVoteCount.toString()

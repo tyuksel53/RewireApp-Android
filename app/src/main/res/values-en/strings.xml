@@ -75,4 +75,17 @@
     <string name="Dil_degistirin">Change Lanugage</string>
     <string name="genel">General</string>
     <string name="bildirim">Notification</string>
+
+    <string name="Rapor_Iletildi">Report sended.Thank you !</string>
+    <string name="Raporla">Report post</string>
+
+    <string name="yeni_gonderiler">New Posts</string>
+    <string name="sirala">Sort By</string>
+    <string name="top_likes">Top Likes</string>
+    <string name="tum_zamanlar">All Time</string>
+    <string name="son_bir_yil">Past Year</string>
+    <string name="son_bir_ay">Past Month</string>
+    <string name="son_bir_hafta">Past Week</string>
+    <string name="son_bir_gun">Past 24 Hours</string>
+    <string name="bir_saat_once">Past Hour</string>
 </resources>

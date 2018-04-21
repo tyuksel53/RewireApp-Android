@@ -80,4 +80,17 @@
     <string name="genel">Genel</string>
     <string name="bildirim">Bildirim</string>
 
+    <string name="Rapor_Iletildi">Raporunuz iletildi</string>
+    <string name="Raporla">Report</string>
+
+    <string name="yeni_gonderiler">Yeni gönderiler</string>
+    <string name="sirala">Sırala</string>
+    <string name="top_likes">En Çok Beğenilen</string>
+    <string name="tum_zamanlar">Tüm zamanlar</string>
+    <string name="son_bir_yil">Son bir yıl</string>
+    <string name="son_bir_ay">Son bir ay</string>
+    <string name="son_bir_hafta">Son bir hafta</string>
+    <string name="son_bir_gun">Son bir gün</string>
+    <string name="bir_saat_once">Bir saat önce</string>
+
 </resources>

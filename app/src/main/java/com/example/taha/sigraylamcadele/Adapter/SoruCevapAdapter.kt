@@ -85,36 +85,42 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                 arrayOf(UserPortal.myLangResource!!.getString(R.string.Raporla)))
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(adp)
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
-                if(++check > 1)
-                {
+        val listener = object:AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     Toasty.success(context,
-                        UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
-                        Toast.LENGTH_SHORT).show()
+                            UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
+                            Toast.LENGTH_SHORT).show()
 
                     val result = apiInterface?.shareReport(
-                        "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                        share.ID.toString())
+                            "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                            share.ID.toString())
 
                     result?.clone()?.enqueue(object:Callback<String>{
                         override fun onFailure(call: Call<String>?, t: Throwable?) {
 
-                         }
+                        }
 
                         override fun onResponse(call: Call<String>?, response: Response<String>?) {
 
                         }
 
-                     })
+                    })
+                }
+            }
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
+                    spinner.setOnItemSelectedListener(listener)
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>) {
+
                 }
             }
 
-            override fun onNothingSelected(parentView: AdapterView<*>) {
-                    // your code here
-            }
-
-        }
 
             val check = UserPortal.getLikes()?.find { x-> x.ShareId == share.ID }
             if(check != null)
@@ -207,7 +213,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
             }
 
             LikeCount.text = share.UpVoteCount.toString()
-            date.text = share.PublishedTime
+            date.text = UserPortal.fixDate(share.PublishedTime!!)
             yorumCount.text = share.YorumCount.toString()
 
 

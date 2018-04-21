@@ -13,21 +13,21 @@
         <View
             android:id="@+id/view19"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginTop="8dp"
-            android:background="@color/textColorPrimary"
+            android:background="@color/textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDilSec" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvDilSec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/dil_secin"
-            android:textColor="@color/textColorPrimary"
+            android:textColor="@color/textColorSecondary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +40,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/Ingilizce"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view19" />
@@ -51,6 +52,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/almanca"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvIngilizce" />
@@ -62,6 +64,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/Italyanca"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAlmanca" />
@@ -73,6 +76,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/Rusça"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTurkce" />
@@ -84,6 +88,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/Ispanyolca"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRusca" />
@@ -95,6 +100,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/fransizca"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvIspanyolca" />
@@ -106,6 +112,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/Turkce"
+            android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvItalyanca" />
@@ -119,6 +126,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/button_dalgalanma"
             android:text="@string/kapat"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFransızca" />

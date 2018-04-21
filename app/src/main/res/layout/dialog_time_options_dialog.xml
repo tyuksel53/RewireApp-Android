@@ -7,6 +7,13 @@
     tools:context=".Dialogs.TimeOptionsDialog">
 
     <!-- TODO: Update blank fragment layout -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView6"
         android:layout_width="25dp"
@@ -68,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
     <TextView
-        android:id="@+id/tvSortByLikes"
+        android:id="@+id/tvSortByLikesHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -84,23 +91,21 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:src="@color/colorBackgroundDark"
         app:civ_border_color="#888888"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSortByLikes" />
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
 
     <TextView
         android:id="@+id/tvLastHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/bir_saat_once"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView"
         app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
@@ -108,12 +113,10 @@
         android:id="@+id/tvLastDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/son_bir_gun"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView2"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView2"
         app:layout_constraintTop_toTopOf="@+id/circleImageView2" />
 
@@ -121,12 +124,10 @@
         android:id="@+id/tvLastWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/son_bir_hafta"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView3"
         app:layout_constraintTop_toTopOf="@+id/circleImageView3" />
 
@@ -134,12 +135,10 @@
         android:id="@+id/tvLastmonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/son_bir_ay"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView4"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView4"
         app:layout_constraintTop_toTopOf="@+id/circleImageView4" />
 
@@ -147,12 +146,10 @@
         android:id="@+id/tvLastYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/son_bir_yil"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView5"
         app:layout_constraintTop_toTopOf="@+id/circleImageView5" />
 
@@ -160,13 +157,21 @@
         android:id="@+id/tvAllTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/tum_zamanlar"
         android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView6"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/circleImageView6"
         app:layout_constraintTop_toTopOf="@+id/circleImageView6" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortByLikesHeader" />
 
 </android.support.constraint.ConstraintLayout>

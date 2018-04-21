@@ -1,6 +1,7 @@
 package com.example.taha.sigraylamcadele.Dialogs
 
 
+import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,7 +27,14 @@ import retrofit2.Response
 
 class DilSecDialog : android.app.DialogFragment() {
 
+    interface onLanguageChanged
+    {
+        fun languageChanged()
+
+    }
     var isUserCanClick = true
+    var dilsec:TextView? = null
+    lateinit var myLangChanceInterface:onLanguageChanged
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -36,6 +44,7 @@ class DilSecDialog : android.app.DialogFragment() {
         val turkce = v.findViewById<TextView>(R.id.tvTurkce)
         val kapat = v.findViewById<Button>(R.id.btnDilSecKapat)
         val pb = v.findViewById<ProgressBar>(R.id.pbDilSec)
+        dilsec = v.findViewById(R.id.tvDilSec)
 
         pb.visibility = View.INVISIBLE
 
@@ -80,6 +89,7 @@ class DilSecDialog : android.app.DialogFragment() {
                             UserPortal.shares = null
                             Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.islem_basarili),
                                     Toast.LENGTH_SHORT).show()
+                            myLangChanceInterface.languageChanged()
                             dialog.dismiss()
                         }else
                         {
@@ -121,6 +131,7 @@ class DilSecDialog : android.app.DialogFragment() {
                             updateView(Paper.book().read<String>("language"))
                             Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.islem_basarili),
                                     Toast.LENGTH_SHORT).show()
+                            myLangChanceInterface.languageChanged()
                             dialog.dismiss()
                         }else
                         {
@@ -139,9 +150,23 @@ class DilSecDialog : android.app.DialogFragment() {
         return v
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateView(Paper.book().read<String>("language"))
+    }
+
+    override fun onAttach(context: Context?) {
+
+        myLangChanceInterface = targetFragment as onLanguageChanged
+
+        super.onAttach(context)
+    }
+
     private fun updateView(lang: String?) {
         val context = LocaleHelper.setLocale(activity,lang)
         UserPortal.myLangResource = context.resources
+
+        dilsec?.setText(UserPortal.myLangResource?.getString(R.string.dil_secin))
     }
 
 

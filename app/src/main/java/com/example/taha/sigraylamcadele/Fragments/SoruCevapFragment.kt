@@ -153,8 +153,6 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(activity,lang)
         UserPortal.myLangResource = context.resources
-
-        textSort?.setText(UserPortal.myLangResource?.getString(R.string.yeni_gonderiler))
     }
 
     override fun onResume() {
@@ -212,7 +210,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
             textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.top_likes)} - ${selectedParams[2]}"
         }else if(selectedParams[0] == "yeni")
         {   ivSort?.setImageResource(R.drawable.ic_timeline)
-            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)} - ${selectedParams[2]}"
+            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)}"
         }
 
         paramlist[0] = selectedParams[0]
@@ -245,5 +243,4 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
 
         })
     }
-
 }// Required empty public constructor

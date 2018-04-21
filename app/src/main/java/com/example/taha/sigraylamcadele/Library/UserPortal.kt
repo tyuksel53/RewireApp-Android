@@ -13,6 +13,7 @@ import com.example.taha.sigraylamcadele.Model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 /**
  * Created by Taha on 25-Mar-18.
@@ -125,5 +126,18 @@ object UserPortal {
         this.hasSharesChanged = false
         this.newShare = false
         this.shares = null
+    }
+
+    fun fixDate(date:String):String
+    {
+        //template 2018-03-28T13:30:28.403
+        date.replace('T',' ')
+        val input = "Thu Jun 18 20:56:02 EDT 2009"
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val date = parser.parse(date)
+        val formatter = SimpleDateFormat("dd-MM HH:mm")
+        val formattedDate = formatter.format(date)
+
+        return formattedDate
     }
 }

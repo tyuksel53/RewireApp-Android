@@ -3,14 +3,16 @@ package com.example.taha.sigraylamcadele.Dialogs
 
 import android.app.DialogFragment
 import android.os.Bundle
-import android.app.Fragment
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
+import io.paperdb.Paper
 
 
 class TimeOptionsDialog : DialogFragment() {
@@ -26,7 +28,7 @@ class TimeOptionsDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_time_options_dialog, container, false)
+        val view =  inflater.inflate(R.layout.dialog_time_options_dialog, container, false)
 
         val type = arguments.getString("type")
 
@@ -36,6 +38,17 @@ class TimeOptionsDialog : DialogFragment() {
         val lastMonth = view.findViewById<TextView>(R.id.tvLastmonth)
         val lastYear = view.findViewById<TextView>(R.id.tvLastYear)
         val alltime = view.findViewById<TextView>(R.id.tvAllTime)
+        val sortby = view.findViewById<TextView>(R.id.tvSortByLikesHeader)
+        val context = LocaleHelper.setLocale(activity, Paper.book().read<String>("language"))
+        UserPortal.myLangResource = context.resources
+
+        lastHour.setText(UserPortal.myLangResource?.getString(R.string.bir_saat_once))
+        lastDay.setText(UserPortal.myLangResource?.getString(R.string.son_bir_gun))
+        lastWeek.setText(UserPortal.myLangResource?.getString(R.string.son_bir_hafta))
+        lastMonth.setText(UserPortal.myLangResource?.getString(R.string.son_bir_ay))
+        lastYear.setText(UserPortal.myLangResource?.getString(R.string.son_bir_yil))
+        alltime.setText(UserPortal.myLangResource?.getString(R.string.tum_zamanlar))
+        sortby.setText(UserPortal.myLangResource?.getString(R.string.sirala))
 
         lastDay.setOnClickListener {
             myOnSortSelectedListener.sortFirstSelected("$type-Gun-${lastDay.text}")
@@ -73,6 +86,7 @@ class TimeOptionsDialog : DialogFragment() {
         myOnSortSelectedListener = targetFragment as onSortSelectedListener
         super.onAttach(context)
     }
+
 
 
 }
