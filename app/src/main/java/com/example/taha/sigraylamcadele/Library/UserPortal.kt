@@ -25,7 +25,6 @@ object UserPortal {
     var newShare:Boolean = false
     var hasSharesChanged = false
     var myLangResource: Resources? = null
-
     private var userLikeds:ArrayList<ShareLike>? = null
 
     override  fun toString(): String {
@@ -130,14 +129,46 @@ object UserPortal {
 
     fun fixDate(date:String):String
     {
-        //template 2018-03-28T13:30:28.403
-        date.replace('T',' ')
-        val input = "Thu Jun 18 20:56:02 EDT 2009"
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val date = parser.parse(date)
         val formatter = SimpleDateFormat("dd-MM HH:mm")
         val formattedDate = formatter.format(date)
 
         return formattedDate
+    }
+
+    fun simpleDate(date:String):String
+    {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val date = parser.parse(date)
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+        val formattedDate = formatter.format(date)
+
+        return formattedDate
+    }
+
+    fun updateUserInfo()
+    {
+        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+        val result = apiInterface?.getUserInfo("Bearer ${loggedInUser!!.AccessToken}")
+        result?.enqueue(object:Callback<User>{
+            override fun onFailure(call: Call<User>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(call: Call<User>?, response: Response<User>?) {
+
+                if(response?.code() == 200)
+                {
+                    val body = response?.body()
+                    loggedInUser?.LastLoginTime = body?.LastLoginTime
+                    loggedInUser?.Email = body?.Email
+                    loggedInUser?.TimeZoneId = body?.TimeZoneId
+                    loggedInUser?.Role = body?.Role
+                    loggedInUser?.RegisteredDate = body?.RegisteredDate
+                }
+            }
+
+        })
     }
 }

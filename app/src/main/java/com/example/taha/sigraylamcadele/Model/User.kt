@@ -13,9 +13,11 @@ class User {
     var AccessToken:String? = null
     var TimeZoneId:String? = null
     var Language:String? = null
+    var LastLoginTime:String? = null
+    var RegisteredDate:String? = null
 
     constructor(username:String, password:String, role:String, email:String?, accessToken:String?
-                ,timeZoneId:String?,language:String?)
+                ,timeZoneId:String?,language:String?,lastLoginTime:String?,registeredDate:String?)
     {
         this.Username = username
         this.Email = email
@@ -24,6 +26,8 @@ class User {
         this.AccessToken = accessToken
         this.TimeZoneId = timeZoneId
         this.Language = language
+        this.LastLoginTime = lastLoginTime
+        this.RegisteredDate = registeredDate
     }
 
     constructor()

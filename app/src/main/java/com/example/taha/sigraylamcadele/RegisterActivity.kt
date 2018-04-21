@@ -144,12 +144,14 @@ class RegisterActivity : AppCompatActivity() {
                         email = edRegisterMail.text.toString(),
                         accessToken = null,
                         timeZoneId = spTimeZones.getSelectedItem().toString(),
-                        language = spLanguage.getSelectedItem().toString())
+                        language = spLanguage.getSelectedItem().toString(),
+                        lastLoginTime = null,
+                        registeredDate = null)
 
 
-                var apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
+                val apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
 
-                var result = apiInterface?.userRegister("application/json",newUser)
+                val result = apiInterface?.userRegister("application/json",newUser)
 
                 result?.enqueue(object: Callback<String>{
 
@@ -192,7 +194,7 @@ class RegisterActivity : AppCompatActivity() {
                                         UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                         UserPortal.loggedInUser = newUser
                                         UserPortal.insertNewUser(this@RegisterActivity, newUser)
-
+                                        UserPortal.updateUserInfo()
                                         var intent = Intent(this@RegisterActivity,AnaEkranActivity::class.java)
                                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         startActivity(intent)

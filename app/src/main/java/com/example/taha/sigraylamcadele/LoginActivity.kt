@@ -71,9 +71,12 @@ class LoginActivity : AppCompatActivity() {
                                     null,
                                     body?.access_token,
                                     null,
+                                    null,
+                                    null,
                                     null)
 
                             UserPortal.loggedInUser = loggedInUser
+                            UserPortal.updateUserInfo()
                             UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
                             startActivity(intent)
                             finish()

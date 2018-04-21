@@ -53,6 +53,7 @@ class SplashActivity : AppCompatActivity() {
                         var intent = Intent(this@SplashActivity,AnaEkranActivity::class.java)
                         myUser.AccessToken = body?.access_token
                         UserPortal.loggedInUser = myUser
+                        UserPortal.updateUserInfo()
                         startActivity(intent)
                         finish()
                     }else

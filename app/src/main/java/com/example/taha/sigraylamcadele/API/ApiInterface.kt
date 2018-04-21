@@ -62,6 +62,12 @@ interface ApiInterface {
     fun commentReport(@Header("Authorization") access_token:String,
                       @Query("commentId") commnetId:String):Call<String>
 
+    @GET("User/getUserTime")
+    fun getUserTime(@Header("Authorization") access_token:String):Call<String>
+
+    @GET("User/getUserInfo")
+    fun getUserInfo(@Header("Authorization") access_toke:String):Call<User>
+
 
 
 }
