@@ -68,6 +68,17 @@ interface ApiInterface {
     @GET("User/getUserInfo")
     fun getUserInfo(@Header("Authorization") access_toke:String):Call<User>
 
+    @GET("Date/GetDates")
+    fun getDates(@Header("Authorization") access_token:String):Call<ArrayList<UserDate>>
 
+    @POST("Date/InsertDates")
+    fun insertDates(@Header("Authorization") access_token:String,
+                    @Header("Content-type") content_type:String = "application/json",
+                    @Body dates:ArrayList<UserDate>):Call<String>
+
+    @PUT("Date/UpdateDate")
+    fun updateDates(@Header("Authorization") access_token:String,
+                    @Header("Content-type") content_type:String = "application/json",
+                    @Body dates:ArrayList<UserDate>):Call<String>
 
 }

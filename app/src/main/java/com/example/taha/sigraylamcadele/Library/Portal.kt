@@ -5,6 +5,8 @@ import android.content.Context
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
 import com.example.taha.sigraylamcadele.Model.User
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -20,64 +22,6 @@ class Portal {
             var matcher = pattern.matcher(input)
             return matcher.matches()
         }
-        fun veriTabaniOlustur(context:Context)
-        {
-            try{
-                val myDb = context.openOrCreateDatabase("users",Context.MODE_PRIVATE,null)
-
-                /*myDb.execSQL("Create Table if not exists users (name VARCHAR, age INT)")
-                myDb.execSQL("Insert into users (name,age) values('taha','12')")*/
-
-                var query = myDb.rawQuery("Select * from users",null)
-
-                val nameIndex = query.getColumnIndex("name")
-                var ageIndex = query.getColumnIndex("age")
-
-                query.moveToFirst()
-
-                while(query != null)
-                {
-                    var name = query.getString(nameIndex)
-                    var age = query.getInt(ageIndex)
-                    query.moveToNext()
-                }
-
-                query?.close()
-
-            }catch (e:Exception)
-            {
-                e.printStackTrace()
-            }
-        }
-
-
-        fun kullaniciGuncelle(context:Context)
-        {
-            var helper = DatabaseHelper(context)
-            var db =  helper.readableDatabase
-
-            var guncellenenDegerler = ContentValues()
-            guncellenenDegerler.put(DbContract.UserEntry.COLUMN_ROLE,"admin")
-
-            var args = arrayOf("1")
-
-            var resultCount =  db.update(DbContract.UserEntry.TABLE_NAME,guncellenenDegerler,
-                    DbContract.UserEntry._ID + " = ?",args)
-
-
-        }
-
-        fun kullanicilariSil(context:Context)
-        {
-            val helper = DatabaseHelper(context)
-            val db = helper.readableDatabase
-            var args = arrayOf("100")
-
-            var resultCount = db.delete(DbContract.UserEntry.TABLE_NAME,
-                    DbContract.UserEntry._ID + " < ?",
-                    args)
-        }
-
         fun autoLogin(context:Context):User?
         {
             val helper = DatabaseHelper(context)
@@ -113,68 +57,22 @@ class Portal {
 
         }
 
-        fun kullanicilariOku(context:Context) {
+        fun textToDate(text:String):Date{
+            val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            val date = parser.parse(text)
+            val formatter = SimpleDateFormat("dd-MM-yyyy")
+            val formattedDate = formatter.format(date).split('-')
 
-            var helper = DatabaseHelper(context)
-            var db = helper.readableDatabase
-
-            var protection = arrayOf(DbContract.UserEntry.COLUMN_USERNAME,
-                    DbContract.UserEntry.COLUMN_EMAIL,
-                    DbContract.UserEntry.COLUMN_PASSWORD,
-                    DbContract.UserEntry.COLUMN_ROLE)
-
-            var selection = DbContract.UserEntry._ID + " = 1"
-
-            var selectionAgs = arrayOf("100")
-
-            var myCorsor = db.query(DbContract.UserEntry.TABLE_NAME,protection,selection,selectionAgs,null,null,null)
-
-            var count = myCorsor.count
-
-            var myString:String = ""
-
-            while(myCorsor.moveToNext())
-            {
-                for(i in 0 until myCorsor.columnCount)
-                {
-                    myString += myCorsor.getString(i) + " "
-                }
-
-                myString += "\n"
-            }
-
-
-            myCorsor.close()
-            db.close()
+            return Date(formattedDate[2].toInt()-1900,formattedDate[1].toInt()-1,formattedDate[0].toInt())
         }
 
-         fun yeniKullaniciEkle(username:String,password:String,email:String,role:String,context:Context) {
+        fun dateToText(date:Date):String
+        {
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
 
-            var helper = DatabaseHelper(context)
-            var db = helper.writableDatabase
-
-
-            /*yöntem 1*/
-            /*var query:String = "Insert INTO users("+
-                    DbContract.UserEntry.COLUMN_USERNAME + "," +
-                    DbContract.UserEntry.COLUMN_PASSWORD + "," +
-                    DbContract.UserEntry.COLUMN_EMAIL + "," +
-                    DbContract.UserEntry.COLUMN_ROLE + ")" +
-                    " values('$username', '$password' , '$email' , '$role' )"
-
-            db.execSQL(query)*/
-
-            /*yöntem 2*/
-            var yeniKayit = ContentValues()
-            yeniKayit.put(DbContract.UserEntry.COLUMN_USERNAME,username)
-            yeniKayit.put(DbContract.UserEntry.COLUMN_PASSWORD,password)
-            yeniKayit.put(DbContract.UserEntry.COLUMN_EMAIL,email)
-            yeniKayit.put(DbContract.UserEntry.COLUMN_ROLE,role)
-
-            var id = db.insert(DbContract.UserEntry.TABLE_NAME,null,yeniKayit)
-
-
+            return formatter.format(date)
         }
+
     }
 
 }

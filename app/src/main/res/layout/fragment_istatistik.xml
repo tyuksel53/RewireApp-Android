@@ -7,19 +7,65 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <Button
+            android:id="@+id/btnIstatistikSaveChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_dalgalanma"
+            android:text="@string/degisiklikleri_kaydet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edIstatistikSmokeCount" />
+
+        <ProgressBar
+            android:id="@+id/pbIstatistik"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/userCalandarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userCalandarView" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edIstatistikSmokeCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_action_emo_shame"
+            android:ems="10"
+            android:hint="@string/kac_tane_sigara_ictin"
+            android:inputType="number"
+            android:textColor="@color/textColorSecondary"
+            app:layout_constraintEnd_toStartOf="@+id/btnIstatistikSaveChanges"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userCalandarView"
+            app:met_baseColor="@color/textColorSecondary"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/myRed"
+            app:met_textColorHint="@color/textColorSecondary" />
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/userCalandarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mcv_selectionColor="@color/colorAccent"
             app:mcv_arrowColor="@color/textColorPrimary"
+            app:mcv_selectionColor="@color/colorBackgroundDark"
             app:mcv_showOtherDates="all" />
     </android.support.constraint.ConstraintLayout>
 

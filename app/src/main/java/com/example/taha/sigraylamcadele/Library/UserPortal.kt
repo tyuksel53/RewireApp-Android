@@ -137,16 +137,6 @@ object UserPortal {
         return formattedDate
     }
 
-    fun simpleDate(date:String):String
-    {
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val date = parser.parse(date)
-        val formatter = SimpleDateFormat("dd-MM-yyyy")
-        val formattedDate = formatter.format(date)
-
-        return formattedDate
-    }
-
     fun updateUserInfo()
     {
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)

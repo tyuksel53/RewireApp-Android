@@ -60,6 +60,9 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
         return dataSource.size
     }
 
+    fun getDataLength():Int{
+        return dataSource.size
+    }
 
     fun newShares(body:ArrayList<Shares>?)
     {

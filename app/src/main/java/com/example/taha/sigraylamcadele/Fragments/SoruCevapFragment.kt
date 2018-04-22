@@ -214,7 +214,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
 
                 val percentage = (100.0 * offset / (range - extent))
 
-                if( (UserPortal.shares?.size!! % 25)  == 0 && UserPortal.shares?.size != 0 && percentage >70 && lengthCheck)
+                if( (adapter?.getDataLength()!! % 25)  == 0 && UserPortal.shares?.size != 0 && percentage >70 && lengthCheck)
                 {
                     lengthCheck = false
                     val apiInterface = ApiClient.client?.create(ApiInterface::class.java)

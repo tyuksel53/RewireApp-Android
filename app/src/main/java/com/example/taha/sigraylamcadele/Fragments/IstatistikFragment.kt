@@ -6,71 +6,287 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
+import com.example.taha.sigraylamcadele.API.ApiClient
+import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.CircleDecorator
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.Model.UserDate
 
 import com.example.taha.sigraylamcadele.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.rengwuxian.materialedittext.MaterialEditText
+import es.dmoral.toasty.Toasty
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
-import kotlin.collections.HashMap
+import kotlin.collections.ArrayList
 
 class IstatistikFragment : android.app.Fragment() {
 
-    var hashMap:HashMap<CalendarDay,Int> = HashMap()
+    var progressBar:ProgressBar? = null
+    var result: Call<ArrayList<UserDate>>? = null
+    var responseBody:ArrayList<UserDate>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view =  inflater!!.inflate(R.layout.fragment_istatistik, container, false)
+        progressBar = view.findViewById(R.id.pbIstatistik)
+        val smokeCount = view.findViewById<MaterialEditText>(R.id.edIstatistikSmokeCount)
+        val btnSave = view.findViewById<Button>(R.id.btnIstatistikSaveChanges)
+        smokeCount.visibility = View.INVISIBLE
+        btnSave.visibility = View.INVISIBLE
+        val userNewSelections = ArrayList<UserDate>()
+        val userUpdateselections = ArrayList<UserDate>()
+        btnSave.setOnClickListener {
 
-        var calendar = view.findViewById<MaterialCalendarView>(R.id.userCalandarView)
-
-        calendar.state().edit()
-                .setFirstDayOfWeek(Calendar.MONDAY)
-                .setMinimumDate(CalendarDay.from(2018, 0, 1))
-                .setMaximumDate(CalendarDay.from(2020, 0, 1))
-                .setCalendarDisplayMode(CalendarMode.MONTHS)
-                .commit()
-        calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
-        calendar.setDateTextAppearance(R.color.textColorPrimary)
-        if(UserPortal.loggedInUser?.LastLoginTime != null)
-        {
-            val currentDay = UserPortal.simpleDate(UserPortal.loggedInUser?.LastLoginTime!!).split('-')
-            val registeredDate = UserPortal.loggedInUser!!.RegisteredDate!!.split(' ')[0].split('-')
-            val registedTime = CalendarDay.from(registeredDate[2].toInt(),
-                    registeredDate[1].toInt(),
-                    registeredDate[0].toInt())
-
-            calendar.addDecorator(CircleDecorator(activity,registedTime,
-                    ContextCompat.getDrawable(activity, R.drawable.circle_purple)!!))
-
-            val today = CalendarDay.from(currentDay[2].toInt(),
-                    currentDay[1].toInt(),
-                    currentDay[0].toInt())
-
-            calendar.addDecorator(CircleDecorator(activity,today,
-                    ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!))
-        }
-
-
-        calendar.setOnDateChangedListener { widget, date, selected ->
-
-            if(hashMap.get(date) != null)
+            if(smokeCount.text.isNullOrEmpty() || smokeCount.text.isNullOrBlank())
             {
-                widget.addDecorator(CircleDecorator(activity,date,
-                        ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!))
-                hashMap.remove(date)
-            }else
+                smokeCount.error = UserPortal.myLangResource?.getString(R.string.smokeCountBos)
+                return@setOnClickListener
+            }else if(smokeCount.text.toString().toInt() < 0)
             {
-                hashMap.put(date,0)
-                widget.addDecorator(CircleDecorator(activity,date,
-                        ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!))
+                smokeCount.error = UserPortal.myLangResource?.getString(R.string.smokeCountNegative)
+                return@setOnClickListener
+            }
+
+            val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+            if(userNewSelections.size > 0)
+            {
+                val insertResult = apiInterface?.insertDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                        dates = userNewSelections)
+
+                insertResult?.clone()?.enqueue(object:Callback<String>{
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                    }
+
+                })
+            }
+            if(userUpdateselections.size > 0)
+            {
+                val updateResult = apiInterface?.updateDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                        dates = userUpdateselections)
+
+                updateResult?.clone()?.enqueue(object:Callback<String>{
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        var dummy = ""
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        var dummy = ""
+                    }
+
+                })
 
             }
+
+            Toasty.success(activity,
+                    UserPortal.myLangResource!!.getString(R.string.degisikler_kaydedildi)
+                    ,Toast.LENGTH_SHORT)
+                    .show()
+            btnSave.visibility = View.INVISIBLE
+            smokeCount.visibility = View.INVISIBLE
+
+
         }
 
+        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+        result = apiInterface?.getDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}")
+
+        result?.clone()?.enqueue(object:Callback<ArrayList<UserDate>>{
+            override fun onFailure(call: Call<ArrayList<UserDate>>?, t: Throwable?) {
+                progressBar?.visibility = View.INVISIBLE
+                Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers), Toast.LENGTH_LONG)
+                        .show()
+            }
+
+            override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
+                progressBar?.visibility = View.INVISIBLE
+                if(response?.code() == 200)
+                {
+                    responseBody = response?.body()
+                    val calendar = view.findViewById<MaterialCalendarView>(R.id.userCalandarView)
+
+                    calendar.state().edit()
+                            .setFirstDayOfWeek(Calendar.MONDAY)
+                            .setMinimumDate(CalendarDay.from(2018, 0, 1))
+                            .setMaximumDate(CalendarDay.from(2020, 0, 1))
+                            .setCalendarDisplayMode(CalendarMode.MONTHS)
+                            .commit()
+
+                    calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
+                    calendar.setDateTextAppearance(R.color.textColorPrimary)
+                    if(UserPortal.loggedInUser?.LastLoginTime != null)
+                    {
+                        val currentDay = CalendarDay.from(
+                                Portal.textToDate(UserPortal.loggedInUser?.LastLoginTime!!))
+                        val registeredDate = CalendarDay.from(
+                                Portal.textToDate(UserPortal.loggedInUser?.RegisteredDate!!))
+
+                        val rangeCalander = GregorianCalendar()
+                        rangeCalander.setTime(registeredDate.date)
+
+                        val endCalendar =  GregorianCalendar()
+                        endCalendar.setTime(currentDay.date)
+
+                        while (rangeCalander.before(endCalendar)) {
+                            val result = rangeCalander.getTime()
+                            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
+                                    ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!))
+                            rangeCalander.add(Calendar.DATE, 1);
+                        }
+                        val result = rangeCalander.getTime()
+                        calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
+                                ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!))
+                        for(i in 0 until responseBody!!.size)
+                        {
+                            var date  = CalendarDay.from(
+                                    Portal.textToDate(responseBody!![i].Date!!))
+                            if(responseBody!![i].Type == 1)
+                            {
+                                calendar.addDecorator(CircleDecorator(activity,date,
+                                        ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!))
+                            }else if(responseBody!![i].Type == 2)
+                            {
+                                calendar.addDecorator(CircleDecorator(activity,date,
+                                        ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!))
+                            }
+
+                        }
+
+                        calendar.setOnDateChangedListener { widget, date, selected ->
+                            if(date.isBefore(currentDay))
+                            {
+                                val dateString = Portal.dateToText(date.date) + "T00:00:00"
+                                var check  = responseBody!!.find { x->x.Date == dateString }
+                                if(check == null)
+                                {
+                                    check = userNewSelections.find { x->x.Date == dateString }
+                                    if(check == null) // temiz
+                                    {
+                                        val newDate = UserDate()
+                                        newDate.Type = 1
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(1))!!))
+                                        newDate.Date = dateString
+                                        userNewSelections.add(newDate)
+                                    }else if(check.Type == 1) // içmiş
+                                    {
+                                        userNewSelections.remove(check)
+                                        check.Type = 2
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(check.Type!!))!!))
+                                        userNewSelections.add(check)
+                                    }else // nötr
+                                    {widget.addDecorator(CircleDecorator(activity,date,
+                                            ContextCompat.getDrawable(activity,
+                                                    getDrawable(R.color.colorBackgroundDark))!!))
+                                        userNewSelections.remove(check)
+                                    }
+
+                                }else
+                                {
+                                    val updateCheck = userUpdateselections.find { x->x.Date == dateString }
+                                    if(updateCheck == null)
+                                    {
+                                        responseBody?.remove(check)
+                                        check.Type = (check.Type!! + 1) % 3
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(check.Type!!))!!))
+                                        responseBody?.add(check)
+                                        userUpdateselections.add(check)
+                                    }else if(updateCheck.Type == 1)
+                                    {
+                                        responseBody?.remove(check)
+                                        userUpdateselections.remove(check)
+                                        check.Type = (check.Type!! + 1)%3
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(check.Type!!))!!))
+                                        responseBody?.add(check)
+                                        userUpdateselections.add(check)
+                                    }else if(updateCheck.Type == 0)
+                                    {
+                                        responseBody?.remove(check)
+                                        userUpdateselections.remove(check)
+                                        check.Type = (check.Type!! + 1) % 3
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(check.Type!!))!!))
+                                        responseBody?.add(check)
+                                        userUpdateselections.add(check)
+                                    }else if(updateCheck.Type == 2)
+                                    {
+                                        responseBody?.remove(check)
+                                        userUpdateselections.remove(check)
+                                        check.Type = (check.Type!! + 1) % 3
+                                        widget.addDecorator(CircleDecorator(activity,date,
+                                                ContextCompat.getDrawable(activity,
+                                                        getDrawable(check.Type!!))!!))
+                                        responseBody?.add(check)
+                                        userUpdateselections.add(check)
+                                    }
+                                }
+
+                                if( userNewSelections.size > 0 || userUpdateselections.size > 0)
+                                {
+                                    smokeCount.visibility = View.VISIBLE
+                                    btnSave.visibility = View.VISIBLE
+                                }else
+                                {
+                                    smokeCount.visibility = View.INVISIBLE
+                                    btnSave.visibility = View.INVISIBLE
+                                }
+                            }else
+                            {
+                                calendar.addDecorator(CircleDecorator(activity,date,
+                                        ContextCompat.getDrawable(activity, R.color.colorPrimaryDark)!!))
+                            }
+
+                        }
+
+                        calendar.visibility = View.VISIBLE
+
+                    }else
+                    {
+                        Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                                Toast.LENGTH_LONG)
+                                .show()
+                        return
+                    }
+                }else
+                {
+                    Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers), Toast.LENGTH_LONG)
+                            .show()
+                }
+            }
+
+        })
+
         return view
+    }
+
+    fun getDrawable(type:Int):Int
+    {
+        when(type)
+        {
+            0 -> return R.drawable.circle_gray
+            1 -> return R.drawable.circle_positive
+            2 -> return R.drawable.circle_negative
+            else -> return R.drawable.circle_gray
+        }
     }
 
 }// Required empty public constructor

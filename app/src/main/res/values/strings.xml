@@ -93,5 +93,11 @@
     <string name="bir_saat_once">Bir saat önce</string>
     <string name="yeni">Yeni</string>
 
+    <string name="kac_tane_sigara_ictin">Kaç tane sigara içtin</string>
+    <string name="degisiklikleri_kaydet">Değişiklikleri Kaydet</string>
+    <string name="smokeCountBos" >İçilen sigara sayısı boş olamaz</string>
+    <string name="smokeCountNegative" >Sigara sayısı negatif olamaz</string>
+    <string name="degisikler_kaydedildi">Değişikler Kaydedildi</string>
+
 
 </resources>
