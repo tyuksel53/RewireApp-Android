@@ -1,14 +1,16 @@
 package com.example.taha.sigraylamcadele.Model
 
-class UserDate {
+import java.io.Serializable
+
+class UserDate:Serializable {
 
     var Id:Int? = null
     var Date:String? = null
     var Type:Int? = null
     var Username:String? = null
-    var SmokeCount:Double? = null
+    var SmokeCount:Int? = null
 
-    constructor(id:Int?,date:String?,type:Int?,username:String?,smokeCount:Double?)
+    constructor(id:Int?,date:String?,type:Int?,username:String?,smokeCount:Int?)
     {
         this.Date = date
         this.Id = id

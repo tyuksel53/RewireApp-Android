@@ -199,61 +199,63 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     }
     fun initRecyclerView(source:ArrayList<Shares>?)
     {
-        adapter = SoruCevapAdapter(source!!,activity)
-        recyclerV!!.adapter = adapter
-        val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
-        recyclerV!!.layoutManager = myManager
+        if(activity != null)
+        {
+            adapter = SoruCevapAdapter(source!!,activity)
+            recyclerV!!.adapter = adapter
+            val myManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
+            recyclerV!!.layoutManager = myManager
 
-        recyclerV!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+            recyclerV!!.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
 
-                val offset = recyclerV!!.computeVerticalScrollOffset()
-                val extent = recyclerV!!.computeVerticalScrollExtent()
-                val range = recyclerV!!.computeVerticalScrollRange()
+                    val offset = recyclerV!!.computeVerticalScrollOffset()
+                    val extent = recyclerV!!.computeVerticalScrollExtent()
+                    val range = recyclerV!!.computeVerticalScrollRange()
 
-                val percentage = (100.0 * offset / (range - extent))
+                    val percentage = (100.0 * offset / (range - extent))
 
-                if( (adapter?.getDataLength()!! % 25)  == 0 && UserPortal.shares?.size != 0 && percentage >70 && lengthCheck)
-                {
-                    lengthCheck = false
-                    val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
-                    result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                            UserPortal.shares!!.size,
-                            paramlist[0],paramlist[1])
+                    if( (adapter?.getDataLength()!! % 25)  == 0 && UserPortal.shares?.size != 0 && percentage >70 && lengthCheck)
+                    {
+                        lengthCheck = false
+                        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+                        result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                                UserPortal.shares!!.size,
+                                paramlist[0],paramlist[1])
 
-                    result?.clone()?.enqueue(object:Callback<ArrayList<Shares>>{
-                        override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
-                            lengthCheck = true
-                        }
-
-                        override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
-                            lengthCheck = true
-                            if(response?.message()?.toString() == "OK") {
-                                val body = response.body()
-                                if(body?.size == 0)
-                                {
-                                    lengthCheck = false
-                                }
-                                adapter?.newShares(body)
-                            }else {
-                                Toasty.error(activity,
-                                        UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
-                                        ,Toast.LENGTH_LONG)
-                                        .show()
+                        result?.clone()?.enqueue(object:Callback<ArrayList<Shares>>{
+                            override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
+                                lengthCheck = true
                             }
-                        }
 
-                    })
+                            override fun onResponse(call: Call<ArrayList<Shares>>?, response: Response<ArrayList<Shares>>?) {
+                                lengthCheck = true
+                                if(response?.message()?.toString() == "OK") {
+                                    val body = response.body()
+                                    if(body?.size == 0)
+                                    {
+                                        lengthCheck = false
+                                    }
+                                    adapter?.newShares(body)
+                                }else {
+                                    Toasty.error(activity,
+                                            UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers)
+                                            ,Toast.LENGTH_LONG)
+                                            .show()
+                                }
+                            }
 
-                    result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                            0,
-                            paramlist[0],paramlist[1])
+                        })
+
+                        result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                                0,
+                                paramlist[0],paramlist[1])
+                    }
+
                 }
-
-            }
-        })
-
+            })
+        }
     }
 
     override fun sortSelected(selectedTime: String) {

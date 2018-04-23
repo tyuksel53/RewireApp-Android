@@ -9,10 +9,12 @@ import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
+import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -21,15 +23,17 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         updateView(Paper.book().read("language"))
+        var user = Portal.autoLogin(this)
+        if( user != null)
+        {
+            edLoginUsername.setText(user.Username)
+            edLoginPassword.setText(user.Password)
+        }
 
         btnLoginRegister.setOnClickListener {
             var intent = Intent(this@LoginActivity,RegisterActivity::class.java)
@@ -82,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         }else if(response?.code() == 500)
                         {
-                            Toast.makeText(this@LoginActivity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                            Toasty.info(this@LoginActivity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                     Toast.LENGTH_LONG).show()
                         }else
                         {

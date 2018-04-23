@@ -1,6 +1,7 @@
 package com.example.taha.sigraylamcadele.Fragments
 
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Dialogs.SmokeDialog
 import com.example.taha.sigraylamcadele.Library.CircleDecorator
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
@@ -20,7 +22,6 @@ import com.example.taha.sigraylamcadele.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.rengwuxian.materialedittext.MaterialEditText
 import es.dmoral.toasty.Toasty
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,35 +29,85 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class IstatistikFragment : android.app.Fragment() {
+class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntered {
+    override fun smokeCountChanged(cigarecigaretteCount: Int,check:UserDate?,type:String?,date: String?) {
+        val value = cigarecigaretteCount
+        if(value == 0)
+        {
+            if( userNewSelections.size <= 0 && userUpdateselections.size <= 0)
+            {
+                btnSave.visibility = View.INVISIBLE
+            }
+            return
+        }
 
+        if(type == "yeni")
+        {
+            userNewSelections.remove(check)
+            check!!.Type = 2
+            check.SmokeCount = value
+            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
+                    ContextCompat.getDrawable(activity,
+                            getDrawable(check!!.Type!!))!!))
+            userNewSelections.add(check)
+        }else if(type == "yeniUpdate")
+        {
+            responseBody?.remove(check)
+            userUpdateselections.remove(check)
+            check!!.Type = 2
+            check.SmokeCount = value
+            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
+                    ContextCompat.getDrawable(activity,
+                            getDrawable(check.Type!!))!!))
+
+            responseBody?.add(check)
+            userUpdateselections.add(check)
+        }else
+        {
+            responseBody?.remove(check)
+            userUpdateselections.remove(check)
+            check!!.Type = 2
+            check.SmokeCount = value
+            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
+                    ContextCompat.getDrawable(activity,
+                            getDrawable(check.Type!!))!!))
+            responseBody?.add(check)
+            userUpdateselections.add(check)
+        }
+    }
     var progressBar:ProgressBar? = null
     var result: Call<ArrayList<UserDate>>? = null
     var responseBody:ArrayList<UserDate>? = null
-
+    lateinit var calendar:MaterialCalendarView
+    val userNewSelections = ArrayList<UserDate>()
+    val userUpdateselections = ArrayList<UserDate>()
+    lateinit var btnSave:Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+
         val view =  inflater!!.inflate(R.layout.fragment_istatistik, container, false)
+        var flag = false
+        userNewSelections.clear()
+        userUpdateselections.clear()
+        calendar = view.findViewById(R.id.userCalandarView)
+
+        calendar.state().edit()
+                .setFirstDayOfWeek(Calendar.MONDAY)
+                .setMinimumDate(CalendarDay.from(2018, 0, 1))
+                .setMaximumDate(CalendarDay.from(2020, 0, 1))
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .commit()
+
+        calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
+        calendar.setDateTextAppearance(R.color.textColorPrimary)
+
         progressBar = view.findViewById(R.id.pbIstatistik)
-        val smokeCount = view.findViewById<MaterialEditText>(R.id.edIstatistikSmokeCount)
-        val btnSave = view.findViewById<Button>(R.id.btnIstatistikSaveChanges)
-        smokeCount.visibility = View.INVISIBLE
+        btnSave = view.findViewById<Button>(R.id.btnIstatistikSaveChanges)
         btnSave.visibility = View.INVISIBLE
-        val userNewSelections = ArrayList<UserDate>()
-        val userUpdateselections = ArrayList<UserDate>()
+
+
         btnSave.setOnClickListener {
-
-            if(smokeCount.text.isNullOrEmpty() || smokeCount.text.isNullOrBlank())
-            {
-                smokeCount.error = UserPortal.myLangResource?.getString(R.string.smokeCountBos)
-                return@setOnClickListener
-            }else if(smokeCount.text.toString().toInt() < 0)
-            {
-                smokeCount.error = UserPortal.myLangResource?.getString(R.string.smokeCountNegative)
-                return@setOnClickListener
-            }
-
             val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+
             if(userNewSelections.size > 0)
             {
                 val insertResult = apiInterface?.insertDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
@@ -64,6 +115,7 @@ class IstatistikFragment : android.app.Fragment() {
 
                 insertResult?.clone()?.enqueue(object:Callback<String>{
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
+
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
@@ -71,6 +123,7 @@ class IstatistikFragment : android.app.Fragment() {
 
                 })
             }
+
             if(userUpdateselections.size > 0)
             {
                 val updateResult = apiInterface?.updateDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
@@ -88,15 +141,18 @@ class IstatistikFragment : android.app.Fragment() {
                 })
 
             }
+            for(i in 0 until userNewSelections.size)
+            {
+                responseBody!!.add(userNewSelections[i])
+            }
+            userNewSelections.clear()
+            userUpdateselections.clear()
 
             Toasty.success(activity,
                     UserPortal.myLangResource!!.getString(R.string.degisikler_kaydedildi)
                     ,Toast.LENGTH_SHORT)
                     .show()
             btnSave.visibility = View.INVISIBLE
-            smokeCount.visibility = View.INVISIBLE
-
-
         }
 
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
@@ -114,17 +170,7 @@ class IstatistikFragment : android.app.Fragment() {
                 if(response?.code() == 200)
                 {
                     responseBody = response?.body()
-                    val calendar = view.findViewById<MaterialCalendarView>(R.id.userCalandarView)
 
-                    calendar.state().edit()
-                            .setFirstDayOfWeek(Calendar.MONDAY)
-                            .setMinimumDate(CalendarDay.from(2018, 0, 1))
-                            .setMaximumDate(CalendarDay.from(2020, 0, 1))
-                            .setCalendarDisplayMode(CalendarMode.MONTHS)
-                            .commit()
-
-                    calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
-                    calendar.setDateTextAppearance(R.color.textColorPrimary)
                     if(UserPortal.loggedInUser?.LastLoginTime != null)
                     {
                         val currentDay = CalendarDay.from(
@@ -182,12 +228,16 @@ class IstatistikFragment : android.app.Fragment() {
                                         userNewSelections.add(newDate)
                                     }else if(check.Type == 1) // içmiş
                                     {
-                                        userNewSelections.remove(check)
-                                        check.Type = 2
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(check.Type!!))!!))
-                                        userNewSelections.add(check)
+                                        val smokeDialog = SmokeDialog()
+                                        smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                                        smokeDialog.show(fragmentManager,"smokeDialog")
+
+                                        val args = Bundle()
+                                        args.putString("date", dateString)
+                                        args.putSerializable("check",check)
+                                        args.putString("type","yeni")
+                                        smokeDialog.setArguments(args)
+                                        flag = true
                                     }else // nötr
                                     {widget.addDecorator(CircleDecorator(activity,date,
                                             ContextCompat.getDrawable(activity,
@@ -200,28 +250,60 @@ class IstatistikFragment : android.app.Fragment() {
                                     val updateCheck = userUpdateselections.find { x->x.Date == dateString }
                                     if(updateCheck == null)
                                     {
-                                        responseBody?.remove(check)
-                                        check.Type = (check.Type!! + 1) % 3
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(check.Type!!))!!))
-                                        responseBody?.add(check)
-                                        userUpdateselections.add(check)
+                                        if(check.Type == 1)
+                                        {
+                                            val smokeDialog = SmokeDialog()
+                                            smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                                            smokeDialog.show(fragmentManager,"smokeDialog")
+
+                                            val args = Bundle()
+                                            args.putString("date", dateString)
+                                            args.putSerializable("check",check)
+                                            args.putString("type","yeniUpdate")
+                                            smokeDialog.setArguments(args)
+                                            flag = true
+                                        }else if(check.Type == 0)
+                                        {
+                                            responseBody?.remove(check)
+                                            userUpdateselections.remove(check)
+                                            check.SmokeCount = 0
+                                            check.Type = 1
+                                            widget.addDecorator(CircleDecorator(activity,date,
+                                                    ContextCompat.getDrawable(activity,
+                                                            getDrawable(check.Type!!))!!))
+                                            responseBody?.add(check)
+                                            userUpdateselections.add(check)
+                                        }else if(check.Type == 2)
+                                        {
+                                            responseBody?.remove(check)
+                                            userUpdateselections.remove(check)
+                                            check.Type = 0
+                                            check.SmokeCount = 0
+                                            widget.addDecorator(CircleDecorator(activity,date,
+                                                    ContextCompat.getDrawable(activity,
+                                                            getDrawable(check.Type!!))!!))
+                                            responseBody?.add(check)
+                                            userUpdateselections.add(check)
+                                        }
                                     }else if(updateCheck.Type == 1)
                                     {
-                                        responseBody?.remove(check)
-                                        userUpdateselections.remove(check)
-                                        check.Type = (check.Type!! + 1)%3
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(check.Type!!))!!))
-                                        responseBody?.add(check)
-                                        userUpdateselections.add(check)
+                                        val smokeDialog = SmokeDialog()
+                                        smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                                        smokeDialog.show(fragmentManager,"smokeDialog")
+
+                                        val args = Bundle()
+                                        args.putString("date", dateString)
+                                        args.putSerializable("check",check)
+                                        args.putString("type","update")
+
+                                        smokeDialog.setArguments(args)
+                                        flag = true
                                     }else if(updateCheck.Type == 0)
                                     {
                                         responseBody?.remove(check)
                                         userUpdateselections.remove(check)
-                                        check.Type = (check.Type!! + 1) % 3
+                                        check.Type = 1
+                                        check.SmokeCount = 0
                                         widget.addDecorator(CircleDecorator(activity,date,
                                                 ContextCompat.getDrawable(activity,
                                                         getDrawable(check.Type!!))!!))
@@ -231,7 +313,8 @@ class IstatistikFragment : android.app.Fragment() {
                                     {
                                         responseBody?.remove(check)
                                         userUpdateselections.remove(check)
-                                        check.Type = (check.Type!! + 1) % 3
+                                        check.Type =  0
+                                        check.SmokeCount = 0
                                         widget.addDecorator(CircleDecorator(activity,date,
                                                 ContextCompat.getDrawable(activity,
                                                         getDrawable(check.Type!!))!!))
@@ -240,13 +323,12 @@ class IstatistikFragment : android.app.Fragment() {
                                     }
                                 }
 
-                                if( userNewSelections.size > 0 || userUpdateselections.size > 0)
+                                if( userNewSelections.size > 0 || userUpdateselections.size > 0 || flag)
                                 {
-                                    smokeCount.visibility = View.VISIBLE
+                                    flag = false
                                     btnSave.visibility = View.VISIBLE
                                 }else
                                 {
-                                    smokeCount.visibility = View.INVISIBLE
                                     btnSave.visibility = View.INVISIBLE
                                 }
                             }else

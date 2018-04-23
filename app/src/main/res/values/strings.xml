@@ -95,9 +95,14 @@
 
     <string name="kac_tane_sigara_ictin">Kaç tane sigara içtin</string>
     <string name="degisiklikleri_kaydet">Değişiklikleri Kaydet</string>
-    <string name="smokeCountBos" >İçilen sigara sayısı boş olamaz</string>
-    <string name="smokeCountNegative" >Sigara sayısı negatif olamaz</string>
+    <string name="smokeCountBos">İçilen sigara sayısı boş olamaz</string>
+    <string name="smokeCountNegative">Sigara sayısı negatif olamaz</string>
     <string name="degisikler_kaydedildi">Değişikler Kaydedildi</string>
+    <string name="tarihinde_ne_kadar_sigara_ictin">Tarihinde ne kadar sigara içtin ?</string>
+    <string name="sigara_sayis">Sigara Sayısı</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="Sigara_hata_max">Sigara sayısı 2147483646 \'ü geçmemelidir</string>
+    <string name="hata_sifir">Değer 0 olamaz</string>
 
 
 </resources>

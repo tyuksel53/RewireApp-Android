@@ -1,0 +1,90 @@
+package com.example.taha.sigraylamcadele.Dialogs
+
+
+import android.app.DialogFragment
+import android.os.Bundle
+import android.app.Fragment
+import android.content.Context
+import android.content.DialogInterface
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.Model.UserDate
+
+import com.example.taha.sigraylamcadele.R
+import com.rengwuxian.materialedittext.MaterialEditText
+import es.dmoral.toasty.Toasty
+
+class SmokeDialog : DialogFragment() {
+
+    interface onSmokeCountEntered
+    {
+        fun smokeCountChanged(cigarecigaretteCount:Int,check:UserDate?,type:String?,date:String?)
+    }
+    lateinit var mySomeCountInterface: onSmokeCountEntered
+    var userHasEnteredValue = false
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view =  inflater.inflate(R.layout.dialog_smoke, container, false)
+        val btnSave = view.findViewById<Button>(R.id.btnSmokeCountSave)
+        val smokeCountTxt = view.findViewById<MaterialEditText>(R.id.edSmokeCountDialog)
+        val header = view.findViewById<TextView>(R.id.tvSmokeCountHeader)
+        val type = arguments.getString("type")
+        val check = arguments.getSerializable("check") as UserDate
+        val date = arguments.getString("date")
+        header.text = date.split('T')[0]  + UserPortal.myLangResource!!.getString(R.string.tarihinde_ne_kadar_sigara_ictin)
+
+
+        btnSave.setOnClickListener {
+
+            if(smokeCountTxt.text.isNullOrBlank() || smokeCountTxt.text.isNullOrEmpty())
+            {
+                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.smokeCountBos))
+                return@setOnClickListener
+            }
+
+            if(smokeCountTxt.text.toString().toDouble() < 0 )
+            {
+                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.smokeCountNegative))
+                return@setOnClickListener
+            }
+
+            if(smokeCountTxt.text.toString().toDouble() == 0.0)
+            {
+                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.hata_sifir))
+                return@setOnClickListener
+            }
+
+            if(smokeCountTxt.text.toString().toDouble() > 2147483646)
+            {
+                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.Sigara_hata_max))
+                return@setOnClickListener
+            }
+
+            mySomeCountInterface.smokeCountChanged(smokeCountTxt.text.toString().toInt(),check,type,date)
+
+            userHasEnteredValue = true
+            dismiss()
+        }
+
+        return view
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        if(userHasEnteredValue == false)
+        {
+            mySomeCountInterface.smokeCountChanged(0,null,null,null)
+        }
+        super.onDismiss(dialog)
+    }
+    override fun onAttach(context: Context?) {
+        mySomeCountInterface = targetFragment as onSmokeCountEntered
+        super.onAttach(context)
+    }
+
+}
