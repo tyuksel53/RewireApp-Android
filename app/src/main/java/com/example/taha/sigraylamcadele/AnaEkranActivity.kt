@@ -1,11 +1,7 @@
 package com.example.taha.sigraylamcadele
 
-import android.app.FragmentManager
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -23,8 +19,6 @@ class AnaEkranActivity : AppCompatActivity() {
         setContentView(R.layout.ana_ekran_activity)
 
         updateView(Paper.book().read("language"))
-
-        UserPortal.getLikes()
 
         val anasayfaFragment = AnasayfaFragment()
         val istatistikFragment = IstatistikFragment()

@@ -21,17 +21,19 @@ import com.example.taha.sigraylamcadele.Model.UserDate
 
 import com.example.taha.sigraylamcadele.R
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.CombinedChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.LargeValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.fragment_istatistik.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,16 +87,16 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             userUpdateselections.add(check)
         }
     }
-    var progressBar:ProgressBar? = null
     var result: Call<ArrayList<UserDate>>? = null
     var responseBody:ArrayList<UserDate>? = null
     lateinit var calendar:MaterialCalendarView
     val userNewSelections = ArrayList<UserDate>()
     val userUpdateselections = ArrayList<UserDate>()
     var barchart:BarChart?=null
+    var combineChart:LineChart? = null
     lateinit var btnSave:Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        responseBody = UserPortal.userDates
         val view =  inflater!!.inflate(R.layout.fragment_istatistik, container, false)
         var flag = false
         barchart = null
@@ -111,8 +113,6 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
 
         calendar.selectionMode = MaterialCalendarView.SELECTION_MODE_MULTIPLE
         calendar.setDateTextAppearance(R.color.textColorPrimary)
-
-        progressBar = view.findViewById(R.id.pbIstatistik)
         btnSave = view.findViewById<Button>(R.id.btnIstatistikSaveChanges)
         btnSave.visibility = View.INVISIBLE
 
@@ -127,7 +127,8 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
 
                 insertResult?.clone()?.enqueue(object:Callback<String>{
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
-
+                        Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
+                                Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
@@ -143,6 +144,8 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
 
                 updateResult?.clone()?.enqueue(object:Callback<String>{
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
+                                Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
@@ -155,6 +158,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             {
                 responseBody!!.add(userNewSelections[i])
             }
+            UserPortal.userDates = responseBody
             userNewSelections.clear()
             userUpdateselections.clear()
 
@@ -163,255 +167,324 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                     ,Toast.LENGTH_SHORT)
                     .show()
             btnSave.visibility = View.INVISIBLE
+            initBarChart()
         }
+        // btnsave end
+        barchart = view.findViewById(R.id.chartGun)
+        combineChart = view.findViewById(R.id.chartSigara)
+        barchart!!.visibility = View.VISIBLE
+        initBarChart()
+        if(UserPortal.loggedInUser?.LastLoginTime != null)
+        {
+            var currentDay = CalendarDay.from(
+                    Portal.textToDate(UserPortal.loggedInUser?.LastLoginTime!!))
+            val registeredDate = CalendarDay.from(
+                    Portal.textToDate(UserPortal.loggedInUser?.RegisteredDate!!))
 
-        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
-        result = apiInterface?.getDates("Bearer ${UserPortal.loggedInUser!!.AccessToken}")
+            val rangeCalander = GregorianCalendar()
+            rangeCalander.setTime(registeredDate.date)
 
-        result?.clone()?.enqueue(object:Callback<ArrayList<UserDate>>{
-            override fun onFailure(call: Call<ArrayList<UserDate>>?, t: Throwable?) {
-                progressBar?.visibility = View.INVISIBLE
-                Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers), Toast.LENGTH_LONG)
-                        .show()
+            val endCalendar =  GregorianCalendar()
+            endCalendar.setTime(currentDay.date)
+
+            while (rangeCalander.before(endCalendar)) {
+                val result = rangeCalander.getTime()
+                calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
+                        ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!))
+                rangeCalander.add(Calendar.DATE, 1);
             }
-
-            override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
-                progressBar?.visibility = View.INVISIBLE
-                if(response?.code() == 200)
+            // today
+            val result = rangeCalander.getTime()
+            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
+                    ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!))
+            for(i in 0 until responseBody!!.size)
+            {
+                val date  = CalendarDay.from(
+                        Portal.textToDate(responseBody!![i].Date!!))
+                if(responseBody!![i].Type == 1)
                 {
-                    responseBody = response?.body()
+                    calendar.addDecorator(CircleDecorator(activity,date,
+                            ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!))
+                }else if(responseBody!![i].Type == 2)
+                {
+                    calendar.addDecorator(CircleDecorator(activity,date,
+                            ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!))
+                }
 
+            }
+            val c = Calendar.getInstance()
+            c.setTime(currentDay.date)
+            c.add(Calendar.DATE, 1)
+            currentDay = CalendarDay.from(c.getTime())
 
-                    if(responseBody!!.size > 0)
+            calendar.setOnDateChangedListener { widget, date, selected ->
+
+                if(date.isBefore(currentDay))
+                {
+                    val dateString = Portal.dateToText(date.date) + "T00:00:00"
+                    var check  = responseBody!!.find { x->x.Date == dateString }
+                    if(check == null)
                     {
-                        barchart = view.findViewById(R.id.chartGun)
-                        barchart!!.visibility = View.VISIBLE
-                        initBarChart()
-                    }
-                    if(UserPortal.loggedInUser?.LastLoginTime != null)
-                    {
-                        val currentDay = CalendarDay.from(
-                                Portal.textToDate(UserPortal.loggedInUser?.LastLoginTime!!))
-                        val registeredDate = CalendarDay.from(
-                                Portal.textToDate(UserPortal.loggedInUser?.RegisteredDate!!))
-
-                        val rangeCalander = GregorianCalendar()
-                        rangeCalander.setTime(registeredDate.date)
-
-                        val endCalendar =  GregorianCalendar()
-                        endCalendar.setTime(currentDay.date)
-
-                        while (rangeCalander.before(endCalendar)) {
-                            val result = rangeCalander.getTime()
-                            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
-                                    ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!))
-                            rangeCalander.add(Calendar.DATE, 1);
-                        }
-                        val result = rangeCalander.getTime()
-                        calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
-                                ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!))
-                        for(i in 0 until responseBody!!.size)
+                        check = userNewSelections.find { x->x.Date == dateString }
+                        if(check == null) // temiz
                         {
-                            var date  = CalendarDay.from(
-                                    Portal.textToDate(responseBody!![i].Date!!))
-                            if(responseBody!![i].Type == 1)
-                            {
-                                calendar.addDecorator(CircleDecorator(activity,date,
-                                        ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!))
-                            }else if(responseBody!![i].Type == 2)
-                            {
-                                calendar.addDecorator(CircleDecorator(activity,date,
-                                        ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!))
-                            }
+                            val newDate = UserDate()
+                            newDate.Type = 1
+                            widget.addDecorator(CircleDecorator(activity,date,
+                                    ContextCompat.getDrawable(activity,
+                                            getDrawable(1))!!))
+                            newDate.Date = dateString
+                            userNewSelections.add(newDate)
+                        }else if(check.Type == 1) // içmiş
+                        {
+                            val smokeDialog = SmokeDialog()
+                            smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                            smokeDialog.show(fragmentManager,"smokeDialog")
 
+                            val args = Bundle()
+                            args.putString("date", dateString)
+                            args.putSerializable("check",check)
+                            args.putString("type","yeni")
+                            smokeDialog.setArguments(args)
+                            flag = true
+                        }else // nötr
+                        {widget.addDecorator(CircleDecorator(activity,date,
+                                ContextCompat.getDrawable(activity,
+                                        getDrawable(R.color.colorBackgroundDark))!!))
+                            userNewSelections.remove(check)
                         }
-
-                        calendar.setOnDateChangedListener { widget, date, selected ->
-                            if(date.isBefore(currentDay))
-                            {
-                                val dateString = Portal.dateToText(date.date) + "T00:00:00"
-                                var check  = responseBody!!.find { x->x.Date == dateString }
-                                if(check == null)
-                                {
-                                    check = userNewSelections.find { x->x.Date == dateString }
-                                    if(check == null) // temiz
-                                    {
-                                        val newDate = UserDate()
-                                        newDate.Type = 1
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(1))!!))
-                                        newDate.Date = dateString
-                                        userNewSelections.add(newDate)
-                                    }else if(check.Type == 1) // içmiş
-                                    {
-                                        val smokeDialog = SmokeDialog()
-                                        smokeDialog.setTargetFragment(this@IstatistikFragment,23)
-                                        smokeDialog.show(fragmentManager,"smokeDialog")
-
-                                        val args = Bundle()
-                                        args.putString("date", dateString)
-                                        args.putSerializable("check",check)
-                                        args.putString("type","yeni")
-                                        smokeDialog.setArguments(args)
-                                        flag = true
-                                    }else // nötr
-                                    {widget.addDecorator(CircleDecorator(activity,date,
-                                            ContextCompat.getDrawable(activity,
-                                                    getDrawable(R.color.colorBackgroundDark))!!))
-                                        userNewSelections.remove(check)
-                                    }
-
-                                }else
-                                {
-                                    val updateCheck = userUpdateselections.find { x->x.Date == dateString }
-                                    if(updateCheck == null)
-                                    {
-                                        if(check.Type == 1)
-                                        {
-                                            val smokeDialog = SmokeDialog()
-                                            smokeDialog.setTargetFragment(this@IstatistikFragment,23)
-                                            smokeDialog.show(fragmentManager,"smokeDialog")
-
-                                            val args = Bundle()
-                                            args.putString("date", dateString)
-                                            args.putSerializable("check",check)
-                                            args.putString("type","yeniUpdate")
-                                            smokeDialog.setArguments(args)
-                                            flag = true
-                                        }else if(check.Type == 0)
-                                        {
-                                            responseBody?.remove(check)
-                                            userUpdateselections.remove(check)
-                                            check.SmokeCount = 0
-                                            check.Type = 1
-                                            widget.addDecorator(CircleDecorator(activity,date,
-                                                    ContextCompat.getDrawable(activity,
-                                                            getDrawable(check.Type!!))!!))
-                                            responseBody?.add(check)
-                                            userUpdateselections.add(check)
-                                        }else if(check.Type == 2)
-                                        {
-                                            responseBody?.remove(check)
-                                            userUpdateselections.remove(check)
-                                            check.Type = 0
-                                            check.SmokeCount = 0
-                                            widget.addDecorator(CircleDecorator(activity,date,
-                                                    ContextCompat.getDrawable(activity,
-                                                            getDrawable(check.Type!!))!!))
-                                            responseBody?.add(check)
-                                            userUpdateselections.add(check)
-                                        }
-                                    }else if(updateCheck.Type == 1)
-                                    {
-                                        val smokeDialog = SmokeDialog()
-                                        smokeDialog.setTargetFragment(this@IstatistikFragment,23)
-                                        smokeDialog.show(fragmentManager,"smokeDialog")
-
-                                        val args = Bundle()
-                                        args.putString("date", dateString)
-                                        args.putSerializable("check",check)
-                                        args.putString("type","update")
-
-                                        smokeDialog.setArguments(args)
-                                        flag = true
-                                    }else if(updateCheck.Type == 0)
-                                    {
-                                        responseBody?.remove(check)
-                                        userUpdateselections.remove(check)
-                                        check.Type = 1
-                                        check.SmokeCount = 0
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(check.Type!!))!!))
-                                        responseBody?.add(check)
-                                        userUpdateselections.add(check)
-                                    }else if(updateCheck.Type == 2)
-                                    {
-                                        responseBody?.remove(check)
-                                        userUpdateselections.remove(check)
-                                        check.Type =  0
-                                        check.SmokeCount = 0
-                                        widget.addDecorator(CircleDecorator(activity,date,
-                                                ContextCompat.getDrawable(activity,
-                                                        getDrawable(check.Type!!))!!))
-                                        responseBody?.add(check)
-                                        userUpdateselections.add(check)
-                                    }
-                                }
-
-                                if( userNewSelections.size > 0 || userUpdateselections.size > 0 || flag)
-                                {
-                                    flag = false
-                                    btnSave.visibility = View.VISIBLE
-                                }else
-                                {
-                                    btnSave.visibility = View.INVISIBLE
-                                }
-                            }else
-                            {
-                                calendar.addDecorator(CircleDecorator(activity,date,
-                                        ContextCompat.getDrawable(activity, R.color.colorPrimaryDark)!!))
-                            }
-
-                        }
-
-                        calendar.visibility = View.VISIBLE
 
                     }else
                     {
-                        Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                Toast.LENGTH_LONG)
-                                .show()
-                        return
+                        val updateCheck = userUpdateselections.find { x->x.Date == dateString }
+                        if(updateCheck == null)
+                        {
+                            if(check.Type == 1)
+                            {
+                                val smokeDialog = SmokeDialog()
+                                smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                                smokeDialog.show(fragmentManager,"smokeDialog")
+
+                                val args = Bundle()
+                                args.putString("date", dateString)
+                                args.putSerializable("check",check)
+                                args.putString("type","yeniUpdate")
+                                smokeDialog.setArguments(args)
+                                flag = true
+                            }else if(check.Type == 0)
+                            {
+                                responseBody?.remove(check)
+                                userUpdateselections.remove(check)
+                                check.SmokeCount = 0
+                                check.Type = 1
+                                widget.addDecorator(CircleDecorator(activity,date,
+                                        ContextCompat.getDrawable(activity,
+                                                getDrawable(check.Type!!))!!))
+                                responseBody?.add(check)
+                                userUpdateselections.add(check)
+                            }else if(check.Type == 2)
+                            {
+                                responseBody?.remove(check)
+                                userUpdateselections.remove(check)
+                                check.Type = 0
+                                check.SmokeCount = 0
+                                widget.addDecorator(CircleDecorator(activity,date,
+                                        ContextCompat.getDrawable(activity,
+                                                getDrawable(check.Type!!))!!))
+                                responseBody?.add(check)
+                                userUpdateselections.add(check)
+                            }
+                        }else if(updateCheck.Type == 1)
+                        {
+                            val smokeDialog = SmokeDialog()
+                            smokeDialog.setTargetFragment(this@IstatistikFragment,23)
+                            smokeDialog.show(fragmentManager,"smokeDialog")
+
+                            val args = Bundle()
+                            args.putString("date", dateString)
+                            args.putSerializable("check",check)
+                            args.putString("type","update")
+
+                            smokeDialog.setArguments(args)
+                            flag = true
+                        }else if(updateCheck.Type == 0)
+                        {
+                            responseBody?.remove(check)
+                            userUpdateselections.remove(check)
+                            check.Type = 1
+                            check.SmokeCount = 0
+                            widget.addDecorator(CircleDecorator(activity,date,
+                                    ContextCompat.getDrawable(activity,
+                                            getDrawable(check.Type!!))!!))
+                            responseBody?.add(check)
+                            userUpdateselections.add(check)
+                        }else if(updateCheck.Type == 2)
+                        {
+                            responseBody?.remove(check)
+                            userUpdateselections.remove(check)
+                            check.Type =  0
+                            check.SmokeCount = 0
+                            widget.addDecorator(CircleDecorator(activity,date,
+                                    ContextCompat.getDrawable(activity,
+                                            getDrawable(check.Type!!))!!))
+                            responseBody?.add(check)
+                            userUpdateselections.add(check)
+                        }
+                    }
+
+                    if( userNewSelections.size > 0 || userUpdateselections.size > 0 || flag)
+                    {
+                        flag = false
+                        btnSave.visibility = View.VISIBLE
+                    }else
+                    {
+                        btnSave.visibility = View.INVISIBLE
                     }
                 }else
                 {
-                    Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers), Toast.LENGTH_LONG)
-                            .show()
+                    calendar.addDecorator(CircleDecorator(activity,date,
+                            ContextCompat.getDrawable(activity, R.color.colorPrimaryDark)!!))
                 }
+
             }
 
-        })
+            calendar.visibility = View.VISIBLE
+
+        }else
+        {
+            Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                    Toast.LENGTH_LONG)
+                    .show()
+        }
 
         return view
     }
 
+    private fun initSigaraChart(listAy:ArrayList<GrafikAy>) {
+        val entries =  ArrayList<Entry>()
+        val isimler = ArrayList<String>()
+        if(listAy.size == 0)
+        {
+
+        }else
+        {
+            for(i in 0 until listAy.size)
+            {
+                entries.add(Entry(i.toFloat(), listAy[i].SmokeCount))
+                isimler.add(listAy[i].AyIsim)
+            }
+
+            var xVals = isimler
+
+            var yVals = entries
+
+            var set1 = LineDataSet(yVals, "DataSet 1");
+
+            // create a dataset and give it a ty
+            set1.setFillAlpha(110);
+            // set1.setFillColor(Color.RED);
+
+            // set the line to be drawn like this "- - - - - -"
+            // set1.enableDashedLine(10f, 5f, 0f);
+            // set1.enableDashedHighlightLine(10f, 5f, 0f);
+            set1.setColor(Color.WHITE);
+            set1.setCircleColor(Color.WHITE);
+            set1.setLineWidth(1f);
+            set1.setCircleRadius(3f);
+            set1.setDrawCircleHole(false);
+            set1.setValueTextSize(9f);
+            set1.setDrawFilled(true);
+
+            var dataSets =  ArrayList<ILineDataSet>();
+            dataSets.add(set1); // add the datasets
+
+            // create a data object with the datasets
+            var data =  LineData(dataSets);
+
+            // set data
+            combineChart!!.setData(data);
+            combineChart!!.setDescription(null)
+            combineChart!!.setPinchZoom(false)
+            combineChart!!.setScaleEnabled(false)
+            combineChart!!.setDrawGridBackground(false)
+            combineChart!!.invalidate();
+        }
+    }
+
     private fun initBarChart() {
-        var listAy = ArrayList<GrafikAy>()
-        var ayNum = Portal.textToDate(responseBody!![0].Date!!).getMonth()
-        var deneme = GrafikAy()
-        deneme.AyNumara = ayNum
-        deneme.AyIsim = getMonthForInt(ayNum)
-        for(i in 0 until responseBody!!.size)
-        {
-            if(ayNum != Portal.textToDate(responseBody!![i].Date!!).getMonth())
-            {
-                listAy.add(deneme)
-                ayNum = Portal.textToDate(responseBody!![i].Date!!).getMonth()
-                deneme = GrafikAy()
-                deneme.AyNumara = ayNum
-                deneme.AyIsim = getMonthForInt(ayNum)
-
-            }
-            if(responseBody!![i].Type == 1)
-            {
-                deneme.GoodDay  = deneme.GoodDay + 1
-            }
-
-            if(responseBody!![i].Type == 2)
-            {
-                deneme.BadDay = deneme.BadDay + 1
-            }
-        }
-        val checkAy = listAy.find { x->x.AyNumara == deneme.AyNumara }
-        if( (deneme.BadDay != 0  || deneme.GoodDay != 0) && checkAy == null )
-        {
-            listAy.add(deneme)
-        }
+        val listAy = ArrayList<GrafikAy>()
+        val isimler = ArrayList<String>()
         val entriesGood =  ArrayList<BarEntry>()
         val entriesBad = ArrayList<BarEntry>()
-        val isimler = ArrayList<String>()
+        if(responseBody!!.size > 0)
+        {
+
+            var deneme = GrafikAy()
+
+            responseBody!!.sortByDescending { x->Portal.textToDate(x.Date!!) }
+            var ayNum = Portal.textToDate(responseBody!![0].Date!!).getMonth()
+            deneme.AyNumara = ayNum
+            deneme.AyIsim = getMonthForInt(ayNum)
+            UserPortal.userDates = responseBody
+            for(i in 0 until responseBody!!.size)
+            {
+                if(ayNum != Portal.textToDate(responseBody!![i].Date!!).getMonth())
+                {
+                    listAy.add(deneme)
+                    ayNum = Portal.textToDate(responseBody!![i].Date!!).getMonth()
+                    deneme = GrafikAy()
+                    deneme.AyNumara = ayNum
+                    deneme.AyIsim = getMonthForInt(ayNum)
+
+                }
+                if(responseBody!![i].Type == 1)
+                {
+                    deneme.GoodDay  = deneme.GoodDay + 1
+                }
+
+                if(responseBody!![i].Type == 2)
+                {
+                    deneme.BadDay = deneme.BadDay + 1
+                    deneme.SmokeCount = deneme.SmokeCount + responseBody!![i].SmokeCount!!
+                }
+            }
+            val checkAy = listAy.find { x->x.AyNumara == deneme.AyNumara }
+            if( (deneme.BadDay != 0  || deneme.GoodDay != 0) && checkAy == null )
+            {
+                listAy.add(deneme)
+            }
+            initSigaraChart(listAy)
+        }else
+        {
+            initSigaraChart(ArrayList<GrafikAy>())
+            isimler.add(getMonthForInt(6))
+            isimler.add(getMonthForInt(5))
+            isimler.add(getMonthForInt(4))
+            isimler.add(getMonthForInt(3))
+            isimler.add(getMonthForInt(2))
+            isimler.add(getMonthForInt(1))
+            isimler.add(getMonthForInt(0))
+
+            entriesGood.add(BarEntry(0.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(0.toFloat(),  0.toFloat()))
+
+            entriesGood.add(BarEntry(1.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(1.toFloat(),  0.toFloat()))
+
+            entriesGood.add(BarEntry(2.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(2.toFloat(),  0.toFloat()))
+
+            entriesGood.add(BarEntry(3.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(3.toFloat(),  0.toFloat()))
+
+            entriesGood.add(BarEntry(4.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(4.toFloat(),  0.toFloat()))
+
+            entriesGood.add(BarEntry(5.toFloat(), 0.toFloat()))
+            entriesBad.add(BarEntry(5.toFloat(),  0.toFloat()))
+        }
+
+
         for(i in 0 until listAy.size)
         {
             entriesGood.add(BarEntry(i.toFloat(), listAy[i].GoodDay.toFloat()))
@@ -419,13 +492,10 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             isimler.add(listAy[i].AyIsim)
         }
 
-        val barWidth: Float
-        val barSpace: Float
-        val groupSpace: Float
+        val barWidth = 0.3f
+        val barSpace = 0f
+        val groupSpace = 0.4f
 
-        barWidth = 0.3f
-        barSpace = 0f
-        groupSpace = 0.4f
         barchart!!.setDescription(null)
         barchart!!.setPinchZoom(false)
         barchart!!.setScaleEnabled(false)
@@ -436,11 +506,11 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
 
         val xVals =  isimler
 
-        var set1 =  BarDataSet(entriesGood, "Temiz Gün");
+        val set1 =  BarDataSet(entriesGood, UserPortal.myLangResource!!.getString(R.string.ClearDay))
         set1.setColor(ContextCompat.getColor(activity, R.color.barGreen));
-        var set2 = BarDataSet(entriesBad, "Kötü Gün");
+        val set2 = BarDataSet(entriesBad, UserPortal.myLangResource!!.getString(R.string.BadDay))
         set2.setColor(ContextCompat.getColor(activity, R.color.barRed));
-        var data =  BarData(set1, set2);
+        val data =  BarData(set1, set2)
         data.setValueTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
         data.setValueFormatter(LargeValueFormatter());
         barchart!!.setData(data)
@@ -451,18 +521,18 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         barchart!!.getData().setHighlightEnabled(false);
         barchart!!.invalidate();
 
-        var l = barchart!!.getLegend();
+        val l = barchart!!.getLegend()
         l.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(true);
-        l.setYOffset(20f);
-        l.setXOffset(0f);
-        l.setYEntrySpace(0f);
-        l.setTextSize(8f);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT)
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        l.setDrawInside(true)
+        l.setYOffset(20f)
+        l.setXOffset(0f)
+        l.setYEntrySpace(0f)
+        l.setTextSize(8f)
 
-        var xAxis = barchart!!.getXAxis();
+        val xAxis = barchart!!.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setCenterAxisLabels(true);
@@ -473,9 +543,9 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         xAxis.setAxisMaximum(6.toFloat());
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(IndexAxisValueFormatter(xVals));
-        //Y-axis
+
         barchart!!.getAxisRight().setEnabled(false);
-        var leftAxis = barchart!!.getAxisLeft();
+        val leftAxis = barchart!!.getAxisLeft();
         leftAxis.setValueFormatter(LargeValueFormatter());
         leftAxis.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
         leftAxis.setAxisLineColor(ContextCompat.getColor(activity, R.color.textColorPrimary))

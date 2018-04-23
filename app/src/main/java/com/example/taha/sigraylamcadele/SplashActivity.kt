@@ -11,6 +11,7 @@ import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import io.paperdb.Paper
 import retrofit2.Call
@@ -33,13 +34,13 @@ class SplashActivity : AppCompatActivity() {
         UserPortal.myLangResource = context.resources
 
 
-        var myUser = Portal.autoLogin(this)
+        val myUser = Portal.autoLogin(this)
 
         if(myUser != null)
         {
             val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
-            var result = apiInterface?.tokenAl(myUser.Username!! ,myUser.Password!!,"password")
+            val result = apiInterface?.tokenAl(myUser.Username!! ,myUser.Password!!,"password")
 
             result?.enqueue(object: Callback<LoginResponse>{
                 override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
@@ -49,20 +50,35 @@ class SplashActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
                     if(response?.message()?.toString() == "OK")
                     {
-                        val body = response?.body()
-                        var intent = Intent(this@SplashActivity,AnaEkranActivity::class.java)
+                        val body = response.body()
                         myUser.AccessToken = body?.access_token
                         UserPortal.loggedInUser = myUser
                         UserPortal.updateUserInfo()
-                        startActivity(intent)
-                        finish()
+                        UserPortal.getLikes()
+
+                        val getDates = apiInterface.getDates("Bearer ${body!!.access_token!!}")
+                        getDates.enqueue(object:Callback<ArrayList<UserDate>>{
+                            override fun onFailure(call: Call<ArrayList<UserDate>>?, t: Throwable?) {
+                                redirectToLogin()
+                            }
+
+                            override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
+                                if(response?.code() == 200) {
+                                    UserPortal.userDates = response.body()
+                                    val intent = Intent(this@SplashActivity,AnaEkranActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }else {
+                                    redirectToLogin()
+                                }
+                            }
+                        })
                     }else
                     {
                         redirectToLogin()
                         UserPortal.deleteLoggedInUser(this@SplashActivity)
                     }
                 }
-
             })
         }else
         {

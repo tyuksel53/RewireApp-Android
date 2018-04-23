@@ -103,6 +103,8 @@
     <string name="kaydet">Kaydet</string>
     <string name="Sigara_hata_max">Sigara sayısı 2147483646 \'ü geçmemelidir</string>
     <string name="hata_sifir">Değer 0 olamaz</string>
+    <string name="ClearDay">Temiz Gün</string>
+    <string name="BadDay">Kötü Gün</string>
 
 
 </resources>

@@ -18,6 +18,7 @@ import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
@@ -195,7 +196,9 @@ class RegisterActivity : AppCompatActivity() {
                                         UserPortal.loggedInUser = newUser
                                         UserPortal.insertNewUser(this@RegisterActivity, newUser)
                                         UserPortal.updateUserInfo()
-                                        var intent = Intent(this@RegisterActivity,AnaEkranActivity::class.java)
+                                        UserPortal.getLikes()
+                                        UserPortal.userDates = ArrayList()
+                                        val intent = Intent(this@RegisterActivity,AnaEkranActivity::class.java)
                                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         startActivity(intent)
                                         finish()

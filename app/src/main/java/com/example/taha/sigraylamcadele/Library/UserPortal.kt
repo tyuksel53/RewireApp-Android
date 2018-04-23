@@ -10,6 +10,7 @@ import com.example.taha.sigraylamcadele.Database.DbContract
 import com.example.taha.sigraylamcadele.Model.ShareLike
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.Model.UserDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,7 @@ object UserPortal {
     var hasSharesChanged = false
     var myLangResource: Resources? = null
     private var userLikeds:ArrayList<ShareLike>? = null
+    var userDates:ArrayList<UserDate>? = null
 
     override  fun toString(): String {
 
