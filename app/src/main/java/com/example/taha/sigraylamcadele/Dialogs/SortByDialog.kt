@@ -1,9 +1,12 @@
 package com.example.taha.sigraylamcadele.Dialogs
 
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.app.DialogFragment
 import android.os.Bundle
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +39,11 @@ class SortByDialog : DialogFragment(),TimeOptionsDialog.onSortSelectedListener {
         new = view.findViewById<TextView>(R.id.tvSortByNew)
         likes = view.findViewById<TextView>(R.id.tvSortByLikes)
 
-        updateLang()
+        val context = LocaleHelper.setLocale(activity, Paper.book().read<String>("language"))
+        UserPortal.myLangResource = context.resources
+
+        new?.setText(UserPortal.myLangResource?.getString(R.string.yeni))
+        likes?.setText(UserPortal.myLangResource?.getString(R.string.top_likes))
 
         new?.setOnClickListener {
             myInterface.sortSelected("yeni-Tum-${UserPortal.myLangResource?.getString(R.string.yeni_gonderiler)}")
@@ -56,19 +63,22 @@ class SortByDialog : DialogFragment(),TimeOptionsDialog.onSortSelectedListener {
         return view
     }
 
-    override fun onAttach(context: Context?) {
-        myInterface = targetFragment as sortSelected
+    @TargetApi(23)
+    override fun onAttach(context:Context) {
         super.onAttach(context)
+        onAttachToContext(context)
     }
 
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        {
+            onAttachToContext(activity)
+        }
+    }
 
-    fun updateLang()
-    {
-        val context = LocaleHelper.setLocale(activity, Paper.book().read<String>("language"))
-        UserPortal.myLangResource = context.resources
-
-        new?.setText(UserPortal.myLangResource?.getString(R.string.yeni))
-        likes?.setText(UserPortal.myLangResource?.getString(R.string.top_likes))
+    protected fun onAttachToContext(context:Context) {
+        myInterface = targetFragment as sortSelected
     }
 
 

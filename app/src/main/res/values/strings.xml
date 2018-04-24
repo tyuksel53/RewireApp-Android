@@ -111,6 +111,11 @@
     <string name="rank">Rank</string>
     <string name="username">Username</string>
     <string name="clear_day">Clear Day</string>
+    <string name="Hareketlerin">Your Actions</string>
+    <string name="paylasimlarin">Your Posts</string>
+    <string name="en_iyi_seri">Best Strike</string>
+    <string name="şuanki_seri">Current Strike</string>
+    <string name="begenilerin">Your Likes</string>
 
 
 </resources>

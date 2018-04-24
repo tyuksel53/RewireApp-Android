@@ -114,4 +114,9 @@
     <string name="username">Kullanıcı Adı</string>
     <string name="clear_day">Temiz Gün</string>
 
+    <string name="Hareketlerin">Geçmiş Aktivitelerin</string>
+    <string name="paylasimlarin">Paylaşımların</string>
+    <string name="en_iyi_seri">En iyi seri</string>
+    <string name="şuanki_seri">Şuanki seri</string>
+
 </resources>

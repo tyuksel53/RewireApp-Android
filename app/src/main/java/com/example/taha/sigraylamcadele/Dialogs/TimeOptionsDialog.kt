@@ -1,9 +1,12 @@
 package com.example.taha.sigraylamcadele.Dialogs
 
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.app.DialogFragment
 import android.os.Bundle
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,9 +85,22 @@ class TimeOptionsDialog : DialogFragment() {
         return view
     }
 
-    override fun onAttach(context: Context?) {
-        myOnSortSelectedListener = targetFragment as onSortSelectedListener
+    @TargetApi(23)
+    override fun onAttach(context:Context) {
         super.onAttach(context)
+        onAttachToContext(context)
+    }
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        {
+            onAttachToContext(activity)
+        }
+    }
+
+    protected fun onAttachToContext(context:Context) {
+        myOnSortSelectedListener = targetFragment as onSortSelectedListener
     }
 
 

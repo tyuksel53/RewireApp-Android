@@ -172,7 +172,6 @@ class RegisterActivity : AppCompatActivity() {
 
                         if(response?.message()?.toString() == "OK")
                         {
-
                             val getToken = apiInterface?.tokenAl(newUser.Username!!,newUser.Password!!
                                     ,"password")
                             getToken?.enqueue(object:Callback<LoginResponse>{
@@ -187,6 +186,7 @@ class RegisterActivity : AppCompatActivity() {
                                 override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
                                     if(response?.message()?.toString() == "OK")
                                     {
+                                        setLanguage(newUser.Language!!)
                                         val tokenBody = response.body()
                                         newUser.AccessToken = tokenBody?.access_token
 
@@ -248,6 +248,22 @@ class RegisterActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun setLanguage(lang:String) {
+        when(lang)
+        {
+            "türkçe" ->
+            {
+                Paper.book().write("language","tr")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+            "english" ->
+            {
+                Paper.book().write("language","en")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+        }
     }
 
     private fun updateView(lang: String) {

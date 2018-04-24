@@ -1,8 +1,11 @@
 package com.example.taha.sigraylamcadele.Dialogs
 
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -191,11 +194,25 @@ class DilSecDialog : android.app.DialogFragment() {
         updateView(Paper.book().read<String>("language"))
     }
 
-    override fun onAttach(context: Context?) {
-
-        myLangChanceInterface = targetFragment as onLanguageChanged
-
+    @TargetApi(23)
+    override fun onAttach(context:Context) {
         super.onAttach(context)
+        onAttachToContext(context)
+    }
+    /*
+    * Deprecated on API 23
+    * Use onAttachToContext instead
+    */
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        {
+            onAttachToContext(activity)
+        }
+    }
+
+    protected fun onAttachToContext(context:Context) {
+        myLangChanceInterface = targetFragment as onLanguageChanged
     }
 
     private fun updateView(lang: String?) {

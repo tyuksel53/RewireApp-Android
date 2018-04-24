@@ -16,57 +16,38 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView8"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/user_ico"
-            android:tint="@color/textColorSecondary"
-            app:civ_border_color="#888888"
-            app:civ_border_width="3dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view20"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view20" />
-
         <TextView
             android:id="@+id/tvAnaEkranUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="Username"
             android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView8"
+            app:layout_constraintStart_toStartOf="@+id/circleImageView8"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView8" />
 
-        <View
-            android:id="@+id/view20"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:background="@color/cardview_shadow_start_color"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView8"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/user_gray"
+            android:tint="@color/textColorSecondary"
+            app:civ_border_color="#888888"
+            app:civ_border_width="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvAnaEkranKayitTarihi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Date"
-            android:textColor="@color/textColorSecondary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranUsername" />
 
         <TextView
             android:id="@+id/tvAnaEkranAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Your Actions"
+            android:text="@string/Hareketlerin"
             android:textColor="@color/textColorPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +56,11 @@
         <View
             android:id="@+id/view23"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="2dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:background="@color/cardview_shadow_end_color"
+            android:background="@color/colorBackgroundFloatingDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranAction" />
@@ -100,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="Your Posts"
+            android:text="@string/paylasimlarin"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:tint="@color/myRed"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_action_heart"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="Your Likes"
+            android:text="@string/begenilerin"
             android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/imageView18"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,64 +114,73 @@
 
         <ImageView
             android:id="@+id/imageView20"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:tint="@color/colorAccent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_check_circle"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView21"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toTopOf="@+id/imageView21" />
+            app:layout_constraintStart_toEndOf="@+id/circleImageView8"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranCurrentNumber" />
 
         <ImageView
             android:id="@+id/imageView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="32dp"
+            android:tint="@color/colorAccent"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_assignment_turned_in"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranKayitTarihi" />
+            app:layout_constraintEnd_toStartOf="@+id/circleImageView8"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranBestStrikeNumber" />
 
         <TextView
             android:id="@+id/tvAnaEkranBestStrikeNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="100"
             android:textColor="@color/textColorPrimary"
-            app:layout_constraintStart_toEndOf="@+id/imageView21"
-            app:layout_constraintTop_toTopOf="@+id/imageView21" />
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranUsername" />
 
         <TextView
             android:id="@+id/tvAnaEkranBestStrikeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Best Strike"
+            android:text="@string/en_iyi_seri"
             android:textColor="@color/textColorSecondary"
-            app:layout_constraintStart_toEndOf="@+id/imageView21"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranBestStrikeNumber" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
         <TextView
             android:id="@+id/tvAnaEkranCurrentNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="5"
             android:textColor="@color/textColorPrimary"
-            app:layout_constraintStart_toEndOf="@+id/imageView20"
-            app:layout_constraintTop_toTopOf="@+id/imageView20" />
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView20"
+            app:layout_constraintStart_toStartOf="@+id/imageView20"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranUsername" />
 
         <TextView
             android:id="@+id/tvAnaEkranCurrentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Current Strike"
+            android:text="@string/şuanki_seri"
             android:textColor="@color/textColorSecondary"
-            app:layout_constraintStart_toEndOf="@+id/imageView20"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnaEkranCurrentNumber" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView20"
+            app:layout_constraintStart_toStartOf="@+id/imageView20"
+            app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
     </android.support.constraint.ConstraintLayout>
 
