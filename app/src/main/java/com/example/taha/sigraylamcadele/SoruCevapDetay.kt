@@ -143,7 +143,7 @@ class SoruCevapDetay : AppCompatActivity() {
                 pbShareDetay.visibility = View.INVISIBLE
                 if(response?.code() == 200)
                 {
-                    var body = response?.body()
+                    val body = response?.body()
                     adapter = CommentAdapter(body!!,inComingShare,this@SoruCevapDetay)
                     rvShareDetayComments.adapter = adapter
                     val myManager = LinearLayoutManager(this@SoruCevapDetay,LinearLayoutManager.VERTICAL,false)

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.taha.sigraylamcadele.Fragments.IstatistikFragment">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/button_dalgalanma"
             android:text="@string/degisiklikleri_kaydet"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,21 +35,6 @@
             app:mcv_selectionColor="@color/colorBackgroundDark"
             app:mcv_showOtherDates="all" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chartGun"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginBottom="700dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnIstatistikSaveChanges" />
-
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chartSigara"
             android:layout_width="0dp"
@@ -56,10 +42,36 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chartGun" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chartAll"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chartSigara" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartGun"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnIstatistikSaveChanges" />
+
+
     </android.support.constraint.ConstraintLayout>
 
 

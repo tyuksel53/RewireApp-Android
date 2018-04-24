@@ -15,9 +15,9 @@ class User {
     var Language:String? = null
     var LastLoginTime:String? = null
     var RegisteredDate:String? = null
-
+    var ClearDayCount:Int? = null
     constructor(username:String, password:String, role:String, email:String?, accessToken:String?
-                ,timeZoneId:String?,language:String?,lastLoginTime:String?,registeredDate:String?)
+                ,timeZoneId:String?,language:String?,lastLoginTime:String?,registeredDate:String?,clearDayCount:Int?)
     {
         this.Username = username
         this.Email = email
@@ -28,6 +28,7 @@ class User {
         this.Language = language
         this.LastLoginTime = lastLoginTime
         this.RegisteredDate = registeredDate
+        this.ClearDayCount = clearDayCount
     }
 
     constructor()

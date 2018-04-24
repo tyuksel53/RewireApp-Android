@@ -139,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if(registerControl)
             {
-                var newUser = User(username = edRegisterUserName.text.toString(),
+                val newUser = User(username = edRegisterUserName.text.toString(),
                         password = edRegisterPass.text.toString(),
                         role = "user",
                         email = edRegisterMail.text.toString(),
@@ -147,7 +147,8 @@ class RegisterActivity : AppCompatActivity() {
                         timeZoneId = spTimeZones.getSelectedItem().toString(),
                         language = spLanguage.getSelectedItem().toString(),
                         lastLoginTime = null,
-                        registeredDate = null)
+                        registeredDate = null,
+                        clearDayCount = null)
 
 
                 val apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
@@ -167,7 +168,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
 
-                        var body = response?.errorBody()?.string()
+                        val body = response?.errorBody()?.string()
 
                         if(response?.message()?.toString() == "OK")
                         {

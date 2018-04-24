@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.UserDate
 
@@ -32,12 +33,14 @@ class SmokeDialog : DialogFragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.dialog_smoke, container, false)
         val btnSave = view.findViewById<Button>(R.id.btnSmokeCountSave)
+        btnSave.setText(UserPortal.myLangResource!!.getString(R.string.kaydet))
         val smokeCountTxt = view.findViewById<MaterialEditText>(R.id.edSmokeCountDialog)
+        smokeCountTxt.setHint(UserPortal.myLangResource!!.getString(R.string.sigara_sayis))
         val header = view.findViewById<TextView>(R.id.tvSmokeCountHeader)
         val type = arguments.getString("type")
         val check = arguments.getSerializable("check") as UserDate
         val date = arguments.getString("date")
-        header.text = date.split('T')[0]  + UserPortal.myLangResource!!.getString(R.string.tarihinde_ne_kadar_sigara_ictin)
+        header.text = Portal.textDateToFormatted(date)  + "\n\n"+  UserPortal.myLangResource!!.getString(R.string.tarihinde_ne_kadar_sigara_ictin)
 
 
         btnSave.setOnClickListener {

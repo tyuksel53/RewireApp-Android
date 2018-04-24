@@ -16,7 +16,7 @@
     <string name="hataGirisKullanıcıadi">Username cannot be empty</string>
     <string name="hataGirisSifre">Password cannot be empty</string>
     <string name="hataBaglantiBozuk">Please check your Internet connection !</string>
-    <string name="hataBirSeylerTers">Something went wrong</string>
+    <string name="hataBirSeylerTers">Something went wrong. Please try again</string>
 
     <string name="mail_adresiniz">Email Address</string>
     <string name="sifrenizi_girin">Password</string>
@@ -89,4 +89,22 @@
     <string name="son_bir_gun">Past 24 Hours</string>
     <string name="bir_saat_once">Past Hour</string>
     <string name="yeni">New</string>
+
+    <string name="kac_tane_sigara_ictin">How many cigarettes did you smoke?</string>
+    <string name="degisiklikleri_kaydet">Save Changes</string>
+    <string name="smokeCountBos">Cigarette count cannot be empty</string>
+    <string name="smokeCountNegative">Cigarette count cannot be negative</string>
+    <string name="degisikler_kaydedildi">Changes Saved</string>
+    <string name="tarihinde_ne_kadar_sigara_ictin">How many cigarettes did you smoke?</string>
+    <string name="sigara_sayis">Smoked Cigarettes Count</string>
+    <string name="kaydet">Save</string>
+    <string name="Sigara_hata_max">The number of cigarettes must not exceed 2147483646.</string>
+    <string name="hata_sifir">Value cannot be zero</string>
+    <string name="ClearDay">Clear Day</string>
+    <string name="BadDay">Smoking Day</string>
+    <string name="Sigara_Sayisi">Cigarette count</string>
+    <string name="ButunGunler">All Days</string>
+    <string name="rank">Rank</string>
+    <string name="username">Username</string>
+    <string name="clear_day">Clear Day</string>
 </resources>

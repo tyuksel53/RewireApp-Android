@@ -105,6 +105,12 @@
     <string name="hata_sifir">Değer 0 olamaz</string>
     <string name="ClearDay">Temiz Gün</string>
     <string name="BadDay">Kötü Gün</string>
+    <string name="Sigara_Sayisi">İçilen Sigara Sayısı</string>
+    <string name="ButunGunler">Bütün Günler</string>
+
+    <string name="rank">Rank</string>
+    <string name="username">Username</string>
+    <string name="clear_day">Clear Day</string>
 
 
 </resources>

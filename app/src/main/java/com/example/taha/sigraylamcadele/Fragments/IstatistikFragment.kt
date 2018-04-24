@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
@@ -21,10 +20,12 @@ import com.example.taha.sigraylamcadele.Model.UserDate
 
 import com.example.taha.sigraylamcadele.R
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.CombinedChart
+import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.LargeValueFormatter
@@ -33,7 +34,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fragment_istatistik.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -94,7 +94,9 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
     val userUpdateselections = ArrayList<UserDate>()
     var barchart:BarChart?=null
     var combineChart:LineChart? = null
+    var pieChart:PieChart? = null
     lateinit var btnSave:Button
+    var today:Date? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         responseBody = UserPortal.userDates
         val view =  inflater!!.inflate(R.layout.fragment_istatistik, container, false)
@@ -115,7 +117,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         calendar.setDateTextAppearance(R.color.textColorPrimary)
         btnSave = view.findViewById<Button>(R.id.btnIstatistikSaveChanges)
         btnSave.visibility = View.INVISIBLE
-
+        btnSave.setText(UserPortal.myLangResource!!.getString(R.string.degisiklikleri_kaydet))
 
         btnSave.setOnClickListener {
             val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
@@ -172,8 +174,8 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         // btnsave end
         barchart = view.findViewById(R.id.chartGun)
         combineChart = view.findViewById(R.id.chartSigara)
-        barchart!!.visibility = View.VISIBLE
-        initBarChart()
+        pieChart = view.findViewById(R.id.chartAll)
+
         if(UserPortal.loggedInUser?.LastLoginTime != null)
         {
             var currentDay = CalendarDay.from(
@@ -194,9 +196,11 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                 rangeCalander.add(Calendar.DATE, 1);
             }
             // today
-            val result = rangeCalander.getTime()
-            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
+            today = rangeCalander.getTime()
+            initBarChart()
+            calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(today!!),
                     ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!))
+
             for(i in 0 until responseBody!!.size)
             {
                 val date  = CalendarDay.from(
@@ -355,6 +359,11 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                     Toast.LENGTH_LONG)
                     .show()
+            barchart!!.visibility = View.INVISIBLE
+            calendar!!.visibility = View.INVISIBLE
+            pieChart!!.visibility = View.INVISIBLE
+            combineChart!!.visibility = View.INVISIBLE
+            UserPortal.updateUserInfo()
         }
 
         return view
@@ -365,50 +374,66 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         val isimler = ArrayList<String>()
         if(listAy.size == 0)
         {
+            isimler.add(getMonthForInt(today!!.month))
+            entries.add(Entry(0f, 0f))
 
         }else
         {
+
             for(i in 0 until listAy.size)
             {
                 entries.add(Entry(i.toFloat(), listAy[i].SmokeCount))
                 isimler.add(listAy[i].AyIsim)
             }
 
-            var xVals = isimler
-
-            var yVals = entries
-
-            var set1 = LineDataSet(yVals, "DataSet 1");
-
-            // create a dataset and give it a ty
-            set1.setFillAlpha(110);
-            // set1.setFillColor(Color.RED);
-
-            // set the line to be drawn like this "- - - - - -"
-            // set1.enableDashedLine(10f, 5f, 0f);
-            // set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.WHITE);
-            set1.setCircleColor(Color.WHITE);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
-
-            var dataSets =  ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            var data =  LineData(dataSets);
-
-            // set data
-            combineChart!!.setData(data);
-            combineChart!!.setDescription(null)
-            combineChart!!.setPinchZoom(false)
-            combineChart!!.setScaleEnabled(false)
-            combineChart!!.setDrawGridBackground(false)
-            combineChart!!.invalidate();
         }
+        val setComp1 =  LineDataSet(entries, UserPortal.myLangResource!!.getString(R.string.Sigara_Sayisi))
+        setComp1.setColor(ContextCompat.getColor(activity, R.color.myRed))
+        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        setComp1.setCircleColor(Color.WHITE)
+        val dataSets =  ArrayList<ILineDataSet>()
+        dataSets.add(setComp1)
+
+        combineChart!!.setDescription(null)
+        combineChart!!.setPinchZoom(false)
+        combineChart!!.setScaleEnabled(false)
+        combineChart!!.setDrawGridBackground(false)
+
+        val data =  LineData(dataSets)
+        data.setValueTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        data.setValueFormatter(LargeValueFormatter())
+        combineChart!!.setData(data)
+        combineChart!!.invalidate()
+
+        val xAxis = combineChart!!.getXAxis()
+        xAxis.setValueFormatter(IndexAxisValueFormatter(isimler))
+        xAxis.setAxisLineColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        xAxis.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        xAxis.setAxisLineColor(R.color.textColorPrimary)
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        xAxis.setAxisMaximum(6.toFloat())
+
+        val l = combineChart!!.getLegend()
+        l.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT)
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        l.setDrawInside(true)
+        l.setYOffset(20f)
+        l.setXOffset(0f)
+        l.setYEntrySpace(0f)
+        l.setTextSize(8f)
+        val rightAxis = combineChart!!.getAxisRight()
+        rightAxis.setEnabled(false)
+
+
+        val leftAxis = combineChart!!.getAxisLeft();
+        leftAxis.setValueFormatter(LargeValueFormatter());
+        leftAxis.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        leftAxis.setAxisLineColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+        leftAxis.setSpaceTop(35f)
+        leftAxis.setAxisMinimum(0f)
+        leftAxis.setDrawAxisLine(true)
     }
 
     private fun initBarChart() {
@@ -454,34 +479,16 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                 listAy.add(deneme)
             }
             initSigaraChart(listAy)
+            initPieChart(listAy)
         }else
         {
-            initSigaraChart(ArrayList<GrafikAy>())
-            isimler.add(getMonthForInt(6))
-            isimler.add(getMonthForInt(5))
-            isimler.add(getMonthForInt(4))
-            isimler.add(getMonthForInt(3))
-            isimler.add(getMonthForInt(2))
-            isimler.add(getMonthForInt(1))
-            isimler.add(getMonthForInt(0))
+            initSigaraChart(ArrayList())
+            initPieChart(ArrayList())
+            isimler.add(getMonthForInt(today!!.month))
 
             entriesGood.add(BarEntry(0.toFloat(), 0.toFloat()))
             entriesBad.add(BarEntry(0.toFloat(),  0.toFloat()))
 
-            entriesGood.add(BarEntry(1.toFloat(), 0.toFloat()))
-            entriesBad.add(BarEntry(1.toFloat(),  0.toFloat()))
-
-            entriesGood.add(BarEntry(2.toFloat(), 0.toFloat()))
-            entriesBad.add(BarEntry(2.toFloat(),  0.toFloat()))
-
-            entriesGood.add(BarEntry(3.toFloat(), 0.toFloat()))
-            entriesBad.add(BarEntry(3.toFloat(),  0.toFloat()))
-
-            entriesGood.add(BarEntry(4.toFloat(), 0.toFloat()))
-            entriesBad.add(BarEntry(4.toFloat(),  0.toFloat()))
-
-            entriesGood.add(BarEntry(5.toFloat(), 0.toFloat()))
-            entriesBad.add(BarEntry(5.toFloat(),  0.toFloat()))
         }
 
 
@@ -552,6 +559,49 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         leftAxis.setDrawGridLines(true);
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
+    }
+
+    private fun initPieChart(listAy: ArrayList<GrafikAy>) {
+        val entries =  ArrayList<PieEntry>()
+        val isimler = ArrayList<String>()
+        if(listAy.size == 0)
+        {
+            isimler.add(getMonthForInt(today!!.month))
+            entries.add(PieEntry(0f, 0f))
+
+        }else
+        {
+            var goodDayCount = 0
+            var badDayCount = 0
+            for(i in 0 until listAy.size)
+            {
+                goodDayCount+= listAy[i].GoodDay
+                badDayCount += listAy[i].BadDay
+            }
+            entries.add(PieEntry(goodDayCount.toFloat()))
+            entries.add(PieEntry(badDayCount.toFloat()))
+        }
+        val pieDataSet =  PieDataSet(entries, UserPortal.myLangResource!!.getString(R.string.ButunGunler))
+        pieDataSet.setSliceSpace(2f)
+        pieDataSet.setValueTextSize(12f)
+        //add colors to dataset
+        val colors =  ArrayList<Int>()
+        colors.add(ContextCompat.getColor(activity, R.color.barGreen))
+        colors.add(ContextCompat.getColor(activity, R.color.barRed))
+
+        pieDataSet.setColors(colors)
+
+        //add legend to chart
+        var legend = pieChart!!.getLegend()
+        legend.setForm(Legend.LegendForm.CIRCLE)
+        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART)
+        legend.setTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))
+
+        val pieData =  PieData(pieDataSet)
+        pieChart!!.setData(pieData)
+        pieChart!!.setDescription(null)
+        pieChart!!.setHoleColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark))
+        pieChart!!.invalidate()
     }
 
     fun getDrawable(type:Int):Int

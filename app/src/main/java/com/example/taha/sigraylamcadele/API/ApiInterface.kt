@@ -81,4 +81,7 @@ interface ApiInterface {
                     @Header("Content-type") content_type:String = "application/json",
                     @Body dates:ArrayList<UserDate>):Call<String>
 
+    @GET("User/GetLeaderboard")
+    fun getLeaderBoard(@Header("Authorization") access_token:String):Call<ArrayList<User>>
+
 }

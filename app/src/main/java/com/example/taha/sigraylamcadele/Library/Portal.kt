@@ -73,6 +73,14 @@ class Portal {
             return formatter.format(date)
         }
 
+        fun textDateToFormatted(text:String):String
+        {
+            val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            val date = parser.parse(text)
+            val formatter = SimpleDateFormat("d MMMM yyyy, EEEE")
+            return formatter.format(date)
+        }
+
     }
 
 }

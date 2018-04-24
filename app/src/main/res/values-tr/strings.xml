@@ -19,7 +19,7 @@
     <string name="hataGirisKullanıcıadi">"Kullanici Adi boş olamaz"</string>
     <string name="hataGirisSifre">Şifre boş olamaz</string>
     <string name="hataBaglantiBozuk">İnternet bağlantınızı kontrol edin</string>
-    <string name="hataBirSeylerTers">Bir şeyler ters gitti</string>
+    <string name="hataBirSeylerTers">Bir şeyler ters gitti.Lütfen tekrar deneyin</string>
 
     <string name="mail_adresiniz">Mail Adresiniz</string>
     <string name="sifrenizi_girin">Şifrenizi Girin</string>
@@ -92,5 +92,26 @@
     <string name="son_bir_hafta">Son bir hafta</string>
     <string name="son_bir_gun">Son bir gün</string>
     <string name="bir_saat_once">Bir saat önce</string>
+
+    <string name="yeni">Yeni</string>
+
+    <string name="kac_tane_sigara_ictin">Kaç tane sigara içtin</string>
+    <string name="degisiklikleri_kaydet">Değişiklikleri Kaydet</string>
+    <string name="smokeCountBos">İçilen sigara sayısı boş olamaz</string>
+    <string name="smokeCountNegative">Sigara sayısı negatif olamaz</string>
+    <string name="degisikler_kaydedildi">Değişikler Kaydedildi</string>
+    <string name="tarihinde_ne_kadar_sigara_ictin">Tarihinde ne kadar sigara içtin ?</string>
+    <string name="sigara_sayis">Sigara Sayısı</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="Sigara_hata_max">Sigara sayısı 2147483646 \'ü geçmemelidir</string>
+    <string name="hata_sifir">Değer 0 olamaz</string>
+    <string name="ClearDay">Temiz Gün</string>
+    <string name="BadDay">Kötü Gün</string>
+    <string name="Sigara_Sayisi">İçilen Sigara Sayısı</string>
+    <string name="ButunGunler">Bütün Günler</string>
+
+    <string name="rank">Sıra</string>
+    <string name="username">Kullanıcı Adı</string>
+    <string name="clear_day">Temiz Gün</string>
 
 </resources>

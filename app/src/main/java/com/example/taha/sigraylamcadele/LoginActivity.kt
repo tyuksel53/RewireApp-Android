@@ -73,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                                         null,
                                         null,
                                         null,
+                                        null,
                                         null)
 
                                 UserPortal.loggedInUser = loggedInUser
