@@ -22,9 +22,7 @@ class AnasayfaFragment : android.app.Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater!!.inflate(R.layout.fragment_anasayfa, container, false)
 
-        val textView = view.findViewById<TextView>(R.id.anasayfaText)
 
-        textView.text = UserPortal.toString()
 
         return view
     }
