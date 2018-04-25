@@ -118,5 +118,7 @@
     <string name="paylasimlarin">Paylaşımların</string>
     <string name="en_iyi_seri">En iyi seri</string>
     <string name="şuanki_seri">Şuanki seri</string>
+    <string name="begenilerin">Favorilerin</string>
+    <string name="no_data">Gösterilecek veri yok</string>
 
 </resources>

@@ -19,7 +19,11 @@ class AnaEkranActivity : AppCompatActivity() {
         setContentView(R.layout.ana_ekran_activity)
 
         updateView(Paper.book().read("language"))
-
+        UserPortal.getLikes()
+        if(UserPortal.isUserNotUpdated)
+        {
+            UserPortal.updateUserInfo()
+        }
         val anasayfaFragment = AnasayfaFragment()
         val istatistikFragment = IstatistikFragment()
         val grupFragment = GrupFragment()

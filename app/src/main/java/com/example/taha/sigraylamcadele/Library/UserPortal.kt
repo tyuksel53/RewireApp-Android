@@ -28,7 +28,7 @@ object UserPortal {
     var myLangResource: Resources? = null
     private var userLikeds:ArrayList<ShareLike>? = null
     var userDates:ArrayList<UserDate>? = null
-    var datesHasChanged = false
+    var isUserNotUpdated = true
     override  fun toString(): String {
 
 
@@ -128,7 +128,6 @@ object UserPortal {
         this.newShare = false
         this.shares = null
         this.userDates = null
-        this.datesHasChanged = false
     }
 
     fun fixDate(date:String):String
@@ -160,6 +159,7 @@ object UserPortal {
                     loggedInUser?.TimeZoneId = body?.TimeZoneId
                     loggedInUser?.Role = body?.Role
                     loggedInUser?.RegisteredDate = body?.RegisteredDate
+                    isUserNotUpdated = false
                 }
             }
 

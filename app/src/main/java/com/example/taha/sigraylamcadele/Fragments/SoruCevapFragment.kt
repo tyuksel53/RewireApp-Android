@@ -2,14 +2,12 @@ package com.example.taha.sigraylamcadele.Fragments
 
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +19,7 @@ import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Adapter.SoruCevapAdapter
 import com.example.taha.sigraylamcadele.Dialogs.SortByDialog
-import com.example.taha.sigraylamcadele.Dialogs.TimeOptionsDialog
-import com.example.taha.sigraylamcadele.InsertShare
+import com.example.taha.sigraylamcadele.InsertUpdateShareActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
@@ -83,7 +80,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
         val fb = view.findViewById<FloatingActionButton>(R.id.fbInsertShare)
 
         fb.setOnClickListener {
-            var intent = Intent(activity,InsertShare::class.java)
+            var intent = Intent(activity,InsertUpdateShareActivity::class.java)
             startActivity(intent)
 
         }

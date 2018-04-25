@@ -114,6 +114,11 @@ class SoruCevapDetay : AppCompatActivity() {
                             adapter!!.add(comment)
                             adapter!!.commentCountChangend()
                             edShareComment.setText("")
+                        }else
+                        {
+                            Toasty.error(this@SoruCevapDetay,
+                                    myResources.getString(R.string.hataBirSeylerTers),
+                                    Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -148,6 +153,11 @@ class SoruCevapDetay : AppCompatActivity() {
                     rvShareDetayComments.adapter = adapter
                     val myManager = LinearLayoutManager(this@SoruCevapDetay,LinearLayoutManager.VERTICAL,false)
                     rvShareDetayComments!!.layoutManager = myManager
+                }else
+                {
+                    Toasty.error(this@SoruCevapDetay,
+                            myResources.getString(R.string.hataBirSeylerTers),
+                            Toast.LENGTH_SHORT).show()
                 }
             }
 

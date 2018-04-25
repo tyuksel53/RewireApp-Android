@@ -1,11 +1,8 @@
 package com.example.taha.sigraylamcadele.Adapter
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -13,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.ArrayAdapter
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
@@ -28,8 +24,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Toast
+import com.example.taha.sigraylamcadele.InsertUpdateShareActivity
 
 
 class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): RecyclerView.Adapter<SoruCevapAdapter.SoruCevapViewHolder>() {
@@ -92,36 +88,80 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
         @SuppressLint("ResourceAsColor")
         fun setData(share:Shares,position: Int)
         {
-
-        var adp= ArrayAdapter<String>(context,
-                                    android.R.layout.simple_list_item_1,
-                arrayOf(UserPortal.myLangResource!!.getString(R.string.Raporla)))
-        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.setAdapter(adp)
-        val listener = object:AdapterView.OnItemSelectedListener {
+            val list = ArrayList<String>()
+            list.add(UserPortal.myLangResource!!.getString(R.string.Raporla))
+            if(share.UserID == UserPortal.loggedInUser!!.Username)
+            {
+                list.add(UserPortal.myLangResource!!.getString(R.string.Sil))
+                list.add(UserPortal.myLangResource!!.getString(R.string.Düzenle))
+            }
+            val adp= ArrayAdapter<String>(context,
+                                        android.R.layout.simple_list_item_1,
+                    list)
+            adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.setAdapter(adp)
+            val listener = object:AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    Toasty.success(context,
-                            UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
-                            Toast.LENGTH_SHORT).show()
+                    val text = spinner.getSelectedItem().toString();
+                    if(UserPortal.myLangResource!!.getString(R.string.Raporla) == text)
+                    {
+                        Toasty.success(context,
+                                UserPortal.myLangResource!!.getString(R.string.Rapor_Iletildi),
+                                Toast.LENGTH_SHORT).show()
 
-                    val result = apiInterface?.shareReport(
-                            "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                            share.ID.toString())
+                        val result = apiInterface?.shareReport(
+                                "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                                share.ID.toString())
 
-                    result?.clone()?.enqueue(object:Callback<String>{
-                        override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        result?.clone()?.enqueue(object:Callback<String>{
+                            override fun onFailure(call: Call<String>?, t: Throwable?) {
 
-                        }
+                            }
 
-                        override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                            override fun onResponse(call: Call<String>?, response: Response<String>?) {
 
-                        }
+                            }
 
-                    })
+                        })
+                    }
+                    if(UserPortal.myLangResource!!.getString(R.string.Sil) == text)
+                    {
+                        Toasty.success(context,
+                                UserPortal.myLangResource!!.getString(R.string.paylasim_silindi),
+                                Toast.LENGTH_SHORT).show()
+                        UserPortal.shares?.remove(share)
+                        dataSource.remove(share)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(0,dataSource.size)
+
+                        val result = apiInterface?.deleteShare(
+                                "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                                share.ID.toString())
+
+                        result?.clone()?.enqueue(object:Callback<String>{
+                            override fun onFailure(call: Call<String>?, t: Throwable?) {
+
+                            }
+
+                            override fun onResponse(call: Call<String>?, response: Response<String>?) {
+
+                            }
+
+                        })
+                    }
+
+                    if(UserPortal.myLangResource!!.getString(R.string.Düzenle) == text)
+                    {
+                        val intent = Intent(context,InsertUpdateShareActivity::class.java)
+                        intent.putExtra("currentShare",share)
+                        intent.putExtra("type",1)
+                        context.startActivity(intent)
+                    }
+
                 }
             }
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -164,7 +204,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                                 isUserCanClick = true
                                 if(response?.code() == 200)
                                 {
-                                    var newLike = ShareLike()
+                                    val newLike = ShareLike()
                                     newLike.ShareId = share.ID
                                     newLike.UserID = UserPortal.loggedInUser!!.Username
                                     UserPortal.insertLikes(newLike)
@@ -174,7 +214,10 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
 
                                     var likeCounts = Integer.parseInt(LikeCount.text.toString())
                                     likeCounts++
-                                    UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    if(UserPortal.shares?.get(position)?.UpVoteCount != null)
+                                    {
+                                        UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    }
                                     share.UpVoteCount = likeCounts
                                     LikeCount.text = "$likeCounts"
                                 }
@@ -187,7 +230,10 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                                     var likeCounts = Integer.parseInt(LikeCount.text.toString())
                                     likeCounts--
                                     LikeCount.text = "$likeCounts"
-                                    UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    if(UserPortal.shares?.get(position)?.UpVoteCount != null)
+                                    {
+                                        UserPortal.shares!![position].UpVoteCount = likeCounts
+                                    }
                                     share.UpVoteCount = likeCounts
                                     UserPortal.removeLikes(check202!!)
                                 }
@@ -202,7 +248,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
             }
 
             cardInfo.setOnClickListener {
-                var intent = Intent(context,SoruCevapDetay::class.java)
+                val intent = Intent(context,SoruCevapDetay::class.java)
                 intent.putExtra("currentShare",UserPortal.shares!![position])
                 intent.putExtra("position",position)
                 it.context.startActivity(intent)

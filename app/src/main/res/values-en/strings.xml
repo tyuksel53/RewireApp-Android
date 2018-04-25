@@ -111,4 +111,6 @@
     <string name="paylasimlarin">Your Posts</string>
     <string name="en_iyi_seri">Best Strike</string>
     <string name="şuanki_seri">Current Strike</string>
+    <string name="begenilerin">Your Likes</string>
+    <string name="no_data">No Data</string>
 </resources>

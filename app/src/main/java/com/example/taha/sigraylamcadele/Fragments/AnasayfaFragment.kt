@@ -1,12 +1,13 @@
 package com.example.taha.sigraylamcadele.Fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.taha.sigraylamcadele.Library.Portal
+import com.example.taha.sigraylamcadele.KulaniciAktiviteActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
 
 import com.example.taha.sigraylamcadele.R
@@ -26,8 +27,18 @@ class AnasayfaFragment : android.app.Fragment() {
         actions.setText(UserPortal.myLangResource!!.getString(R.string.Hareketlerin))
         val posts = view.findViewById<TextView>(R.id.tvAnaEkranPosts)
         posts.setText(UserPortal.myLangResource!!.getString(R.string.paylasimlarin))
+        posts.setOnClickListener {
+            val intent = Intent(activity,KulaniciAktiviteActivity::class.java)
+            intent.putExtra("type",1)
+            startActivity(intent)
+        }
         val likes = view.findViewById<TextView>(R.id.tvAnaEkranLikes)
         likes.setText(UserPortal.myLangResource!!.getString(R.string.begenilerin))
+        likes.setOnClickListener {
+            val intent = Intent(activity,KulaniciAktiviteActivity::class.java)
+            intent.putExtra("type",2)
+            startActivity(intent)
+        }
         val currentStrikeNumber = view.findViewById<TextView>(R.id.tvAnaEkranCurrentNumber)
         val bestStrikeNumber = view.findViewById<TextView>(R.id.tvAnaEkranBestStrikeNumber)
 
@@ -36,14 +47,9 @@ class AnasayfaFragment : android.app.Fragment() {
         var currentStrike = 0
         var flag = false
 
-        if(UserPortal.datesHasChanged)
-        {
-            UserPortal.userDates!!.sortBy { x-> Portal.textToDate(x.Date!!) }
-        }
-
         for(i in 0 until UserPortal.userDates!!.size)
         {
-            if(UserPortal.userDates!![UserPortal.userDates!!.size -1 -i].Type == 1)
+            if(UserPortal.userDates!![i].Type == 1)
             {
                 if(!flag) {
                     currentStrike++
@@ -51,7 +57,7 @@ class AnasayfaFragment : android.app.Fragment() {
                 bestStrike++
             }
 
-            if(UserPortal.userDates!![UserPortal.userDates!!.size -1 -i].Type == 2)
+            if(UserPortal.userDates!![i].Type == 2)
             {
                 flag = true
                 if(bestStrikeDummy < bestStrike)
@@ -73,4 +79,4 @@ class AnasayfaFragment : android.app.Fragment() {
         return view
     }
 
-}// Required empty public constructor
+}

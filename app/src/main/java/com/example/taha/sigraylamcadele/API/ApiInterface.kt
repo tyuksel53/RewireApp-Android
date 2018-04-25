@@ -84,4 +84,20 @@ interface ApiInterface {
     @GET("User/GetLeaderboard")
     fun getLeaderBoard(@Header("Authorization") access_token:String):Call<ArrayList<User>>
 
+    @GET("Share/GetUserLikedShares")
+    fun getUserLikes(@Header("Authorization") access_token:String):Call<ArrayList<Shares>>
+
+
+    @GET("Share/GetUserShares")
+    fun getUserPosts(@Header("Authorization") access_token:String):Call<ArrayList<Shares>>
+
+    @DELETE("Share/DeleteShare")
+    fun deleteShare(@Header("Authorization") access_token:String,
+                    @Query("shareId") shareId:String):Call<String>
+
+    @PUT("Share/UpdateShare")
+    fun updateShare(@Header("Authorization") access_token:String,
+                    @Header("Content-type") content_type:String = "application/json",
+                    @Body updateShare:Shares):Call<String>
+
 }

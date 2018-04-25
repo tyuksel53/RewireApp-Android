@@ -116,6 +116,11 @@
     <string name="en_iyi_seri">Best Strike</string>
     <string name="şuanki_seri">Current Strike</string>
     <string name="begenilerin">Your Likes</string>
+    <string name="no_data">No Data</string>
+    <string name="Sil">Sil</string>
+    <string name="Düzenle">Düzenle</string>
+    <string name="paylasim_silindi">Paylaşım silindi</string>
+    <string name="paylasimi_güncelle">Paylaşımı güncelle</string>
 
 
 </resources>

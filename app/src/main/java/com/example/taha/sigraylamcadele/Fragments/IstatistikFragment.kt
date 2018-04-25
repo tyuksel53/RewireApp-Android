@@ -163,7 +163,6 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             UserPortal.userDates = responseBody
             userNewSelections.clear()
             userUpdateselections.clear()
-            UserPortal.datesHasChanged = true
             Toasty.success(activity,
                     UserPortal.myLangResource!!.getString(R.string.degisikler_kaydedildi)
                     ,Toast.LENGTH_SHORT)
