@@ -93,15 +93,14 @@ class CommentAdapter(var allComments:ArrayList<Comment>,var headerShare:Shares,v
         var message = itemView.tvCommentMessage
         var username = itemView.tvCommentUsername
         var date = itemView.tvCommentDate
-        var check = 0
         var spinner = itemView.spComment
 
         fun setData(currentComment:  Comment) {
 
             message.text = currentComment.Message
             username.text = currentComment.Username
-            date.text = currentComment.Date
-            var adp= ArrayAdapter<String>(context,
+            date.text = UserPortal.fixDate(currentComment.Date!!)
+            val adp= ArrayAdapter<String>(context,
                     android.R.layout.simple_list_item_1,
                     arrayOf(UserPortal.myLangResource!!.getString(R.string.Raporla)))
             adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

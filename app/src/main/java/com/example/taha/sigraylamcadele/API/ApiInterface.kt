@@ -100,4 +100,11 @@ interface ApiInterface {
                     @Header("Content-type") content_type:String = "application/json",
                     @Body updateShare:Shares):Call<String>
 
+    @DELETE("Date/DeleteAllDates")
+    fun deleteAllDates(@Header("Authorization") access_token:String):Call<String>
+
+    @PUT("User/SifreGuncelleme")
+    fun sifreGuncelle(@Header("Authorization") access_token:String,
+                      @Query("yeniSifre") yeniSifre:String):Call<String>
+
 }

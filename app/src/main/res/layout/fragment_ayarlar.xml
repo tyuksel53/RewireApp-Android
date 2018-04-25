@@ -9,112 +9,402 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-                <android.support.v7.widget.CardView
+            <TextView
+                android:id="@+id/tvAyarlarHesap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/hesap"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <TextView
+                android:id="@+id/tvAyarlarUygulama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/uygulama"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyarlarHesap">
+
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent">
 
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imageView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="#f05545"
+                        android:src="@drawable/ic_delete_forever"
+                        app:layout_constraintBottom_toTopOf="@+id/view27"
+                        app:layout_constraintStart_toStartOf="@+id/imageView23" />
 
-                                <View
-                                    android:id="@+id/view2"
-                                    android:layout_width="0dp"
-                                    android:layout_height="3dp"
-                                    android:layout_marginEnd="8dp"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="8dp"
-                                    android:background="@color/cardview_shadow_start_color"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvAyarlarGenel" />
+                    <ImageView
+                        android:id="@+id/imageView22"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="16dp"
+                        android:tint="#fdd835"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_action_user"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarSifreDegis"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                                <TextView
-                                    android:id="@+id/tvAyarlarGenel"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="8dp"
-                                    android:text="@string/genel"
-                                    android:textColor="@color/textColorPrimary"
-                                    android:textSize="18sp"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tvAyarlarSifreDegis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/sifre_degistir"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView22"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                                <ImageView
-                                    android:id="@+id/imageView5"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="8dp"
-                                    android:src="@drawable/ic_language"
-                                    android:tint="#4f83cc"
-                                    app:layout_constraintStart_toStartOf="@+id/tvAyarlarGenel"
-                                    app:layout_constraintTop_toBottomOf="@+id/view2" />
+                    <View
+                        android:id="@+id/view25"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintEnd_toEndOf="@+id/tvAyarlarSifreDegis"
+                        app:layout_constraintStart_toStartOf="@+id/tvAyarlarSifreDegis"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarSifreDegis" />
 
-                                <TextView
-                                    android:id="@+id/tvSettingsLanguage"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="8dp"
-                                    android:layout_marginStart="8dp"
-                                    android:text="@string/Dil_degistirin"
-                                    android:textColor="@color/textColorPrimary"
-                                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                    <ImageView
+                        android:id="@+id/imageView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:tint="#29b6f6"
+                        android:src="@drawable/ic_access_time"
+                        app:layout_constraintBottom_toBottomOf="@+id/spAyarlarTime"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/spAyarlarTime" />
 
-                                <View
-                                    android:id="@+id/view4"
-                                    android:layout_width="0dp"
-                                    android:layout_height="2dp"
-                                    android:layout_marginTop="8dp"
-                                    android:background="@color/cardview_shadow_start_color"
-                                    app:layout_constraintEnd_toEndOf="@+id/tvSettingsLanguage"
-                                    app:layout_constraintStart_toStartOf="@+id/tvSettingsLanguage"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvSettingsLanguage" />
+                    <Spinner
+                        android:id="@+id/spAyarlarTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView23"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarCheckUpTime" />
 
-                                <ImageView
-                                    android:id="@+id/imageView15"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_marginBottom="8dp"
-                                    android:layout_marginStart="16dp"
-                                    android:src="@drawable/ic_notifications"
-                                    android:tint="@color/colorAccent"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/view4" />
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintEnd_toEndOf="@+id/spAyarlarTime"
+                        app:layout_constraintStart_toStartOf="@+id/spAyarlarTime"
+                        app:layout_constraintTop_toBottomOf="@+id/spAyarlarTime" />
 
-                                <Switch
-                                    android:id="@+id/swBildirim"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="8dp"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="8dp"
-                                    android:text="@string/bildirim"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/imageView15"
-                                    app:layout_constraintTop_toBottomOf="@+id/view4" />
+                    <TextView
+                        android:id="@+id/tvAyarlarDateReset"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/tarih_bilgilerini_sifirla"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView27"
+                        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-                                <View
-                                    android:id="@+id/view5"
-                                    android:layout_width="0dp"
-                                    android:layout_height="2dp"
-                                    android:layout_marginBottom="8dp"
-                                    android:layout_marginTop="8dp"
-                                    android:background="@color/cardview_shadow_start_color"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="@+id/swBildirim"
-                                    app:layout_constraintStart_toStartOf="@+id/swBildirim"
-                                    app:layout_constraintTop_toBottomOf="@+id/swBildirim" />
-                        </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
+                    <View
+                        android:id="@+id/view27"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tvAyarlarDateReset"
+                        app:layout_constraintStart_toStartOf="@+id/tvAyarlarDateReset"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarDateReset" />
+
+                    <TextView
+                        android:id="@+id/tvAyarlarCheckUpTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/Check_Up_Time"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintStart_toStartOf="@+id/spAyarlarTime"
+                        app:layout_constraintTop_toBottomOf="@+id/view25" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvAyarlarGenel"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyarlarGenel">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_language"
+                        android:tint="#4f83cc"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvSettingsLanguage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/Dil_degistirin"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintEnd_toEndOf="@+id/tvSettingsLanguage"
+                        app:layout_constraintStart_toStartOf="@+id/tvSettingsLanguage"
+                        app:layout_constraintTop_toBottomOf="@+id/tvSettingsLanguage" />
+
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_notifications"
+                        android:tint="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/swBildirim"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/swBildirim" />
+
+                    <Switch
+                        android:id="@+id/swBildirim"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/bildirim"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView15"
+                        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/swBildirim"
+                        app:layout_constraintStart_toStartOf="@+id/swBildirim"
+                        app:layout_constraintTop_toBottomOf="@+id/swBildirim" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvAyarlarGenel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/genel"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyarlarUygulama">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:tint="#7c43bd"
+                        android:src="@drawable/ic_library_books"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarOpenSource"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvAyarlarOpenSource" />
+
+                    <TextView
+                        android:id="@+id/tvAyarlarOpenSource"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/acik_kaynak_kutuphaneleri"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView24"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view26"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintEnd_toEndOf="@+id/tvAyarlarOpenSource"
+                        app:layout_constraintStart_toStartOf="@+id/tvAyarlarOpenSource"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarOpenSource" />
+
+                    <ImageView
+                        android:id="@+id/imageView28"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:tint="#439889"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_group"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarThanks"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvAyarlarThanks" />
+
+                    <TextView
+                        android:id="@+id/tvAyarlarThanks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/tesekkur"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView28"
+                        app:layout_constraintTop_toBottomOf="@+id/view26" />
+
+                    <View
+                        android:id="@+id/view28"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tvAyarlarThanks"
+                        app:layout_constraintStart_toStartOf="@+id/tvAyarlarThanks"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarThanks" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvAyarlarSupport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/destek"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyarlarSupport">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView29"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:tint="#ffad42"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_insert_emoticon"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvayarlarSupportAction"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvayarlarSupportAction" />
+
+                    <TextView
+                        android:id="@+id/tvayarlarSupportAction"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/bize_yildiz_vererek_destek_olun"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView29"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view29"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tvayarlarSupportAction"
+                        app:layout_constraintStart_toStartOf="@+id/tvayarlarSupportAction"
+                        app:layout_constraintTop_toBottomOf="@+id/tvayarlarSupportAction" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
 
         </android.support.constraint.ConstraintLayout>
 

@@ -249,7 +249,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
 
             cardInfo.setOnClickListener {
                 val intent = Intent(context,SoruCevapDetay::class.java)
-                intent.putExtra("currentShare",UserPortal.shares!![position])
+                intent.putExtra("currentShare",share)
                 intent.putExtra("position",position)
                 it.context.startActivity(intent)
             }

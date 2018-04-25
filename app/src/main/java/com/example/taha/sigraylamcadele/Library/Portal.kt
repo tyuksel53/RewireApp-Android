@@ -81,6 +81,19 @@ class Portal {
             return formatter.format(date)
         }
 
+        fun SifreDegis(context:Context,yeniSifre:String) {
+            val helper = DatabaseHelper(context)
+            val db =  helper.readableDatabase
+
+            val guncellenenDegerler = ContentValues()
+            guncellenenDegerler.put(DbContract.UserEntry.COLUMN_PASSWORD,yeniSifre)
+
+            val args = arrayOf("1")
+
+            var resultCount =  db.update(DbContract.UserEntry.TABLE_NAME,guncellenenDegerler,
+                    DbContract.UserEntry._ID + " = ?",args)
+        }
+
     }
 
 }

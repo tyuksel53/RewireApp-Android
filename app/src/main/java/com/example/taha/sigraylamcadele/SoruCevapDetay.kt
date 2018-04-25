@@ -105,8 +105,8 @@ class SoruCevapDetay : AppCompatActivity() {
                         isUserCanClick = true
                         if(response?.code() == 200)
                         {
-                            UserPortal.shares!![position].YorumCount =
-                                    UserPortal.shares!![position].YorumCount!! + 1
+                            UserPortal.shares?.get(position)?.YorumCount =
+                                    UserPortal.shares?.get(position)?.YorumCount!! + 1
 
                             UserPortal.hasSharesChanged = true
                             comment.Date = myResources.getString(R.string.simdi)

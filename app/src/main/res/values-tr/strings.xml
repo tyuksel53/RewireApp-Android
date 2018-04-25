@@ -121,4 +121,30 @@
     <string name="begenilerin">Favorilerin</string>
     <string name="no_data">Gösterilecek veri yok</string>
 
+    <string name="Sil">Sil</string>
+    <string name="Düzenle">Düzenle</string>
+    <string name="paylasim_silindi">Paylaşım silindi</string>
+    <string name="paylasimi_güncelle">Paylaşımı güncelle</string>
+
+    <string name="tarih_bilgilerini_s_f_rla">Tarih Bilgilerini Sıfırla</string>
+    <string name="hesap">Hesap</string>
+    <string name="uygulama">Uygulama</string>
+    <string name="sifre_degistir">Şifre Değiştir</string>
+    <string name="acik_kaynak_kutuphaneleri">Açık Kaynak Kütüphaneleri</string>
+    <string name="tesekkur">Teşekkür</string>
+    <string name="bize_yildiz_vererek_destek_olun">Bize yıldız vererek destek olun</string>
+    <string name="destek">Destek</string>
+    <string name="tarih_bilgilerini_sifirla">Tarih Bilgilerini Sıfırla</string>
+    <string name="Emin_Misin">Emin Misiniz ?</string>
+    <string name="Butun_tarihler_silinecek">Bütün tarihler silinecek !</string>
+
+
+    <string name="Evet">Evet</string>
+    <string name="Hayır">Hayır</string>
+    <string name="eski_sifre">Eski Şifre</string>
+    <string name="yeni_sifre">Yeni Şifre</string>
+    <string name="yeni_sifre_tekrar">Yeni şifre tekrar</string>
+    <string name="Check_Up_Time">Check up zamanı</string>
+
+
 </resources>

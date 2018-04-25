@@ -113,4 +113,30 @@
     <string name="şuanki_seri">Current Strike</string>
     <string name="begenilerin">Your Likes</string>
     <string name="no_data">No Data</string>
+
+    <string name="Sil">Delete</string>
+    <string name="Düzenle">Edit</string>
+    <string name="paylasim_silindi">Post Deleted</string>
+    <string name="paylasimi_güncelle">Edit Post</string>
+
+    <string name="tarih_bilgilerini_s_f_rla">Reset Date Information</string>
+    <string name="hesap">Account</string>
+    <string name="uygulama">App</string>
+    <string name="sifre_degistir">Change Password</string>
+    <string name="acik_kaynak_kutuphaneleri">Open Source Libraries</string>
+    <string name="tesekkur">Special Thanks</string>
+    <string name="bize_yildiz_vererek_destek_olun">Support us by giving stars  </string>
+    <string name="destek">Support Us</string>
+    <string name="tarih_bilgilerini_sifirla">Reset Date Information</string>
+
+    <string name="Emin_Misin">Are You Sure ?</string>
+    <string name="Butun_tarihler_silinecek">All the date data will be gone !</string>
+
+
+    <string name="Evet">Yes</string>
+    <string name="Hayır">No</string>
+    <string name="eski_sifre">Old Password</string>
+    <string name="yeni_sifre">New Password</string>
+    <string name="yeni_sifre_tekrar">New password again</string>
+    <string name="Check_Up_Time">Check Up Time</string>
 </resources>

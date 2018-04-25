@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".InsertUpdateShareActivity" />
         <activity android:name=".SoruCevapDetay" />
-        <activity android:name=".KulaniciAktiviteActivity"></activity>
+        <activity android:name=".KulaniciAktiviteActivity" />
+        <activity android:name=".SifreDegisActivity"></activity>
     </application>
 
 </manifest>
