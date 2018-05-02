@@ -48,21 +48,21 @@
 
                     <ImageView
                         android:id="@+id/imageView27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="#f05545"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/ic_delete_forever"
+                        android:tint="#f05545"
                         app:layout_constraintBottom_toTopOf="@+id/view27"
                         app:layout_constraintStart_toStartOf="@+id/imageView23" />
 
                     <ImageView
                         android:id="@+id/imageView22"
-                        android:layout_width="36dp"
+                        android:layout_width="24dp"
                         android:layout_height="36dp"
                         android:layout_marginStart="16dp"
-                        android:tint="#fdd835"
                         android:layout_marginTop="16dp"
                         android:src="@drawable/ic_action_user"
+                        android:tint="#fdd835"
                         app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarSifreDegis"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -92,11 +92,11 @@
 
                     <ImageView
                         android:id="@+id/imageView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="16dp"
-                        android:tint="#29b6f6"
                         android:src="@drawable/ic_access_time"
+                        android:tint="#29b6f6"
                         app:layout_constraintBottom_toBottomOf="@+id/spAyarlarTime"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/spAyarlarTime" />
@@ -174,7 +174,7 @@
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="36dp"
+                        android:layout_width="24dp"
                         android:layout_height="36dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
@@ -208,7 +208,7 @@
 
                     <ImageView
                         android:id="@+id/imageView15"
-                        android:layout_width="36dp"
+                        android:layout_width="24dp"
                         android:layout_height="36dp"
                         android:layout_marginStart="16dp"
                         android:src="@drawable/ic_notifications"
@@ -271,12 +271,12 @@
 
                     <ImageView
                         android:id="@+id/imageView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:tint="#7c43bd"
                         android:src="@drawable/ic_library_books"
+                        android:tint="#7c43bd"
                         app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarOpenSource"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvAyarlarOpenSource" />
@@ -306,12 +306,11 @@
 
                     <ImageView
                         android:id="@+id/imageView28"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:tint="#439889"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="16dp"
                         android:src="@drawable/ic_group"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvAyarlarThanks"
+                        android:tint="#439889"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvAyarlarThanks" />
 
@@ -335,10 +334,46 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
                         android:background="@color/cardview_shadow_start_color"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView28"
                         app:layout_constraintEnd_toEndOf="@+id/tvAyarlarThanks"
                         app:layout_constraintStart_toStartOf="@+id/tvAyarlarThanks"
                         app:layout_constraintTop_toBottomOf="@+id/tvAyarlarThanks" />
+
+                    <ImageView
+                        android:id="@+id/imageView19"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:tint="#f50057"
+                        android:src="@drawable/ic_exit_to_app"
+                        app:layout_constraintBottom_toTopOf="@+id/view24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvExitApp" />
+
+                    <TextView
+                        android:id="@+id/tvExitApp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/cikis_yap"
+                        android:textColor="@color/textColorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView19"
+                        app:layout_constraintTop_toBottomOf="@+id/view28" />
+
+                    <View
+                        android:id="@+id/view24"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cardview_shadow_start_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tvExitApp"
+                        app:layout_constraintStart_toStartOf="@+id/tvExitApp"
+                        app:layout_constraintTop_toBottomOf="@+id/tvExitApp" />
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
 
@@ -370,11 +405,11 @@
 
                     <ImageView
                         android:id="@+id/imageView29"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:tint="#ffad42"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="16dp"
                         android:src="@drawable/ic_insert_emoticon"
+                        android:tint="#ffad42"
                         app:layout_constraintBottom_toBottomOf="@+id/tvayarlarSupportAction"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvayarlarSupportAction" />

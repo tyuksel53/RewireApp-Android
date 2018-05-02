@@ -151,6 +151,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                     }
 
                     override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        val test = ""
                     }
 
                 })

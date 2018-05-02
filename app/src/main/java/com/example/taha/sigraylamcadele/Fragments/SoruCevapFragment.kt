@@ -22,6 +22,7 @@ import com.example.taha.sigraylamcadele.Dialogs.SortByDialog
 import com.example.taha.sigraylamcadele.InsertUpdateShareActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.Shares
+import com.example.taha.sigraylamcadele.Model.User
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
@@ -32,20 +33,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
-
-
-
     var recyclerV:RecyclerView? = null
     var result:Call<ArrayList<Shares>>? = null
     var adapter:SoruCevapAdapter? = null
     var textSort:TextView? = null
-    var paramlist = arrayListOf("yeni","Tum")
+    var paramlist = arrayListOf("yeni","Tum","${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)}")
     var ivSort:ImageView? = null
     var progressBar:ProgressBar? = null
     var lengthCheck = true
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
+        setSortText(paramlist)
         textSort = view.findViewById(R.id.tvSortBy)
         ivSort = view.findViewById(R.id.ivSort)
         ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
@@ -80,7 +78,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
         val fb = view.findViewById<FloatingActionButton>(R.id.fbInsertShare)
 
         fb.setOnClickListener {
-            var intent = Intent(activity,InsertUpdateShareActivity::class.java)
+            val intent = Intent(activity,InsertUpdateShareActivity::class.java)
             startActivity(intent)
 
         }
@@ -154,8 +152,6 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     private fun updateView(lang: String) {
         val context = LocaleHelper.setLocale(activity,lang)
         UserPortal.myLangResource = context.resources
-
-        textSort?.setText(UserPortal.myLangResource?.getString(R.string.yeni_gonderiler))
     }
 
     override fun onResume() {
@@ -259,19 +255,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
         progressBar?.visibility = View.VISIBLE
         lengthCheck = true
         val selectedParams = selectedTime.split("-")
-        if(selectedParams[0] == "like")
-        {
-            ivSort?.setImageResource(R.drawable.ic_action_heart)
-            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.myRed),
-            android.graphics.PorterDuff.Mode.SRC_IN)
-            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.top_likes)} - ${selectedParams[2]}"
-        }else if(selectedParams[0] == "yeni")
-        {   ivSort?.setImageResource(R.drawable.ic_timeline)
-            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
-                    android.graphics.PorterDuff.Mode.SRC_IN)
-            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)}"
-        }
-
+        setSortText(selectedParams as ArrayList)
         paramlist[0] = selectedParams[0]
         paramlist[1] = selectedParams[1]
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
@@ -301,5 +285,20 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
             }
 
         })
+    }
+    fun setSortText(selectedParams:ArrayList<String>)
+    {
+        if(selectedParams[0] == "like")
+        {
+            ivSort?.setImageResource(R.drawable.ic_action_heart)
+            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.myRed),
+                    android.graphics.PorterDuff.Mode.SRC_IN)
+            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.top_likes)} - ${selectedParams[2]}"
+        }else if(selectedParams[0] == "yeni")
+        {   ivSort?.setImageResource(R.drawable.ic_timeline)
+            ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
+                    android.graphics.PorterDuff.Mode.SRC_IN)
+            textSort?.text = "${UserPortal.myLangResource!!.getString(R.string.yeni_gonderiler)}"
+        }
     }
 }// Required empty public constructor

@@ -26,7 +26,7 @@ class AnaEkranActivity : AppCompatActivity() {
         }
         val anasayfaFragment = AnasayfaFragment()
         val istatistikFragment = IstatistikFragment()
-        val grupFragment = GrupFragment()
+        val grupFragment = LeaderBoardFragment()
         val soruCevapFragment = SoruCevapFragment()
         val ayarlarFragment = AyarlarFragment()
         var menu = navigation.getMenu().findItem(R.id.navigation_home)
@@ -79,32 +79,6 @@ class AnaEkranActivity : AppCompatActivity() {
         UserPortal.myLangResource = context.resources
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.ana_ekran_menu,menu)
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId)
-        {
-            R.id.appLogOut ->{
-                if(UserPortal.deleteLoggedInUser(this@AnaEkranActivity))
-                {
-                    val intent = Intent(this@AnaEkranActivity,LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    Toast.makeText(this@AnaEkranActivity,UserPortal.myLangResource!!.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
-                    UserPortal.reset()
-                    finish()
-                }
-
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onResume() {
         updateView(Paper.book().read<String>("language"))

@@ -13,7 +13,9 @@ import android.widget.*
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Dialogs.DilSecDialog
+import com.example.taha.sigraylamcadele.Dialogs.ThanksDialog
 import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.LoginActivity
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
@@ -43,6 +45,7 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
     var tvSupport:TextView? = null
     var tvSupportAction:TextView? = null
     var tvCheckUp:TextView? = null
+    var tvExit:TextView? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view =  inflater!!.inflate(R.layout.fragment_ayarlar, container, false)
@@ -60,6 +63,20 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvSupport = view.findViewById(R.id.tvAyarlarSupport)
         tvSupportAction = view.findViewById(R.id.tvayarlarSupportAction)
         tvCheckUp = view.findViewById(R.id.tvAyarlarCheckUpTime)
+        tvExit = view.findViewById(R.id.tvExitApp)
+
+        tvExit?.setOnClickListener {
+            if(UserPortal.deleteLoggedInUser(activity))
+            {
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                Toast.makeText(activity,UserPortal.myLangResource!!.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
+                UserPortal.reset()
+                activity.finish()
+            }
+        }
+
         val list = ArrayList<String>()
         val times = resources.getStringArray(R.array.time)
         for(i in 0 until times.size)
@@ -124,6 +141,11 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
 
         }
 
+        tvThanks?.setOnClickListener{
+            val dialog = ThanksDialog()
+            dialog.show(fragmentManager,"Thanks")
+        }
+
         return view
     }
 
@@ -144,6 +166,7 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvHesap?.setText(UserPortal.myLangResource?.getString(R.string.hesap))
         tvThanks?.setText(UserPortal.myLangResource?.getString(R.string.tesekkur))
         tvCheckUp?.setText(UserPortal.myLangResource?.getString(R.string.Check_Up_Time))
+        tvExit?.setText(UserPortal.myLangResource!!.getString(R.string.cikis_yap))
 
     }
 

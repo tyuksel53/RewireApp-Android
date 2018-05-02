@@ -29,6 +29,8 @@ object UserPortal {
     private var userLikeds:ArrayList<ShareLike>? = null
     var userDates:ArrayList<UserDate>? = null
     var isUserNotUpdated = true
+    var leaderBoard:ArrayList<User>? = null
+    var userParamList= ArrayList<String>()
     override  fun toString(): String {
 
 
@@ -132,12 +134,18 @@ object UserPortal {
 
     fun fixDate(date:String):String
     {
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val date = parser.parse(date)
-        val formatter = SimpleDateFormat("dd-MM HH:mm")
-        val formattedDate = formatter.format(date)
+        return try{
+            val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            val date = parser.parse(date)
+            val formatter = SimpleDateFormat("dd-MM HH:mm")
+            val formattedDate = formatter.format(date)
 
-        return formattedDate
+            formattedDate
+        }catch(ex:Exception)
+        {
+            date
+        }
+
     }
 
     fun updateUserInfo()

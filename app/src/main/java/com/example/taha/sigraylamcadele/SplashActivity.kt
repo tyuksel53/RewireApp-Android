@@ -76,7 +76,6 @@ class SplashActivity : AppCompatActivity() {
                     }else
                     {
                         redirectToLogin()
-                        UserPortal.deleteLoggedInUser(this@SplashActivity)
                     }
                 }
             })

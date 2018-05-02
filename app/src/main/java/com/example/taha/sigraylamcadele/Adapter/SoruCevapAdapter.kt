@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -130,28 +131,39 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                     }
                     if(UserPortal.myLangResource!!.getString(R.string.Sil) == text)
                     {
-                        Toasty.success(context,
-                                UserPortal.myLangResource!!.getString(R.string.paylasim_silindi),
-                                Toast.LENGTH_SHORT).show()
-                        UserPortal.shares?.remove(share)
-                        dataSource.remove(share)
-                        notifyItemRemoved(position)
-                        notifyItemRangeChanged(0,dataSource.size)
+                        val dialog = AlertDialog.Builder(context)
+                        dialog.setTitle(UserPortal.myLangResource!!.getString(R.string.Emin_Misin))
+                        dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.Butun_tarihler_silinecek))
+                        dialog.setCancelable(true)
+                        dialog.setPositiveButton(UserPortal.myLangResource!!.getString(R.string.Evet)) { dialog, which ->
+                            Toasty.success(context,
+                                    UserPortal.myLangResource!!.getString(R.string.paylasim_silindi),
+                                    Toast.LENGTH_SHORT).show()
+                            UserPortal.shares?.remove(share)
+                            dataSource.remove(share)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(0,dataSource.size)
 
-                        val result = apiInterface?.deleteShare(
-                                "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                                share.ID.toString())
+                            val result = apiInterface?.deleteShare(
+                                    "Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                                    share.ID.toString())
 
-                        result?.clone()?.enqueue(object:Callback<String>{
-                            override fun onFailure(call: Call<String>?, t: Throwable?) {
+                            result?.clone()?.enqueue(object:Callback<String>{
+                                override fun onFailure(call: Call<String>?, t: Throwable?) {
 
-                            }
+                                }
 
-                            override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                                override fun onResponse(call: Call<String>?, response: Response<String>?) {
 
-                            }
+                                }
 
-                        })
+                            })
+                        }
+                        dialog.setNegativeButton(UserPortal.myLangResource!!.getString(R.string.Hayır)) { dialog, which ->
+
+                        }
+                        dialog.show()
+
                     }
 
                     if(UserPortal.myLangResource!!.getString(R.string.Düzenle) == text)
