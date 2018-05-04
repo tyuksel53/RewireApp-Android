@@ -30,6 +30,7 @@ class DbContract {
             var _ID = BaseColumns._ID
             var COLUMN_NOTFICATION = "notfication"
             var COLUMN_TIMEZONENAME = "timezone"
+            var COLUMN_CHECKUPTIME = "checkuptime"
 
         }
     }

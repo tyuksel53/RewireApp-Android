@@ -139,4 +139,13 @@
     <string name="yeni_sifre">New Password</string>
     <string name="yeni_sifre_tekrar">New password again</string>
     <string name="Check_Up_Time">Check Up Time</string>
+    <string name="post_will_deleted">The post will be deleted</string>
+    <string name="cikis_yapacaksin">You will be logout</string>
+
+    <string name="fill_holls_correctly">Please fill all areas correctly</string>
+    <string name="Bildirim_On">Notification is ON</string>
+    <string name="Bildirim_OFF">Notification is OFF</string>
+    <string name="saat_degisti">Check up time changed successfully</string>
+    <string name="check_up">Check Up</string>
+    <string name="checkup_at">Check Up At Today </string>
 </resources>

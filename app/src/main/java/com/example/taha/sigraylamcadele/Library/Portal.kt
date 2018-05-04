@@ -107,6 +107,19 @@ class Portal {
             var resultCount =  db.update(DbContract.SettingsEntry.TABLE_NAME,guncellenenDegerler,
                     DbContract.SettingsEntry._ID + " = ?",args)
         }
+        fun updateUserSettingsCheckUpTime(context:Context,checkUpTime:String)
+        {
+            val helper = DatabaseHelper(context)
+            val db =  helper.readableDatabase
+
+            val guncellenenDegerler = ContentValues()
+            guncellenenDegerler.put(DbContract.SettingsEntry.COLUMN_CHECKUPTIME,checkUpTime)
+
+            val args = arrayOf("1")
+
+            var resultCount =  db.update(DbContract.SettingsEntry.TABLE_NAME,guncellenenDegerler,
+                    DbContract.SettingsEntry._ID + " = ?",args)
+        }
 
         fun updateUserSettingsNotification(context:Context,notificationSettings:String)
         {
@@ -120,7 +133,7 @@ class Portal {
             var resultCount =  db.update(DbContract.SettingsEntry.TABLE_NAME,guncellenenDegerler,
                     DbContract.SettingsEntry._ID + " = ?",args)
         }
-        fun insertUserSettings(context:Context,zoneName:String)
+        fun insertUserSettings(context:Context,zoneName:String,checkUpTime:String)
         {
             val helper = DatabaseHelper(context)
             val db = helper.writableDatabase
@@ -128,6 +141,7 @@ class Portal {
             val yeniKayit = ContentValues()
             yeniKayit.put(DbContract.SettingsEntry.COLUMN_NOTFICATION,"YES")
             yeniKayit.put(DbContract.SettingsEntry.COLUMN_TIMEZONENAME,zoneName)
+            yeniKayit.put(DbContract.SettingsEntry.COLUMN_CHECKUPTIME,checkUpTime)
 
             var id = db.insert(DbContract.SettingsEntry.TABLE_NAME,null,yeniKayit)
         }
@@ -156,7 +170,8 @@ class Portal {
             val db = helper.readableDatabase
 
             val protection = arrayOf(DbContract.SettingsEntry.COLUMN_NOTFICATION,
-                    DbContract.SettingsEntry.COLUMN_TIMEZONENAME)
+                    DbContract.SettingsEntry.COLUMN_TIMEZONENAME,
+                    DbContract.SettingsEntry.COLUMN_CHECKUPTIME)
 
             val selection = DbContract.SettingsEntry._ID + " = ?"
             val selectionAgrs = arrayOf("1")
@@ -174,6 +189,7 @@ class Portal {
                 {
                     setttings.Notification = myCorsor.getString(0)
                     setttings.TimeZoneName = myCorsor.getString(1)
+                    setttings.UserCheckUpTime = myCorsor.getString(2)
                     break
                 }
                 return setttings

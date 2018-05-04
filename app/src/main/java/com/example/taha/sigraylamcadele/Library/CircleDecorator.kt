@@ -1,15 +1,15 @@
 package com.example.taha.sigraylamcadele.Library
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import com.example.taha.sigraylamcadele.R
-
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 
-class CircleDecorator(context: Context,day:CalendarDay,drawable: Drawable) : DayViewDecorator {
+class CircleDecorator(var context: Context,day:CalendarDay,drawable: Drawable,var smokeCount:String) : DayViewDecorator {
     private var date: CalendarDay
 
     private val drawable: Drawable?
@@ -24,7 +24,15 @@ class CircleDecorator(context: Context,day:CalendarDay,drawable: Drawable) : Day
     }
 
     override fun decorate(view: DayViewFacade) {
+        if(smokeCount != "")
+        {
+            view.setSelectionDrawable(drawable!!)
+            view.addSpan( TextSpan(5.toFloat(),
+                    Color.GRAY,smokeCount) )
+        }else
+        {
+            view.setSelectionDrawable(drawable!!)
+        }
 
-        view.setSelectionDrawable(drawable!!)
     }
 }

@@ -188,7 +188,7 @@ class RegisterActivity : AppCompatActivity() {
                                                     Toast.LENGTH_SHORT).show()
                                             Portal.deleteUserSettings(this@RegisterActivity)
                                             Portal.insertUserSettings(this@RegisterActivity,
-                                                    newUser.TimeZoneId!!)
+                                                    newUser.TimeZoneId!!,"20:00")
                                             UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                             UserPortal.loggedInUser = newUser
                                             UserPortal.insertNewUser(this@RegisterActivity, newUser)

@@ -60,7 +60,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             check.SmokeCount = value
             calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
                     ContextCompat.getDrawable(activity,
-                            getDrawable(check!!.Type!!))!!))
+                            getDrawable(check!!.Type!!))!!,check.SmokeCount.toString()))
             userNewSelections.add(check)
         }else if(type == "yeniUpdate")
         {
@@ -70,7 +70,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             check.SmokeCount = value
             calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
                     ContextCompat.getDrawable(activity,
-                            getDrawable(check.Type!!))!!))
+                            getDrawable(check.Type!!))!!,check.SmokeCount.toString()))
 
             responseBody?.add(check)
             userUpdateselections.add(check)
@@ -82,7 +82,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             check.SmokeCount = value
             calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(Portal.textToDate(date!!)),
                     ContextCompat.getDrawable(activity,
-                            getDrawable(check.Type!!))!!))
+                            getDrawable(check.Type!!))!!,check.SmokeCount.toString()))
             responseBody?.add(check)
             userUpdateselections.add(check)
         }
@@ -192,14 +192,14 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             while (rangeCalander.before(endCalendar)) {
                 val result = rangeCalander.getTime()
                 calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(result),
-                        ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!))
+                        ContextCompat.getDrawable(activity, R.drawable.circle_gray)!!,""))
                 rangeCalander.add(Calendar.DATE, 1);
             }
             // today
             today = rangeCalander.getTime()
             initBarChart()
             calendar.addDecorator(CircleDecorator(activity,CalendarDay.from(today!!),
-                    ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!))
+                    ContextCompat.getDrawable(activity, R.drawable.circle_blue)!!,""))
 
             for(i in 0 until responseBody!!.size)
             {
@@ -208,17 +208,17 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                 if(responseBody!![i].Type == 1)
                 {
                     calendar.addDecorator(CircleDecorator(activity,date,
-                            ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!))
+                            ContextCompat.getDrawable(activity, R.drawable.circle_positive)!!,""))
                 }else if(responseBody!![i].Type == 2)
                 {
                     calendar.addDecorator(CircleDecorator(activity,date,
-                            ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!))
+                            ContextCompat.getDrawable(activity, R.drawable.circle_negative)!!,
+                            responseBody!![i].SmokeCount.toString()))
                 }
 
             }
             val c = Calendar.getInstance()
             c.setTime(currentDay.date)
-            c.add(Calendar.DATE, 1)
             currentDay = CalendarDay.from(c.getTime())
 
             calendar.setOnDateChangedListener { widget, date, selected ->
@@ -236,7 +236,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                             newDate.Type = 1
                             widget.addDecorator(CircleDecorator(activity,date,
                                     ContextCompat.getDrawable(activity,
-                                            getDrawable(1))!!))
+                                            getDrawable(1))!!,""))
                             newDate.Date = dateString
                             userNewSelections.add(newDate)
                         }else if(check.Type == 1) // içmiş
@@ -254,7 +254,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                         }else // nötr
                         {widget.addDecorator(CircleDecorator(activity,date,
                                 ContextCompat.getDrawable(activity,
-                                        getDrawable(R.color.colorBackgroundDark))!!))
+                                        getDrawable(R.color.colorBackgroundDark))!!,""))
                             userNewSelections.remove(check)
                         }
 
@@ -283,7 +283,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                                 check.Type = 1
                                 widget.addDecorator(CircleDecorator(activity,date,
                                         ContextCompat.getDrawable(activity,
-                                                getDrawable(check.Type!!))!!))
+                                                getDrawable(check.Type!!))!!,""))
                                 responseBody?.add(check)
                                 userUpdateselections.add(check)
                             }else if(check.Type == 2)
@@ -294,7 +294,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                                 check.SmokeCount = 0
                                 widget.addDecorator(CircleDecorator(activity,date,
                                         ContextCompat.getDrawable(activity,
-                                                getDrawable(check.Type!!))!!))
+                                                getDrawable(check.Type!!))!!,""))
                                 responseBody?.add(check)
                                 userUpdateselections.add(check)
                             }
@@ -319,7 +319,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                             check.SmokeCount = 0
                             widget.addDecorator(CircleDecorator(activity,date,
                                     ContextCompat.getDrawable(activity,
-                                            getDrawable(check.Type!!))!!))
+                                            getDrawable(check.Type!!))!!,""))
                             responseBody?.add(check)
                             userUpdateselections.add(check)
                         }else if(updateCheck.Type == 2)
@@ -330,7 +330,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                             check.SmokeCount = 0
                             widget.addDecorator(CircleDecorator(activity,date,
                                     ContextCompat.getDrawable(activity,
-                                            getDrawable(check.Type!!))!!))
+                                            getDrawable(check.Type!!))!!,""))
                             responseBody?.add(check)
                             userUpdateselections.add(check)
                         }
@@ -347,7 +347,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                 }else
                 {
                     calendar.addDecorator(CircleDecorator(activity,date,
-                            ContextCompat.getDrawable(activity, R.color.colorPrimaryDark)!!))
+                            ContextCompat.getDrawable(activity, R.color.colorPrimaryDark)!!,""))
                 }
 
             }
@@ -450,6 +450,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             var ayNum = Portal.textToDate(responseBody!![0].Date!!).getMonth()
             deneme.AyNumara = ayNum
             deneme.AyIsim = getMonthForInt(ayNum)
+            deneme.Yil = Portal.textToDate(responseBody!![0].Date!!).year
             UserPortal.userDates = responseBody
             for(i in 0 until responseBody!!.size)
             {
@@ -458,6 +459,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
                     listAy.add(deneme)
                     ayNum = Portal.textToDate(responseBody!![i].Date!!).getMonth()
                     deneme = GrafikAy()
+                    deneme.Yil = Portal.textToDate(responseBody!![i].Date!!).year
                     deneme.AyNumara = ayNum
                     deneme.AyIsim = getMonthForInt(ayNum)
 
@@ -496,7 +498,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         {
             entriesGood.add(BarEntry(i.toFloat(), listAy[i].GoodDay.toFloat()))
             entriesBad.add(BarEntry(i.toFloat(), listAy[i].BadDay.toFloat()))
-            isimler.add(listAy[i].AyIsim)
+            isimler.add(listAy[i].AyIsim + "-" + (listAy[i].Yil % 100))
         }
 
         val barWidth = 0.3f
@@ -584,7 +586,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
         val pieDataSet =  PieDataSet(entries, UserPortal.myLangResource!!.getString(R.string.ButunGunler))
         pieDataSet.setSliceSpace(2f)
         pieDataSet.setValueTextSize(12f)
-        //add colors to dataset
+
         val colors =  ArrayList<Int>()
         colors.add(ContextCompat.getColor(activity, R.color.barGreen))
         colors.add(ContextCompat.getColor(activity, R.color.barRed))

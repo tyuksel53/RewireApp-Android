@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.UserActivitiesActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
+import com.example.taha.sigraylamcadele.Model.User
 
 import com.example.taha.sigraylamcadele.R
 class AnasayfaFragment : android.app.Fragment() {
@@ -27,6 +29,12 @@ class AnasayfaFragment : android.app.Fragment() {
         actions.setText(UserPortal.myLangResource!!.getString(R.string.Hareketlerin))
         val posts = view.findViewById<TextView>(R.id.tvAnaEkranPosts)
         posts.setText(UserPortal.myLangResource!!.getString(R.string.paylasimlarin))
+        val checkUpHeader = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpHeader)
+        checkUpHeader.setText(UserPortal.myLangResource!!.getString(R.string.check_up))
+        val checkUpAction = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpAction)
+        var userSettings = Portal.getSettings(activity)
+        checkUpAction.setText(UserPortal.myLangResource!!.getString(R.string.checkup_at) + "  " + userSettings!!.UserCheckUpTime)
+
         posts.setOnClickListener {
             val intent = Intent(activity,UserActivitiesActivity::class.java)
             intent.putExtra("type",1)

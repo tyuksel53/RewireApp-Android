@@ -1,6 +1,10 @@
 package com.example.taha.sigraylamcadele
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,6 +15,7 @@ import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
+import com.example.taha.sigraylamcadele.Service.CheckUpService
 import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
@@ -103,5 +108,31 @@ class SplashActivity : AppCompatActivity() {
             }
 
         }.start()
+    }
+
+    private fun startService()
+    {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this@SplashActivity,CheckUpService::class.java)
+        val pendingIntent = PendingIntent.getService(this@SplashActivity,
+                100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    1000,
+                    pendingIntent);
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    100,
+                    pendingIntent);
+        }
+        else
+        {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    100,
+                    pendingIntent);
+        }
     }
 }

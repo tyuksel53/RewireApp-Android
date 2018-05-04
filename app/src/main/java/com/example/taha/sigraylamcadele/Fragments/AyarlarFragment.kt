@@ -142,6 +142,31 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
                 list)
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.setAdapter(adp)
+        if(activity != null)
+        {
+            val userSettings = Portal.getSettings(activity)
+            val time = userSettings!!.UserCheckUpTime!!.split(':')[0].toInt()
+            spinner.setSelection(time)
+        }
+
+        var mundi = 0
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, i: Int, l: Long) {
+
+                if(activity != null)
+                {
+                    if(++mundi>1)
+                    {
+                        val item = spinner.selectedItem.toString()
+                        Portal.updateUserSettingsCheckUpTime(activity,item)
+                    }
+                }
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>) {
+
+            }
+        }
 
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
 
