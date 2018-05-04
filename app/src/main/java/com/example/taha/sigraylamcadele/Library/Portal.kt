@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
 import com.example.taha.sigraylamcadele.Database.DbContract
 import com.example.taha.sigraylamcadele.Model.User
+import com.example.taha.sigraylamcadele.Model.UserSettings
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -38,7 +39,7 @@ class Portal {
             val myCorsor = db.query(DbContract.UserEntry.TABLE_NAME,protection,selection,selectionAgrs,
                     null,null,null)
             val count = myCorsor.count
-            var myUser = User()
+            val myUser = User()
             if(count >= 1)
             {
 
@@ -81,7 +82,7 @@ class Portal {
             return formatter.format(date)
         }
 
-        fun SifreDegis(context:Context,yeniSifre:String) {
+        fun sifreDegisDb(context:Context, yeniSifre:String) {
             val helper = DatabaseHelper(context)
             val db =  helper.readableDatabase
 
@@ -93,6 +94,108 @@ class Portal {
             var resultCount =  db.update(DbContract.UserEntry.TABLE_NAME,guncellenenDegerler,
                     DbContract.UserEntry._ID + " = ?",args)
         }
+        fun updateUserSettingsTimeZone(context:Context,timeZone:String)
+        {
+            val helper = DatabaseHelper(context)
+            val db =  helper.readableDatabase
+
+            val guncellenenDegerler = ContentValues()
+            guncellenenDegerler.put(DbContract.SettingsEntry.COLUMN_TIMEZONENAME,timeZone)
+
+            val args = arrayOf("1")
+
+            var resultCount =  db.update(DbContract.SettingsEntry.TABLE_NAME,guncellenenDegerler,
+                    DbContract.SettingsEntry._ID + " = ?",args)
+        }
+
+        fun updateUserSettingsNotification(context:Context,notificationSettings:String)
+        {
+            val helper = DatabaseHelper(context)
+            val db =  helper.readableDatabase
+            val guncellenenDegerler = ContentValues()
+            guncellenenDegerler.put(DbContract.SettingsEntry.COLUMN_NOTFICATION,notificationSettings)
+
+            val args = arrayOf("1")
+
+            var resultCount =  db.update(DbContract.SettingsEntry.TABLE_NAME,guncellenenDegerler,
+                    DbContract.SettingsEntry._ID + " = ?",args)
+        }
+        fun insertUserSettings(context:Context,zoneName:String)
+        {
+            val helper = DatabaseHelper(context)
+            val db = helper.writableDatabase
+
+            val yeniKayit = ContentValues()
+            yeniKayit.put(DbContract.SettingsEntry.COLUMN_NOTFICATION,"YES")
+            yeniKayit.put(DbContract.SettingsEntry.COLUMN_TIMEZONENAME,zoneName)
+
+            var id = db.insert(DbContract.SettingsEntry.TABLE_NAME,null,yeniKayit)
+        }
+
+        fun deleteUserSettings(context:Context):Boolean
+        {
+            val helper = DatabaseHelper(context)
+            val db = helper.readableDatabase
+            val args = arrayOf("100")
+
+            val resultCount = db.delete(DbContract.SettingsEntry.TABLE_NAME,
+                    DbContract.UserEntry._ID + " < ?",
+                    args)
+
+            if(resultCount > 0)
+            {
+                return true
+            }
+
+            return false
+        }
+
+        fun getSettings(context:Context):UserSettings?
+        {
+            val helper = DatabaseHelper(context)
+            val db = helper.readableDatabase
+
+            val protection = arrayOf(DbContract.SettingsEntry.COLUMN_NOTFICATION,
+                    DbContract.SettingsEntry.COLUMN_TIMEZONENAME)
+
+            val selection = DbContract.SettingsEntry._ID + " = ?"
+            val selectionAgrs = arrayOf("1")
+            val myCorsor = db.query(DbContract.SettingsEntry.TABLE_NAME
+                    ,protection
+                    ,selection,
+                    selectionAgrs,
+                    null,null,null)
+            val count = myCorsor.count
+            val setttings = UserSettings()
+            if(count >= 1)
+            {
+
+                while(myCorsor.moveToNext())
+                {
+                    setttings.Notification = myCorsor.getString(0)
+                    setttings.TimeZoneName = myCorsor.getString(1)
+                    break
+                }
+                return setttings
+            }else
+                return null
+        }
+
+        fun updateUserTimeZone(context:Context)
+        {
+            val userSettings = getSettings(context)
+            if(userSettings != null)
+            {
+                if(userSettings!!.TimeZoneName != TimeZone.getDefault().id)
+                {
+                    UserPortal.updateUserTimeZone()
+                    Portal.updateUserSettingsTimeZone(context
+                            ,TimeZone.getDefault().id)
+                }
+            }
+        }
+
+
 
     }
 

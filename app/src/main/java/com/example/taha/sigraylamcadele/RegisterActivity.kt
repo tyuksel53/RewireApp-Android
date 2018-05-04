@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.register_toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -49,13 +50,9 @@ class RegisterActivity : AppCompatActivity() {
         actionBar.customView = v
 
         val languages = resources.getStringArray(R.array.languages)
-        val timezones = resources.getStringArray(R.array.timezones)
         val languageAdapter = ArrayAdapter(this,
                 android.R.layout.simple_dropdown_item_1line,languages)
-        val timeZoneAdapter = ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,
-                timezones)
         spLanguage.adapter = languageAdapter
-        spTimeZones.adapter = timeZoneAdapter
 
 
         ivRegisterCancel.setOnClickListener {
@@ -131,15 +128,16 @@ class RegisterActivity : AppCompatActivity() {
                             }
                         }
                 }
-                var timeZone = 
+                val timeZone = TimeZone.getDefault()
+
                 if(registerControl)
                 {
-                    val newUser = User(username = edRegisterUserName.text.toString(),
+                    val newUser = User(username = edRegisterUserName.text.toString().trim(),
                             password = edRegisterPass.text.toString(),
                             role = "user",
                             email = edRegisterMail.text.toString(),
                             accessToken = null,
-                            timeZoneId = ,
+                            timeZoneId = timeZone.id ,
                             language = spLanguage.getSelectedItem().toString(),
                             lastLoginTime = null,
                             registeredDate = null,
@@ -188,6 +186,9 @@ class RegisterActivity : AppCompatActivity() {
                                             Toasty.success(this@RegisterActivity,
                                                     UserPortal.myLangResource!!.getString(R.string.kayitBasarili),
                                                     Toast.LENGTH_SHORT).show()
+                                            Portal.deleteUserSettings(this@RegisterActivity)
+                                            Portal.insertUserSettings(this@RegisterActivity,
+                                                    newUser.TimeZoneId!!)
                                             UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                             UserPortal.loggedInUser = newUser
                                             UserPortal.insertNewUser(this@RegisterActivity, newUser)

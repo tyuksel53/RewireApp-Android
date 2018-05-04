@@ -145,6 +145,8 @@
     <string name="post_will_deleted">The post will be deleted</string>
     <string name="cikis_yapacaksin">You will be logout</string>
     <string name="fill_holls_correctly">Lütfen Alanları Düzgün Girin</string>
+    <string name="Bildirim_On">Notification is ON</string>
+    <string name="Bildirim_OFF">Notification is OFF</string>
 
 
 </resources>

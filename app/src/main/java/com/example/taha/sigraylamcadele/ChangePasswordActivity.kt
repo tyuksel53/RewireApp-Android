@@ -77,7 +77,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                         pbSifreDegis.visibility = View.INVISIBLE
                         if(response?.code() == 200)
                         {
-                            Portal.SifreDegis(this@ChangePasswordActivity,edSifreGuncelleYeni.text.toString())
+                            Portal.sifreDegisDb(this@ChangePasswordActivity,edSifreGuncelleYeni.text.toString())
                             Toasty.success(this@ChangePasswordActivity,
                                     UserPortal.myLangResource!!.getString(R.string.islem_basarili),
                                     Toast.LENGTH_SHORT).show()

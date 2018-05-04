@@ -20,9 +20,6 @@ interface ApiInterface {
     fun userRegister(@Header("Content-Type") content_type:String,
                      @Body user: User):Call<String>
 
-    @GET("User/GetUserInfo")
-    fun userInfo(@Header("Authorization") access_token:String):Call<User>
-
     @GET("Share/GetShares")
     fun getShares(@Header("Authorization") access_token: String,
                   @Query("skip") skip:Int,
@@ -106,5 +103,8 @@ interface ApiInterface {
     @PUT("User/SifreGuncelleme")
     fun sifreGuncelle(@Header("Authorization") access_token:String,
                       @Query("yeniSifre") yeniSifre:String):Call<String>
+    @PUT("User/UpdateUserZone")
+    fun updateTimeZone(@Header("Authorization") access_token:String,
+                       @Query("userZone") userZone:String):Call<String>
 
 }

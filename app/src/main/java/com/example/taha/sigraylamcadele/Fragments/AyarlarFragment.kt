@@ -19,11 +19,13 @@ import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
 import com.example.taha.sigraylamcadele.ChangePasswordActivity
+import com.example.taha.sigraylamcadele.Library.Portal
 import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
@@ -63,6 +65,40 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvSupportAction = view.findViewById(R.id.tvayarlarSupportAction)
         tvCheckUp = view.findViewById(R.id.tvAyarlarCheckUpTime)
         tvExit = view.findViewById(R.id.tvExitApp)
+
+        if(activity != null)
+        {
+            val userSettings = Portal.getSettings(activity)
+            if(userSettings != null)
+            {
+                if(userSettings.Notification == "YES")
+                {
+                    switchNotifiy?.setChecked(true)
+                }else
+                {
+                    switchNotifiy?.setChecked(false)
+                }
+            }
+        }
+
+
+        switchNotifiy?.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(activity != null)
+            {
+                if(switchNotifiy?.isChecked!!)
+                {
+                    Portal.updateUserSettingsNotification(activity,"YES")
+                    Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.Bildirim_On),
+                            Toast.LENGTH_SHORT).show()
+                }else
+                {
+                    Portal.updateUserSettingsNotification(activity,"NO")
+                    Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.Bildirim_OFF),
+                            Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
 
         tvExit?.setOnClickListener {
             val dialog = AlertDialog.Builder(activity)

@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Taha on 25-Mar-18.
@@ -30,7 +31,7 @@ object UserPortal {
     var userDates:ArrayList<UserDate>? = null
     var isUserNotUpdated = true
     var leaderBoard:ArrayList<User>? = null
-    var userParamList= ArrayList<String>()
+
     override  fun toString(): String {
 
 
@@ -39,6 +40,8 @@ object UserPortal {
                 "${loggedInUser?.AccessToken}, "+
                 "${loggedInUser?.Role}"
     }
+
+
     fun insertNewUser(context:Context, newUser:User)
     {
         val helper = DatabaseHelper(context)
@@ -148,13 +151,33 @@ object UserPortal {
 
     }
 
+    fun updateUserTimeZone()
+    {
+        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+        val timeZoneId = TimeZone.getDefault().id
+        var result = apiInterface?.updateTimeZone("Bearer ${loggedInUser!!.AccessToken}",
+                timeZoneId)
+        result?.enqueue(object:Callback<String>{
+            override fun onFailure(call: Call<String>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                if(response?.code() == 200)
+                {
+
+                }
+            }
+
+        })
+    }
     fun updateUserInfo()
     {
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
         val result = apiInterface?.getUserInfo("Bearer ${loggedInUser!!.AccessToken}")
         result?.enqueue(object:Callback<User>{
             override fun onFailure(call: Call<User>?, t: Throwable?) {
-
+                val dummy = ""
             }
 
             override fun onResponse(call: Call<User>?, response: Response<User>?) {

@@ -23,5 +23,28 @@ class DbContract {
         }
     }
 
+    class SettingsEntry:BaseColumns{
+        companion object {
+            var TABLE_NAME = "Settings"
+
+            var _ID = BaseColumns._ID
+            var COLUMN_NOTFICATION = "notfication"
+            var COLUMN_TIMEZONENAME = "timezone"
+
+        }
+    }
+
+    class JournalEntry:BaseColumns{
+        companion object {
+            var TABLE_NAME = "Journal"
+
+            var _ID = BaseColumns._ID
+            var COLUMN_HEADER = "header"
+            var COLUMN_MESSAGE = "message"
+            var COLUMN_DATE = "date"
+
+        }
+    }
+
 
 }
