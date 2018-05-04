@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sigarayla Mücadele</string>
+    <string name="app_name">Rewire</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -129,7 +129,7 @@
     <string name="destek">Support Us</string>
     <string name="tarih_bilgilerini_sifirla">Reset Date Information</string>
 
-    <string name="Emin_Misin">Are You Sure ?</string>
+    <string name="Emin_Misin">Are you sure ?</string>
     <string name="Butun_tarihler_silinecek">All the date data will be gone !</string>
 
 

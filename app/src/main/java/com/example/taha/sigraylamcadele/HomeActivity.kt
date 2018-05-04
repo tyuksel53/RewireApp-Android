@@ -1,22 +1,23 @@
 package com.example.taha.sigraylamcadele
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
+import android.view.LayoutInflater
 import com.example.taha.sigraylamcadele.Fragments.*
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.ana_ekran_activity.*
 
-class AnaEkranActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ana_ekran_activity)
+        getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
+        getSupportActionBar()?.setCustomView(R.layout.app_header)
 
         updateView(Paper.book().read("language"))
         UserPortal.getLikes()
@@ -31,7 +32,6 @@ class AnaEkranActivity : AppCompatActivity() {
         val ayarlarFragment = AyarlarFragment()
         var menu = navigation.getMenu().findItem(R.id.navigation_home)
         menu.setTitle(UserPortal.myLangResource!!.getString(R.string.anasayfa))
-
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer,anasayfaFragment)
         transaction.commit()
@@ -75,7 +75,7 @@ class AnaEkranActivity : AppCompatActivity() {
     }
 
     private fun updateView(lang: String) {
-        val context = LocaleHelper.setLocale(this@AnaEkranActivity,lang)
+        val context = LocaleHelper.setLocale(this@HomeActivity,lang)
         UserPortal.myLangResource = context.resources
     }
 

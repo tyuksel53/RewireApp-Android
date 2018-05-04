@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sigarayla Mücadele</string>
+    <string name="app_name">Rewire</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Anasayfa</string>
     <string name="title_dashboard">İstatistikler</string>
@@ -142,6 +142,9 @@
     <string name="yeni_sifre">Yeni Şifre</string>
     <string name="yeni_sifre_tekrar">Yeni şifre tekrar</string>
     <string name="Check_Up_Time">Check Up Time</string>
+    <string name="post_will_deleted">The post will be deleted</string>
+    <string name="cikis_yapacaksin">You will be logout</string>
+    <string name="fill_holls_correctly">Lütfen Alanları Düzgün Girin</string>
 
 
 </resources>

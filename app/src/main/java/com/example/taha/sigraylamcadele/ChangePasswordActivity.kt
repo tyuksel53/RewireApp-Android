@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SifreDegisActivity : AppCompatActivity() {
+class ChangePasswordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class SifreDegisActivity : AppCompatActivity() {
                 result?.clone()?.enqueue(object:Callback<String>{
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
                         pbSifreDegis.visibility = View.INVISIBLE
-                        Toasty.error(this@SifreDegisActivity,
+                        Toasty.error(this@ChangePasswordActivity,
                                 UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
                                 Toast.LENGTH_LONG).show()
                     }
@@ -77,14 +77,14 @@ class SifreDegisActivity : AppCompatActivity() {
                         pbSifreDegis.visibility = View.INVISIBLE
                         if(response?.code() == 200)
                         {
-                            Portal.SifreDegis(this@SifreDegisActivity,edSifreGuncelleYeni.text.toString())
-                            Toasty.success(this@SifreDegisActivity,
+                            Portal.SifreDegis(this@ChangePasswordActivity,edSifreGuncelleYeni.text.toString())
+                            Toasty.success(this@ChangePasswordActivity,
                                     UserPortal.myLangResource!!.getString(R.string.islem_basarili),
                                     Toast.LENGTH_SHORT).show()
                             finish()
                         }else
                         {
-                            Toasty.error(this@SifreDegisActivity,
+                            Toasty.error(this@ChangePasswordActivity,
                                     UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                     Toast.LENGTH_LONG).show()
                         }

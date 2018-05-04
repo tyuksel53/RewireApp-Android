@@ -4,7 +4,6 @@ package com.example.taha.sigraylamcadele.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,7 @@ import com.example.taha.sigraylamcadele.LoginActivity
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 
 import com.example.taha.sigraylamcadele.R
-import com.example.taha.sigraylamcadele.SifreDegisActivity
+import com.example.taha.sigraylamcadele.ChangePasswordActivity
 import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
 import retrofit2.Call
@@ -66,15 +65,32 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvExit = view.findViewById(R.id.tvExitApp)
 
         tvExit?.setOnClickListener {
-            if(UserPortal.deleteLoggedInUser(activity))
-            {
-                val intent = Intent(activity, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                Toast.makeText(activity,UserPortal.myLangResource!!.getString(R.string.cikis_basarili),Toast.LENGTH_SHORT).show()
-                UserPortal.reset()
-                activity.finish()
+            val dialog = AlertDialog.Builder(activity)
+            dialog.setTitle(UserPortal.myLangResource!!.getString(R.string.Emin_Misin))
+            dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.cikis_yapacaksin))
+            dialog.setCancelable(true)
+            dialog.setPositiveButton(UserPortal.myLangResource!!.getString(R.string.Evet)) { dialog, which ->
+                if(UserPortal.deleteLoggedInUser(activity))
+                {
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    Toasty.success(activity,
+                            UserPortal.myLangResource!!.getString(R.string.cikis_basarili)
+                            ,Toast.LENGTH_SHORT).show()
+                    UserPortal.reset()
+                    activity.finish()
+                }else
+                {
+                    Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                            Toast.LENGTH_LONG).show()
+                }
             }
+            dialog.setNegativeButton(UserPortal.myLangResource!!.getString(R.string.Hayır)) { dialog, which ->
+
+            }
+            dialog.show()
+
         }
 
         val list = ArrayList<String>()
@@ -135,7 +151,7 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
 
             if(activity != null)
             {
-                val intent = Intent(activity,SifreDegisActivity::class.java)
+                val intent = Intent(activity,ChangePasswordActivity::class.java)
                 startActivity(intent)
             }
 

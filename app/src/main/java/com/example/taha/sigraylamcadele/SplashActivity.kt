@@ -4,13 +4,11 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
-import com.example.taha.sigraylamcadele.Model.User
 import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import io.paperdb.Paper
@@ -19,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SplashActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,7 @@ class SplashActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
                                 if(response?.code() == 200) {
                                     UserPortal.userDates = response.body()
-                                    val intent = Intent(this@SplashActivity,AnaEkranActivity::class.java)
+                                    val intent = Intent(this@SplashActivity,HomeActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }else {

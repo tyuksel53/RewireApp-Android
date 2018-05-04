@@ -23,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-class SoruCevapDetay : AppCompatActivity() {
+class PostsActivity : AppCompatActivity() {
 
     var adapter:CommentAdapter? = null
     var isUserCanClick = true
@@ -95,7 +95,7 @@ class SoruCevapDetay : AppCompatActivity() {
                     override fun onFailure(call: Call<String>?, t: Throwable?) {
                         pbShareDetay.visibility = View.INVISIBLE
                         isUserCanClick = true
-                        Toasty.error(this@SoruCevapDetay,
+                        Toasty.error(this@PostsActivity,
                                 myResources.getString(R.string.hataBaglantiBozuk),
                                 Toast.LENGTH_LONG).show()
                     }
@@ -116,7 +116,7 @@ class SoruCevapDetay : AppCompatActivity() {
                             edShareComment.setText("")
                         }else
                         {
-                            Toasty.error(this@SoruCevapDetay,
+                            Toasty.error(this@PostsActivity,
                                     myResources.getString(R.string.hataBirSeylerTers),
                                     Toast.LENGTH_SHORT).show()
                         }
@@ -138,7 +138,7 @@ class SoruCevapDetay : AppCompatActivity() {
         getComments?.enqueue(object : Callback<ArrayList<Comment>> {
             override fun onFailure(call: Call<ArrayList<Comment>>?, t: Throwable?) {
                 pbShareDetay.visibility = View.INVISIBLE
-                Toasty.error(this@SoruCevapDetay,
+                Toasty.error(this@PostsActivity,
                         myResources.getString(R.string.hataBaglantiBozuk),
                         Toast.LENGTH_SHORT).show()
 
@@ -149,13 +149,13 @@ class SoruCevapDetay : AppCompatActivity() {
                 if(response?.code() == 200)
                 {
                     val body = response?.body()
-                    adapter = CommentAdapter(body!!,inComingShare,this@SoruCevapDetay)
+                    adapter = CommentAdapter(body!!,inComingShare,this@PostsActivity)
                     rvShareDetayComments.adapter = adapter
-                    val myManager = LinearLayoutManager(this@SoruCevapDetay,LinearLayoutManager.VERTICAL,false)
+                    val myManager = LinearLayoutManager(this@PostsActivity,LinearLayoutManager.VERTICAL,false)
                     rvShareDetayComments!!.layoutManager = myManager
                 }else
                 {
-                    Toasty.error(this@SoruCevapDetay,
+                    Toasty.error(this@PostsActivity,
                             myResources.getString(R.string.hataBirSeylerTers),
                             Toast.LENGTH_SHORT).show()
                 }
@@ -167,7 +167,7 @@ class SoruCevapDetay : AppCompatActivity() {
     }
 
     private fun updateView(lang: String?) {
-        val context = LocaleHelper.setLocale(this@SoruCevapDetay,lang)
+        val context = LocaleHelper.setLocale(this@PostsActivity,lang)
         myResources = context.resources
 
         edShareComment.setHint(myResources.getString(R.string.CevapYaz))

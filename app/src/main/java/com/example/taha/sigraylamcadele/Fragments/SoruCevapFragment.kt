@@ -43,17 +43,15 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
     var lengthCheck = true
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view =  inflater!!.inflate(R.layout.fragment_soru_cevap, container, false)
-        setSortText(paramlist)
         textSort = view.findViewById(R.id.tvSortBy)
         ivSort = view.findViewById(R.id.ivSort)
-        ivSort?.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent),
-                android.graphics.PorterDuff.Mode.SRC_IN)
         textSort?.setOnClickListener {
 
             val dialog = SortByDialog()
             dialog.setTargetFragment(this,2)
             dialog.show(fragmentManager,"sort")
         }
+        setSortText(paramlist)
 
         Paper.init(activity)
         val lang = Paper.book().read<String>("language")
@@ -258,6 +256,7 @@ class SoruCevapFragment : android.app.Fragment(),SortByDialog.sortSelected {
         setSortText(selectedParams as ArrayList)
         paramlist[0] = selectedParams[0]
         paramlist[1] = selectedParams[1]
+        paramlist[2] = selectedParams[2]
         val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
         result = apiInterface?.getShares("Bearer ${UserPortal.loggedInUser?.AccessToken}"
                 ,0,

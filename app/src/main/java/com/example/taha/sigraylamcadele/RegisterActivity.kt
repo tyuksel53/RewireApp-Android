@@ -2,15 +2,12 @@ package com.example.taha.sigraylamcadele
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.Library.Portal
 import kotlinx.android.synthetic.main.activity_register.*
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import com.example.taha.sigraylamcadele.API.ApiClient
@@ -18,11 +15,9 @@ import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
 import com.example.taha.sigraylamcadele.Model.User
-import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.register_toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,14 +26,12 @@ import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(LocaleHelper.onAttacth(newBase!!,"en"))
-    }
+    var isUserCanClick = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
+        isUserCanClick = true
         updateView(Paper.book().read("language"))
 
 
@@ -70,181 +63,188 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         btnRegister.setOnClickListener {
-            tvRegisterError.visibility = View.INVISIBLE
-            btnRegister.isEnabled = false
-            pbRegisterLoading.visibility = View.VISIBLE
+            if(isUserCanClick)
+            {
+                tvRegisterError.visibility = View.INVISIBLE
+                isUserCanClick = false
+                pbRegisterLoading.visibility = View.VISIBLE
 
-            var registerControl = true
-            if(edRegisterMail.text.isNullOrEmpty() || edRegisterMail.text.isBlank())
-            {
-                edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataBos)
-                registerControl = false
-            }else
-            {
-                if(!Portal.isEmailValid(edRegisterMail.text.toString()))
+                var registerControl = true
+                if(edRegisterMail.text.isNullOrEmpty() || edRegisterMail.text.isBlank())
                 {
+                    edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataBos)
                     registerControl = false
-                    edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataFormat)
-                }else if(edRegisterMail.text.toString().length > 254)
+                }else
                 {
-                    registerControl = false
-                    edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataUzunluk)
-                }
-            }
-
-            if(edRegisterUserName.text.isNullOrEmpty() || edRegisterUserName.text.isBlank())
-            {
-                edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataGirisKullanıcıadi)
-                registerControl = false
-            }else
-            {
-                if(edRegisterUserName.text.toString().length < 4)
-                {
-                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMinUzunluk)
-                    registerControl = false
-                }else if(edRegisterUserName.text.toString().length > 50)
-                {
-                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMaxUzunluk)
-                    registerControl = false
-                }
-            }
-
-            if(edRegisterPassConfirm.text.isNullOrEmpty() || edRegisterPassConfirm.text.isBlank())
-            {
-                edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
-                registerControl = false
-            }
-
-            if(edRegisterPass.text.isNullOrEmpty() || edRegisterPass.text.isBlank())
-            {
-                edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
-                registerControl = false
-            }else
-            {
-                if(edRegisterPass.text.toString().length < 4)
-                {
-                    edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataSifreUzunluk)
-                    registerControl = false
-                }
-                else
-                if(edRegisterPassConfirm.text.isNotBlank() && edRegisterPassConfirm.text.isNotEmpty())
-                {
-                    if(edRegisterPassConfirm.text.toString() != edRegisterPass.text.toString())
+                    if(!Portal.isEmailValid(edRegisterMail.text.toString()))
                     {
-                        edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataSifreEslesme)
+                        registerControl = false
+                        edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataFormat)
+                    }else if(edRegisterMail.text.toString().length > 254)
+                    {
+                        registerControl = false
+                        edRegisterMail.error = UserPortal.myLangResource!!.getString(R.string.mailHataUzunluk)
+                    }
+                }
+
+                if(edRegisterUserName.text.isNullOrEmpty() || edRegisterUserName.text.isBlank())
+                {
+                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataGirisKullanıcıadi)
+                    registerControl = false
+                }else
+                {
+                    if(edRegisterUserName.text.toString().length < 4)
+                    {
+                        edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMinUzunluk)
+                        registerControl = false
+                    }else if(edRegisterUserName.text.toString().length > 50)
+                    {
+                        edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMaxUzunluk)
                         registerControl = false
                     }
                 }
-            }
 
-            if(registerControl)
-            {
-                val newUser = User(username = edRegisterUserName.text.toString(),
-                        password = edRegisterPass.text.toString(),
-                        role = "user",
-                        email = edRegisterMail.text.toString(),
-                        accessToken = null,
-                        timeZoneId = spTimeZones.getSelectedItem().toString(),
-                        language = spLanguage.getSelectedItem().toString(),
-                        lastLoginTime = null,
-                        registeredDate = null,
-                        clearDayCount = null)
+                if(edRegisterPassConfirm.text.isNullOrEmpty() || edRegisterPassConfirm.text.isBlank())
+                {
+                    edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
+                    registerControl = false
+                }
 
-
-                val apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
-
-                val result = apiInterface?.userRegister("application/json",newUser)
-
-                result?.enqueue(object: Callback<String>{
-
-                    override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        Toasty.error(this@RegisterActivity,
-                                UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
-                                Toast.LENGTH_SHORT).show()
-                        btnRegister.isEnabled = true
-                        pbRegisterLoading.visibility = View.INVISIBLE
-
+                if(edRegisterPass.text.isNullOrEmpty() || edRegisterPass.text.isBlank())
+                {
+                    edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataGirisSifre)
+                    registerControl = false
+                }else
+                {
+                    if(edRegisterPass.text.toString().length < 4)
+                    {
+                        edRegisterPass.error = UserPortal.myLangResource!!.getString(R.string.hataSifreUzunluk)
+                        registerControl = false
                     }
-
-                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
-
-                        val body = response?.errorBody()?.string()
-
-                        if(response?.message()?.toString() == "OK")
+                    else
+                        if(edRegisterPassConfirm.text.isNotBlank() && edRegisterPassConfirm.text.isNotEmpty())
                         {
-                            val getToken = apiInterface?.tokenAl(newUser.Username!!,newUser.Password!!
-                                    ,"password")
-                            getToken?.enqueue(object:Callback<LoginResponse>{
-                                override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
-                                    Toasty.error(this@RegisterActivity,
-                                            UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
-                                            Toast.LENGTH_SHORT).show()
-                                    btnRegister.isEnabled = true
-                                    pbRegisterLoading.visibility = View.INVISIBLE
-                                }
-
-                                override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
-                                    if(response?.message()?.toString() == "OK")
-                                    {
-                                        setLanguage(newUser.Language!!)
-                                        val tokenBody = response.body()
-                                        newUser.AccessToken = tokenBody?.access_token
-
-                                        Toasty.success(this@RegisterActivity,
-                                                UserPortal.myLangResource!!.getString(R.string.kayitBasarili),
-                                                Toast.LENGTH_SHORT).show()
-                                        UserPortal.deleteLoggedInUser(this@RegisterActivity)
-                                        UserPortal.loggedInUser = newUser
-                                        UserPortal.insertNewUser(this@RegisterActivity, newUser)
-                                        UserPortal.updateUserInfo()
-                                        UserPortal.getLikes()
-                                        UserPortal.userDates = ArrayList()
-                                        val intent = Intent(this@RegisterActivity,AnaEkranActivity::class.java)
-                                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        startActivity(intent)
-                                        finish()
-
-                                    }else
-                                    {
-                                        Toast.makeText(this@RegisterActivity,
-                                                UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                                Toast.LENGTH_SHORT).show()
-                                    }
-                                    btnRegister.isEnabled = true
-                                    pbRegisterLoading.visibility = View.INVISIBLE
-                                }
-
-                            })
-
-
-                        }else
-                        {
-                            if(body == "\"Bu kullanıcı adı zaten alınmış\"")
+                            if(edRegisterPassConfirm.text.toString() != edRegisterPass.text.toString())
                             {
-                                edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis)
-                                Toasty.error(this@RegisterActivity,
-                                        UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis),
-                                        Toast.LENGTH_SHORT).show()
+                                edRegisterPassConfirm.error = UserPortal.myLangResource!!.getString(R.string.hataSifreEslesme)
+                                registerControl = false
+                            }
+                        }
+                }
+                var timeZone = 
+                if(registerControl)
+                {
+                    val newUser = User(username = edRegisterUserName.text.toString(),
+                            password = edRegisterPass.text.toString(),
+                            role = "user",
+                            email = edRegisterMail.text.toString(),
+                            accessToken = null,
+                            timeZoneId = ,
+                            language = spLanguage.getSelectedItem().toString(),
+                            lastLoginTime = null,
+                            registeredDate = null,
+                            clearDayCount = null)
+
+
+                    val apiInterface =  ApiClient.client?.create(ApiInterface::class.java)
+
+                    val result = apiInterface?.userRegister("application/json",newUser)
+
+                    result?.enqueue(object: Callback<String>{
+
+                        override fun onFailure(call: Call<String>?, t: Throwable?) {
+                            Toasty.error(this@RegisterActivity,
+                                    UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
+                                    Toast.LENGTH_SHORT).show()
+                            isUserCanClick = true
+                            pbRegisterLoading.visibility = View.INVISIBLE
+
+                        }
+
+                        override fun onResponse(call: Call<String>?, response: Response<String>?) {
+
+                            val body = response?.errorBody()?.string()
+
+                            if(response?.message()?.toString() == "OK")
+                            {
+                                val getToken = apiInterface?.tokenAl(newUser.Username!!,newUser.Password!!
+                                        ,"password")
+                                getToken?.enqueue(object:Callback<LoginResponse>{
+                                    override fun onFailure(call: Call<LoginResponse>?, t: Throwable?) {
+                                        Toasty.error(this@RegisterActivity,
+                                                UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
+                                                Toast.LENGTH_SHORT).show()
+                                        isUserCanClick = true
+                                        pbRegisterLoading.visibility = View.INVISIBLE
+                                    }
+
+                                    override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>?) {
+                                        if(response?.message()?.toString() == "OK")
+                                        {
+                                            setLanguage(newUser.Language!!)
+                                            val tokenBody = response.body()
+                                            newUser.AccessToken = tokenBody?.access_token
+
+                                            Toasty.success(this@RegisterActivity,
+                                                    UserPortal.myLangResource!!.getString(R.string.kayitBasarili),
+                                                    Toast.LENGTH_SHORT).show()
+                                            UserPortal.deleteLoggedInUser(this@RegisterActivity)
+                                            UserPortal.loggedInUser = newUser
+                                            UserPortal.insertNewUser(this@RegisterActivity, newUser)
+                                            UserPortal.updateUserInfo()
+                                            UserPortal.getLikes()
+                                            UserPortal.userDates = ArrayList()
+                                            val intent = Intent(this@RegisterActivity,HomeActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent)
+                                            finish()
+
+                                        }else
+                                        {
+                                            Toast.makeText(this@RegisterActivity,
+                                                    UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                                                    Toast.LENGTH_SHORT).show()
+                                        }
+                                        isUserCanClick = true
+                                        pbRegisterLoading.visibility = View.INVISIBLE
+                                    }
+
+                                })
+
 
                             }else
                             {
-                                tvRegisterError.visibility = View.VISIBLE
-                                Toast.makeText(this@RegisterActivity,
-                                        UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                        Toast.LENGTH_SHORT).show()
+                                if(body == "\"Bu kullanıcı adı zaten alınmış\"")
+                                {
+                                    edRegisterUserName.error = UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis)
+                                    Toasty.error(this@RegisterActivity,
+                                            UserPortal.myLangResource!!.getString(R.string.kullaniciAdiAlinmis),
+                                            Toast.LENGTH_SHORT).show()
+
+                                }else
+                                {
+                                    tvRegisterError.visibility = View.VISIBLE
+                                    Toasty.error(this@RegisterActivity,
+                                            UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                                            Toast.LENGTH_SHORT).show()
+                                }
+
+                                isUserCanClick = true
+                                pbRegisterLoading.visibility = View.INVISIBLE
                             }
-
-                            btnRegister.isEnabled = true
-                            pbRegisterLoading.visibility = View.INVISIBLE
                         }
-                    }
 
-                })
-            }else
-            {
-                btnRegister.isEnabled = true
-                pbRegisterLoading.visibility = View.INVISIBLE
+                    })
+                }else
+                {
+                    Toasty.error(this@RegisterActivity,
+                            UserPortal.myLangResource!!.getString(R.string.fill_holls_correctly),
+                            Toast.LENGTH_SHORT).show()
+                    isUserCanClick = true
+                    pbRegisterLoading.visibility = View.INVISIBLE
+                }
             }
+
 
         }
 

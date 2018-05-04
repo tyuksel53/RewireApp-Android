@@ -20,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class KulaniciAktiviteActivity : AppCompatActivity() {
+class UserActivitiesActivity : AppCompatActivity() {
 
     var type:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
             header.setText(UserPortal.myLangResource!!.getString(R.string.paylasimlarin))
             val exit = v.findViewById<ImageView>(R.id.ivYourPostCancel)
             exit.setOnClickListener {
-                this@KulaniciAktiviteActivity.finish()
+                this@UserActivitiesActivity.finish()
             }
             val actionBar = supportActionBar
             actionBar!!.setDisplayHomeAsUpEnabled(false)
@@ -58,7 +58,7 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
             header.setText(UserPortal.myLangResource!!.getString(R.string.begenilerin))
             val exit = v.findViewById<ImageView>(R.id.ivYourLikesCancel)
             exit.setOnClickListener {
-                this@KulaniciAktiviteActivity.finish()
+                this@UserActivitiesActivity.finish()
             }
 
             val actionBar = supportActionBar
@@ -73,7 +73,7 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
             result?.clone()?.enqueue(object: Callback<ArrayList<Shares>> {
                 override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
                     pbKullaniciAktivite.visibility = View.INVISIBLE
-                    Toasty.error(this@KulaniciAktiviteActivity,
+                    Toasty.error(this@UserActivitiesActivity,
                             UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
                             Toast.LENGTH_LONG).show()
                 }
@@ -88,15 +88,15 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
                             tvKullaniciNoData.visibility = View.VISIBLE
                         }else
                         {
-                            val adapter = SoruCevapAdapter(response.body()!!,this@KulaniciAktiviteActivity)
+                            val adapter = SoruCevapAdapter(response.body()!!,this@UserActivitiesActivity)
                             rvKullaniciAktivite.adapter = adapter
-                            val myManager = LinearLayoutManager(this@KulaniciAktiviteActivity, LinearLayoutManager.VERTICAL,false)
+                            val myManager = LinearLayoutManager(this@UserActivitiesActivity, LinearLayoutManager.VERTICAL,false)
                             rvKullaniciAktivite!!.layoutManager = myManager
                         }
 
                     }else
                     {
-                        Toasty.error(this@KulaniciAktiviteActivity,
+                        Toasty.error(this@UserActivitiesActivity,
                                 UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                                 Toast.LENGTH_LONG).show()
                     }
@@ -124,7 +124,7 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
         result?.clone()?.enqueue(object: Callback<ArrayList<Shares>> {
             override fun onFailure(call: Call<ArrayList<Shares>>?, t: Throwable?) {
                 pbKullaniciAktivite.visibility = View.INVISIBLE
-                Toasty.error(this@KulaniciAktiviteActivity,
+                Toasty.error(this@UserActivitiesActivity,
                         UserPortal.myLangResource!!.getString(R.string.hataBaglantiBozuk),
                         Toast.LENGTH_LONG).show()
             }
@@ -139,14 +139,14 @@ class KulaniciAktiviteActivity : AppCompatActivity() {
                         tvKullaniciNoData.visibility = View.VISIBLE
                     }else
                     {
-                        val adapter = SoruCevapAdapter(response.body()!!,this@KulaniciAktiviteActivity)
+                        val adapter = SoruCevapAdapter(response.body()!!,this@UserActivitiesActivity)
                         rvKullaniciAktivite.adapter = adapter
-                        val myManager = LinearLayoutManager(this@KulaniciAktiviteActivity, LinearLayoutManager.VERTICAL,false)
+                        val myManager = LinearLayoutManager(this@UserActivitiesActivity, LinearLayoutManager.VERTICAL,false)
                         rvKullaniciAktivite!!.layoutManager = myManager
                     }
                 }else
                 {
-                    Toasty.error(this@KulaniciAktiviteActivity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                    Toasty.error(this@UserActivitiesActivity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
                             Toast.LENGTH_LONG).show()
                 }
             }

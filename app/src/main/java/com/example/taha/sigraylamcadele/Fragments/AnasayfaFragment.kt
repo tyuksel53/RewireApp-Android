@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.taha.sigraylamcadele.KulaniciAktiviteActivity
+import com.example.taha.sigraylamcadele.UserActivitiesActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
 
 import com.example.taha.sigraylamcadele.R
@@ -28,14 +28,14 @@ class AnasayfaFragment : android.app.Fragment() {
         val posts = view.findViewById<TextView>(R.id.tvAnaEkranPosts)
         posts.setText(UserPortal.myLangResource!!.getString(R.string.paylasimlarin))
         posts.setOnClickListener {
-            val intent = Intent(activity,KulaniciAktiviteActivity::class.java)
+            val intent = Intent(activity,UserActivitiesActivity::class.java)
             intent.putExtra("type",1)
             startActivity(intent)
         }
         val likes = view.findViewById<TextView>(R.id.tvAnaEkranLikes)
         likes.setText(UserPortal.myLangResource!!.getString(R.string.begenilerin))
         likes.setOnClickListener {
-            val intent = Intent(activity,KulaniciAktiviteActivity::class.java)
+            val intent = Intent(activity,UserActivitiesActivity::class.java)
             intent.putExtra("type",2)
             startActivity(intent)
         }

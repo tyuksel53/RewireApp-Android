@@ -18,7 +18,7 @@ import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.ShareLike
 import com.example.taha.sigraylamcadele.Model.Shares
 import com.example.taha.sigraylamcadele.R
-import com.example.taha.sigraylamcadele.SoruCevapDetay
+import com.example.taha.sigraylamcadele.PostsActivity
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.card_view_share.view.*
 import retrofit2.Call
@@ -133,7 +133,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                     {
                         val dialog = AlertDialog.Builder(context)
                         dialog.setTitle(UserPortal.myLangResource!!.getString(R.string.Emin_Misin))
-                        dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.Butun_tarihler_silinecek))
+                        dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.post_will_deleted))
                         dialog.setCancelable(true)
                         dialog.setPositiveButton(UserPortal.myLangResource!!.getString(R.string.Evet)) { dialog, which ->
                             Toasty.success(context,
@@ -260,7 +260,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
             }
 
             cardInfo.setOnClickListener {
-                val intent = Intent(context,SoruCevapDetay::class.java)
+                val intent = Intent(context,PostsActivity::class.java)
                 intent.putExtra("currentShare",share)
                 intent.putExtra("position",position)
                 it.context.startActivity(intent)
