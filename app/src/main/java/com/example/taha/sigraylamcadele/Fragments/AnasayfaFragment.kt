@@ -32,11 +32,6 @@ class AnasayfaFragment : android.app.Fragment() {
         actions.setText(UserPortal.myLangResource!!.getString(R.string.Hareketlerin))
         val posts = view.findViewById<TextView>(R.id.tvAnaEkranPosts)
         posts.setText(UserPortal.myLangResource!!.getString(R.string.paylasimlarin))
-        val checkUpHeader = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpHeader)
-        checkUpHeader.setText(UserPortal.myLangResource!!.getString(R.string.check_up))
-        val checkUpAction = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpAction)
-        val userSettings = Portal.getSettings(activity,UserPortal.loggedInUser!!.Username!!)
-        checkUpAction.setText(UserPortal.myLangResource!!.getString(R.string.checkup_at) + "  " + userSettings!!.UserCheckUpTime)
 
         posts.setOnClickListener {
             val intent = Intent(activity,UserActivitiesActivity::class.java)

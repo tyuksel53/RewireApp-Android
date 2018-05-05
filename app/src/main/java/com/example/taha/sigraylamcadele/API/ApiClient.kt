@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient
 {
 
-    val BASE_URL = "http://192.168.1.102/api/"
+    val BASE_URL = "http://api.yukselalgoritma.net/"
 
     private var retrofit: Retrofit? = null
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
+import com.example.taha.sigraylamcadele.Dialogs.ForgetPasswordDialog
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.LoginResponse
@@ -37,6 +38,13 @@ class LoginActivity : AppCompatActivity() {
         btnLoginRegister.setOnClickListener {
             val intent = Intent(this@LoginActivity,RegisterActivity::class.java)
             startActivity(intent)
+        }
+
+
+        tvForgetPassword.setOnClickListener {
+            val dialog = ForgetPasswordDialog()
+            dialog.show(fragmentManager,"unuttum")
+
         }
 
         tvLoginError.visibility = View.INVISIBLE

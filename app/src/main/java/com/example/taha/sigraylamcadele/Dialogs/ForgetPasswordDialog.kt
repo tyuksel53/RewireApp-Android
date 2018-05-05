@@ -8,11 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.example.taha.sigraylamcadele.API.ApiClient
+import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 
 import com.example.taha.sigraylamcadele.R
 import com.rengwuxian.materialedittext.MaterialEditText
+import es.dmoral.toasty.Toasty
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ForgetPasswordDialog : DialogFragment() {
 
@@ -25,31 +32,46 @@ class ForgetPasswordDialog : DialogFragment() {
         val header = view.findViewById<TextView>(R.id.tvForgetPassHeader)
         header.setText(UserPortal.myLangResource!!.getString(R.string.sifremi_unuttum))
         btn.setText(UserPortal.myLangResource!!.getString(R.string.gonder))
-        mail.setHint(UserPortal.myLangResource!!.getString(R.string.mail_adresiniz))
+        mail.setHint(UserPortal.myLangResource!!.getString(R.string.username))
 
         btn.setOnClickListener {
 
             var registerControl = true
             if(mail.text.isNullOrEmpty() || mail.text.isBlank())
             {
-                mail.error = UserPortal.myLangResource!!.getString(R.string.mailHataBos)
+                mail.error = UserPortal.myLangResource!!.getString(R.string.hataGirisKullanıcıadi)
                 registerControl = false
             }else
             {
-                if(!Portal.isEmailValid(mail.text.toString()))
+                if(mail.text.toString().length < 4)
                 {
+                    mail.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMinUzunluk)
                     registerControl = false
-                    mail.error = UserPortal.myLangResource!!.getString(R.string.mailHataFormat)
-                }else if(mail.text.toString().length > 254)
+                }else if(mail.text.toString().length > 50)
                 {
+                    mail.error = UserPortal.myLangResource!!.getString(R.string.hataKullaniciAdiMaxUzunluk)
                     registerControl = false
-                    mail.error = UserPortal.myLangResource!!.getString(R.string.mailHataUzunluk)
                 }
             }
 
             if(registerControl)
             {
-                
+                val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+                val result = apiInterface?.forgetPass(mail.text.toString())
+                val enqueue = result?.clone()?.enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>?, t: Throwable?) {
+                        var test = ""
+                    }
+
+                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                        var test = ""
+                    }
+
+                })
+                Toasty.success(activity,UserPortal.myLangResource!!.
+                        getString(R.string.forget_pass_sent),
+                        Toast.LENGTH_LONG).show()
+                dismiss()
             }
 
         }

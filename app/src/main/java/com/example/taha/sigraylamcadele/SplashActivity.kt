@@ -8,6 +8,7 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.animation.AnimationUtils
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Library.UserPortal
@@ -17,10 +18,18 @@ import com.example.taha.sigraylamcadele.Model.UserDate
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import com.example.taha.sigraylamcadele.Service.CheckUpService
 import io.paperdb.Paper
+import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import android.view.animation.AnimationSet
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.DecelerateInterpolator
+
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -29,6 +38,16 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        val fadeIn = AlphaAnimation(0f, 1f)
+        fadeIn.interpolator = DecelerateInterpolator() //add this
+        fadeIn.duration = 1500
+
+        val animation = AnimationSet(false) //change to false
+        animation.addAnimation(fadeIn)
+
+        tvHosGeldin.animation = animation
+
+        aviLoading.smoothToShow()
         Portal.raiseUp()
         startService()
         Portal.deleteNotfiy(this)
@@ -101,7 +120,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun redirectToLogin()
     {
-        object:CountDownTimer(1000,100)
+        object:CountDownTimer(2000,1000)
         {
             override fun onFinish() {
                 val intent = Intent(this@SplashActivity,LoginActivity::class.java)
@@ -110,7 +129,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onTick(millisUntilFinished: Long) {
-
+                var asd = 1
             }
 
         }.start()
@@ -124,7 +143,7 @@ class SplashActivity : AppCompatActivity() {
                 100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                1000,1000,
+                100000,150000,
                 pendingIntent)
 
     }

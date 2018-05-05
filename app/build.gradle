@@ -47,4 +47,5 @@ dependencies {
     compile 'io.paperdb:paperdb:2.6'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
+    compile 'com.wang.avi:library:2.1.3'
 }

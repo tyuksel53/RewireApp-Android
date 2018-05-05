@@ -111,4 +111,7 @@ interface ApiInterface {
     @GET("Home/GetUp")
     fun raiseUp():Call<String>
 
+    @POST("Home/ForgetPassword")
+    fun forgetPass(@Query("username") username:String):Call<String>
+
 }
