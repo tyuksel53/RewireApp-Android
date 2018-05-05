@@ -151,6 +151,8 @@
     <string name="saat_degisti">Check up time changed successfully</string>
     <string name="check_up">Check Up</string>
     <string name="checkup_at">CheckUp At</string>
+    <string name="checkUp_message_notfiy">It\'s time for you to check up</string>
+    <string name="gonder">Gönder</string>
 
 
 </resources>

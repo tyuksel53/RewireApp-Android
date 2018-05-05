@@ -144,7 +144,7 @@
     <string name="eski_sifre">Eski Şifre</string>
     <string name="yeni_sifre">Yeni Şifre</string>
     <string name="yeni_sifre_tekrar">Yeni şifre tekrar</string>
-    <string name="Check_Up_Time">Check up zamanı</string>
+    <string name="Check_Up_Time">Hatırlatıcı</string>
 
     <string name="post_will_deleted">Paylaşım silinecek</string>
     <string name="cikis_yapacaksin">Çıkış yapacaksın</string>
@@ -154,7 +154,7 @@
     <string name="Bildirim_OFF">Bildirim Kapalı</string>
     <string name="saat_degisti">Check Up zamanı başarıyla değişti</string>
     <string name="check_up">Check Up</string>
-    <string name="checkup_at">CheckUp Zamanı Bugün </string>
-
+    <string name="checkup_at">Check-Up Zamanı Bugün </string>
+    <string name="checkUp_message_notfiy">Günün nasıl geçti ?</string>
 
 </resources>

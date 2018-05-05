@@ -138,7 +138,7 @@
     <string name="eski_sifre">Old Password</string>
     <string name="yeni_sifre">New Password</string>
     <string name="yeni_sifre_tekrar">New password again</string>
-    <string name="Check_Up_Time">Check Up Time</string>
+    <string name="Check_Up_Time">Reminder</string>
     <string name="post_will_deleted">The post will be deleted</string>
     <string name="cikis_yapacaksin">You will be logout</string>
 
@@ -148,4 +148,5 @@
     <string name="saat_degisti">Check up time changed successfully</string>
     <string name="check_up">Check Up</string>
     <string name="checkup_at">Check Up At Today </string>
+    <string name="checkUp_message_notfiy">It\'s time for you to check up.How was your day ?</string>
 </resources>

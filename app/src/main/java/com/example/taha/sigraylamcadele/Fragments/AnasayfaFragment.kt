@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.UserActivitiesActivity
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.User
 
 import com.example.taha.sigraylamcadele.R
+import es.dmoral.toasty.Toasty
+
 class AnasayfaFragment : android.app.Fragment() {
 
 
@@ -32,7 +35,7 @@ class AnasayfaFragment : android.app.Fragment() {
         val checkUpHeader = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpHeader)
         checkUpHeader.setText(UserPortal.myLangResource!!.getString(R.string.check_up))
         val checkUpAction = view.findViewById<TextView>(R.id.tvAnaEkranCheckUpAction)
-        var userSettings = Portal.getSettings(activity)
+        val userSettings = Portal.getSettings(activity,UserPortal.loggedInUser!!.Username!!)
         checkUpAction.setText(UserPortal.myLangResource!!.getString(R.string.checkup_at) + "  " + userSettings!!.UserCheckUpTime)
 
         posts.setOnClickListener {
@@ -83,6 +86,7 @@ class AnasayfaFragment : android.app.Fragment() {
 
         currentStrikeNumber.text = currentStrike.toString()
         bestStrikeNumber.text = bestStrikeDummy.toString()
+
 
         return view
     }

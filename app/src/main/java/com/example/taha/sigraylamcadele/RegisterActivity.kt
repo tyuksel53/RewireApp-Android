@@ -186,15 +186,15 @@ class RegisterActivity : AppCompatActivity() {
                                             Toasty.success(this@RegisterActivity,
                                                     UserPortal.myLangResource!!.getString(R.string.kayitBasarili),
                                                     Toast.LENGTH_SHORT).show()
-                                            Portal.deleteUserSettings(this@RegisterActivity)
-                                            Portal.insertUserSettings(this@RegisterActivity,
-                                                    newUser.TimeZoneId!!,"20:00")
                                             UserPortal.deleteLoggedInUser(this@RegisterActivity)
                                             UserPortal.loggedInUser = newUser
                                             UserPortal.insertNewUser(this@RegisterActivity, newUser)
                                             UserPortal.updateUserInfo()
                                             UserPortal.getLikes()
                                             UserPortal.userDates = ArrayList()
+                                            Portal.insertUserSettings(this@RegisterActivity,
+                                                    newUser.TimeZoneId!!,"20:00",
+                                                    UserPortal.loggedInUser!!.Username!!)
                                             val intent = Intent(this@RegisterActivity,HomeActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                             startActivity(intent)

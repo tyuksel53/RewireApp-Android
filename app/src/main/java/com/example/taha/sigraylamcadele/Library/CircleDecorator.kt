@@ -3,8 +3,6 @@ package com.example.taha.sigraylamcadele.Library
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
-import com.example.taha.sigraylamcadele.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade

@@ -20,6 +20,7 @@ class DatabaseHelper : SQLiteOpenHelper {
         db.execSQL(TABLE_USERS_CREATE)
         db.execSQL(TABLE_SETTINGS_CREATE)
         db.execSQL(TABLE_JOURNAL_CREATE)
+        db.execSQL(TABLE_NOTIFY_CREATE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -27,6 +28,7 @@ class DatabaseHelper : SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME)
         db.execSQL("DROP TABLE IF EXISTS " + SettingsEntry.TABLE_NAME)
         db.execSQL("DROP TABLE IF EXISTS " + JournalEntry.TABLE_NAME)
+        db.execSQL("DROP TABLE IF EXISTS " + NotifyEntry.TABLE_NAME)
         onCreate(db)
 
     }
@@ -34,7 +36,7 @@ class DatabaseHelper : SQLiteOpenHelper {
     companion object {
 
         val DATABSE_NAME = "sigaraylamucadele.db"
-        private val DATABASE_VERSION = 8
+        private val DATABASE_VERSION = 10
 
         private val TABLE_USERS_CREATE = "CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
                 UserEntry._ID + " INTEGER PRIMARY KEY, " +
@@ -50,12 +52,20 @@ class DatabaseHelper : SQLiteOpenHelper {
                 SettingsEntry._ID + " INTEGER PRIMARY KEY, " +
                 SettingsEntry.COLUMN_NOTFICATION + " TEXT, " +
                 SettingsEntry.COLUMN_TIMEZONENAME + " TEXT, " +
+                SettingsEntry.COLUMN_USERNAME + " TEXT, " +
                 SettingsEntry.COLUMN_CHECKUPTIME + " TEXT) "
 
         private val TABLE_JOURNAL_CREATE = "CREATE TABLE " + JournalEntry.TABLE_NAME + "(" +
                 JournalEntry._ID + " INTEGER PRIMARY KEY, " +
                 JournalEntry.COLUMN_HEADER + " TEXT, " +
                 JournalEntry.COLUMN_MESSAGE + " TEXT, " +
+                JournalEntry.COLUMN_USERNAME + " TEXT, " +
                 JournalEntry.COLUMN_DATE + " TEXT)"
+
+        private val TABLE_NOTIFY_CREATE = "CREATE TABLE " + NotifyEntry.TABLE_NAME + "(" +
+                NotifyEntry._ID + " INTEGER PRIMARY KEY, " +
+                NotifyEntry.COLUMN_DATE + " TEXT, " +
+                NotifyEntry.COLUM_USERNAME + " TEXT, " +
+                NotifyEntry.COLUM_NOTIFICATON_SENT + " TEXT)"
     }
 }

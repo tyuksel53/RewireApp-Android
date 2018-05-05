@@ -103,8 +103,12 @@ interface ApiInterface {
     @PUT("User/SifreGuncelleme")
     fun sifreGuncelle(@Header("Authorization") access_token:String,
                       @Query("yeniSifre") yeniSifre:String):Call<String>
+
     @PUT("User/UpdateUserZone")
     fun updateTimeZone(@Header("Authorization") access_token:String,
                        @Query("userZone") userZone:String):Call<String>
+
+    @GET("Home/GetUp")
+    fun raiseUp():Call<String>
 
 }

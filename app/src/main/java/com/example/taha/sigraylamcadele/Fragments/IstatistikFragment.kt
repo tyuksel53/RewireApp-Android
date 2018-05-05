@@ -219,6 +219,7 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
             }
             val c = Calendar.getInstance()
             c.setTime(currentDay.date)
+            c.add(Calendar.DATE,1)
             currentDay = CalendarDay.from(c.getTime())
 
             calendar.setOnDateChangedListener { widget, date, selected ->

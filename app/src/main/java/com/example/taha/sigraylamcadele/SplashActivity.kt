@@ -29,6 +29,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        Portal.raiseUp()
+        startService()
+        Portal.deleteNotfiy(this)
         Paper.init(this)
         val lang = Paper.book().read<String>("language")
         if(lang == null)
@@ -58,7 +61,7 @@ class SplashActivity : AppCompatActivity() {
                         val body = response.body()
                         myUser.AccessToken = body?.access_token
                         UserPortal.loggedInUser = myUser
-                        Portal.updateUserTimeZone(this@SplashActivity)
+                        Portal.updateUserTimeZone(this@SplashActivity,myUser.Username!!)
                         UserPortal.updateUserInfo()
                         UserPortal.getLikes()
 
@@ -71,6 +74,9 @@ class SplashActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
                                 if(response?.code() == 200) {
                                     UserPortal.userDates = response.body()
+                                    Portal.updateUserSettingsCheckUpTime(this@SplashActivity,
+                                            "6:36",
+                                            UserPortal.loggedInUser!!.Username!!)
                                     val intent = Intent(this@SplashActivity,HomeActivity::class.java)
                                     startActivity(intent)
                                     finish()
@@ -116,23 +122,10 @@ class SplashActivity : AppCompatActivity() {
         val intent = Intent(this@SplashActivity,CheckUpService::class.java)
         val pendingIntent = PendingIntent.getService(this@SplashActivity,
                 100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    1000,
-                    pendingIntent);
-        }
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    100,
-                    pendingIntent);
-        }
-        else
-        {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    100,
-                    pendingIntent);
-        }
+
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                1000,1000,
+                pendingIntent)
+
     }
 }

@@ -68,7 +68,7 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
 
         if(activity != null)
         {
-            val userSettings = Portal.getSettings(activity)
+            val userSettings = Portal.getSettings(activity,UserPortal.loggedInUser!!.Username!!)
             if(userSettings != null)
             {
                 if(userSettings.Notification == "YES")
@@ -87,12 +87,14 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
             {
                 if(switchNotifiy?.isChecked!!)
                 {
-                    Portal.updateUserSettingsNotification(activity,"YES")
+                    Portal.updateUserSettingsNotification(activity,"YES",
+                            UserPortal.loggedInUser!!.Username!!)
                     Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.Bildirim_On),
                             Toast.LENGTH_SHORT).show()
                 }else
                 {
-                    Portal.updateUserSettingsNotification(activity,"NO")
+                    Portal.updateUserSettingsNotification(activity,"NO",
+                            UserPortal.loggedInUser!!.Username!!)
                     Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.Bildirim_OFF),
                             Toast.LENGTH_SHORT).show()
                 }
@@ -144,7 +146,7 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         spinner.setAdapter(adp)
         if(activity != null)
         {
-            val userSettings = Portal.getSettings(activity)
+            val userSettings = Portal.getSettings(activity,UserPortal.loggedInUser!!.Username!!)
             val time = userSettings!!.UserCheckUpTime!!.split(':')[0].toInt()
             spinner.setSelection(time)
         }
@@ -158,7 +160,8 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
                     if(++mundi>1)
                     {
                         val item = spinner.selectedItem.toString()
-                        Portal.updateUserSettingsCheckUpTime(activity,item)
+                        Portal.updateUserSettingsCheckUpTime(activity,item,
+                                UserPortal.loggedInUser!!.Username!!)
                     }
                 }
             }

@@ -6,16 +6,24 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import com.example.taha.sigraylamcadele.Fragments.*
+import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.ana_ekran_activity.*
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ana_ekran_activity)
+        val settings = Portal.getSettings(this,UserPortal.loggedInUser!!.Username!!)
+        if(settings == null)
+        {
+            Portal.insertUserSettings(this, TimeZone.getDefault().id,"20:00",
+                    UserPortal.loggedInUser!!.Username!!)
+        }
         getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
         getSupportActionBar()?.setCustomView(R.layout.app_header)
 
@@ -30,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
         val grupFragment = LeaderBoardFragment()
         val soruCevapFragment = SoruCevapFragment()
         val ayarlarFragment = AyarlarFragment()
-        var menu = navigation.getMenu().findItem(R.id.navigation_home)
+        val menu = navigation.getMenu().findItem(R.id.navigation_home)
         menu.setTitle(UserPortal.myLangResource!!.getString(R.string.anasayfa))
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer,anasayfaFragment)

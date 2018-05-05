@@ -31,6 +31,7 @@ class DbContract {
             var COLUMN_NOTFICATION = "notfication"
             var COLUMN_TIMEZONENAME = "timezone"
             var COLUMN_CHECKUPTIME = "checkuptime"
+            var COLUMN_USERNAME = "username"
 
         }
     }
@@ -43,7 +44,20 @@ class DbContract {
             var COLUMN_HEADER = "header"
             var COLUMN_MESSAGE = "message"
             var COLUMN_DATE = "date"
+            var COLUMN_USERNAME = "username"
 
+        }
+    }
+
+    class NotifyEntry:BaseColumns
+    {
+        companion object {
+            var TABLE_NAME = "NotifyTable"
+
+            var _ID = BaseColumns._ID
+            var COLUMN_DATE = "date"
+            var COLUM_NOTIFICATON_SENT = "notify"
+            var COLUM_USERNAME = "username"
         }
     }
 
