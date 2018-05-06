@@ -5,7 +5,6 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.app.DialogFragment
 import android.os.Bundle
-import android.app.Fragment
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
@@ -14,14 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.Model.UserDate
 
 import com.example.taha.sigraylamcadele.R
 import com.rengwuxian.materialedittext.MaterialEditText
-import es.dmoral.toasty.Toasty
 
 class SmokeDialog : DialogFragment() {
 
@@ -55,7 +52,7 @@ class SmokeDialog : DialogFragment() {
 
             if(smokeCountTxt.text.toString().toDouble() < 0 )
             {
-                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.smokeCountNegative))
+                smokeCountTxt.setError(UserPortal.myLangResource!!.getString(R.string.smokeCountNegatif))
                 return@setOnClickListener
             }
 

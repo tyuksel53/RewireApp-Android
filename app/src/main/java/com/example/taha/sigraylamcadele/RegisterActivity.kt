@@ -239,7 +239,7 @@ class RegisterActivity : AppCompatActivity() {
                 }else
                 {
                     Toasty.error(this@RegisterActivity,
-                            UserPortal.myLangResource!!.getString(R.string.fill_holls_correctly),
+                            UserPortal.myLangResource!!.getString(R.string.bosluklari_doldur_adamgibi),
                             Toast.LENGTH_SHORT).show()
                     isUserCanClick = true
                     pbRegisterLoading.visibility = View.INVISIBLE
@@ -264,6 +264,32 @@ class RegisterActivity : AppCompatActivity() {
                 Paper.book().write("language","en")
                 LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
             }
+            "русский" ->
+            {
+                Paper.book().write("language","ru")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+            "français" ->
+            {
+                Paper.book().write("language","fr")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+            "italiano" ->
+            {
+                Paper.book().write("language","it")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+            "español" ->
+            {
+                Paper.book().write("language","es")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+            "deutsch" ->
+            {
+                Paper.book().write("language","de")
+                LocaleHelper.setLocale(this@RegisterActivity,Paper.book().read<String>("language"))
+            }
+
         }
     }
 

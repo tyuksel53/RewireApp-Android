@@ -27,7 +27,7 @@ class UserActivitiesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kulanici_aktivite)
         type = intent.getIntExtra("type",1)
-        tvKullaniciNoData.setText(UserPortal.myLangResource!!.getString(R.string.no_data))
+        tvKullaniciNoData.setText(UserPortal.myLangResource!!.getString(R.string.veri_yok))
         val apiInterFace = ApiClient.client?.create(ApiInterface::class.java)
         if(type==1)
         {

@@ -22,6 +22,11 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         pbSifreDegis.visibility = View.INVISIBLE
 
+        edSifreGuncelleEski.setHint(UserPortal.myLangResource!!.getString(R.string.eski_sifre))
+        edSifreGuncelleYeni.setHint(UserPortal.myLangResource!!.getString(R.string.yeni_sifre))
+        edSifreGuncelleYeniTekrar.setHint(UserPortal.myLangResource!!.getString(R.string.yeni_sifre_tekrar))
+        btnSifreDegisKaydet.setText(UserPortal.myLangResource!!.getString(R.string.kaydet))
+
         btnSifreDegisKaydet.setOnClickListener {
 
             var registerControl = true

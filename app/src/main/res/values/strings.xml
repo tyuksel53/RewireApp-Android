@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Rewire</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_home">Anasayfa</string>
-    <string name="title_dashboard">İstatistikler</string>
-    <string name="title_notifications">Grup</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="kullanici_adi">Kullanici Adi</string>
-    <string name="sifre">Şifre</string>
-    <string name="giris_yap">Giris Yap</string>
-    <string name="yanlis_kullanici_adi_veya_sifre">Yanlış kullanici adı veya şifre</string>
-    <string name="sifremi_unuttum">Şifremi Unuttum</string>
-    <string name="veya">veya</string>
-    <string name="kayit_ol">Kayıt Ol</string>
-
-    <string name="hataGirisKullanıcıadi">"Kullanici Adi boş olamaz"</string>
-    <string name="hataGirisSifre">Şifre boş olamaz</string>
-    <string name="hataBaglantiBozuk">İnternet bağlantınızı kontrol edin</string>
-    <string name="hataBirSeylerTers">Bir şeyler ters gitti</string>
-
-    <string name="mail_adresiniz">Mail Adresiniz</string>
-    <string name="sifrenizi_girin">Şifrenizi Girin</string>
-    <string name="sifre_tekrar">Şifre Tekrar</string>
-    <string name="yeni_hesap">Yeni Hesap</string>
-
-    <string name="mailHataBos">Mail adresi boş olamaz</string>
-    <string name="mailHataFormat">Lütfen düzgün formatta mail adresi giriniz</string>
-    <string name="mailHataUzunluk">Mail adresiniz 255 karakterden kısa olmalıdır</string>
-    <string name="hataKullaniciAdiMinUzunluk">Kullanıcı adi 4 küçük karakterden olmamalıdır</string>
-    <string name="hataKullaniciAdiMaxUzunluk">Kullanıcı adi 50 karakteri geçmemelidir</string>
-    <string name="hataSifreUzunluk">Şifreniz 4 karakterden küçük olmamalıdır</string>
-    <string name="hataSifreEslesme">Şifreler eşleşmiyor</string>
-    <string name="kayitBasarili">Kayit Başarılı</string>
-    <string name="kullaniciAdiAlinmis">Bu kullanici adi alınmıştır</string>
-    <string name="dil_secin">Dil Seçin:</string>
-    <string name="zaman_dilimi_secin">Zaman Dilimi Seçin:</string>
+    <string name="kullanici_adi">Username</string>
+    <string name="sifre">Password</string>
+    <string name="giris_yap">LOGIN</string>
+    <string name="yanlis_kullanici_adi_veya_sifre">Wrong password or username</string>
+    <string name="sifremi_unuttum">Forget password</string>
+    <string name="veya">or</string>
+    <string name="kayit_ol">Register</string>
 
 
-    <string name="cikis_basarili">Çıkış başarılı</string>
-    <string name="anasayfa">Anasayfa</string>
-    <string name="statistikler">İstatistikler</string>
-    <string name="grup">Grup</string>
-    <string name="sorucevap">SoruCevap</string>
-    <string name="ayarlar">Ayarlar</string>
-    <string name="cikis_yap">Çıkış Yap</string>
+    <string name="hataGirisKullanıcıadi">Username cannot be empty</string>
+    <string name="hataGirisSifre">Password cannot be empty</string>
+    <string name="hataBaglantiBozuk">Please check your Internet connection !</string>
+    <string name="hataBirSeylerTers">Something went wrong. Please try again</string>
 
-    <string name="hataShareBaslik">Başlık boş olamaz</string>
-    <string name="hataShareBaslikUzunlukMin">Başlık 3 karakterden küçük olmamalıdır</string>
-    <string name="hataShareBaslikUzunlukMax">Başlık 200 karakterden büyük olmamalıdır</string>
-    <string name="hataShareAciklama">Açıklama boş olamaz</string>
-    <string name="hataShareAciklamaUzunlukMin">Açıklama 3 karakterden küçük olmamalıdır</string>
-    <string name="hataShareAciklamaUzunlukMax">Açıklama 40000 karakterden büyük olmamalıdır</string>
-    <string name="islem_basarili">İşlem başarılı</string>
-    <string name="baslik_girin">Düşüncelerinizi paylaşın</string>
-    <string name="aciklama_girin">Biraz daha açıklayın</string>
-    <string name="bir_seyler_paylas">Bir şeyler paylaşın</string>
+    <string name="mail_adresiniz">Email Address</string>
+    <string name="sifrenizi_girin">Password</string>
+    <string name="sifre_tekrar">Password Again</string>
+    <string name="yeni_hesap">Sign Up</string>
 
-    <string name="Cevapla">Cevapla</string>
-    <string name="simdi">şimdi</string>
-    <string name="hataYorumMinLength">Mesajınızın uzunluğu minimum 3 karakter olmalıdır !</string>
-    <string name="hataYorumBos">Mesaj boş olamaz</string>
-    <string name="hataYorumUzunlukMax">Mesajınız 400 karakterden büyük olmamalıdır</string>
+    <string name="mailHataBos">Email cannot be empty</string>
+    <string name="mailHataFormat">Email Address is not valid</string>
+    <string name="mailHataUzunluk">Email Address length cannot be longer than 255 characters</string>
+    <string name="hataKullaniciAdiMinUzunluk">Username length cannot be shorter than 4 characters</string>
+    <string name="hataKullaniciAdiMaxUzunluk">Username length cannot be longer than 50 characters</string>
+    <string name="hataSifreUzunluk">Password length cannot be shorter than 4</string>
+    <string name="hataSifreEslesme">Passwords don\'t match</string>
+    <string name="kayitBasarili">Registration  successful</string>
+    <string name="kullaniciAdiAlinmis">Username is already taken</string>
+    <string name="dil_secin">Select Language:</string>
+    <string name="zaman_dilimi_secin">Select Timezone:</string>
 
-    <string name="paylas">Paylaş</string>
-    <string name="CevapYaz">Cevap Yazın</string>
+    <string name="cikis_basarili">Exit successful</string>
+    <string name="anasayfa">Home</string>
+    <string name="statistikler">Statistics</string>
+    <string name="grup">Group</string>
+    <string name="sorucevap">QuestionAnswer</string>
+    <string name="ayarlar">Settings</string>
+    <string name="cikis_yap">Exit</string>
+
+    <string name="hataShareBaslik">Header cannot be empty</string>
+    <string name="hataShareBaslikUzunlukMin">Header length cannot be shorter than 3 characters</string>
+    <string name="hataShareBaslikUzunlukMax">Header length cannot be longer than 200 characters</string>
+    <string name="hataShareAciklama">Body cannot be empty</string>
+    <string name="hataShareAciklamaUzunlukMin">Body length cannot be shorter than 3 characters</string>
+    <string name="hataShareAciklamaUzunlukMax">Body length cannot be longer than 40000 characters</string>
+    <string name="islem_basarili">Successful</string>
+    <string name="baslik_girin">Share your thoughts </string>
+    <string name="aciklama_girin">Describe in more detail</string>
+    <string name="bir_seyler_paylas">Share something today</string>
+
+    <string name="Cevapla">Reply</string>
+    <string name="simdi">now</string>
+    <string name="hataYorumMinLength">Comment length cannot be shorter than 3 characters</string>
+    <string name="hataYorumBos">Comment cannot be empty</string>
+    <string name="hataYorumUzunlukMax">Header length cannot be longer than 400 characters</string>
+
+    <string name="paylas">Share</string>
+    <string name="CevapYaz">Add Comment</string>
 
     <string name="Ingilizce">english</string>
     <string name="almanca">deutsch</string>
@@ -75,85 +70,89 @@
     <string name="fransizca">français</string>
     <string name="Turkce">türkçe</string>
 
-    <string name="kapat">Kapat</string>
-    <string name="Dil_degistirin">Dil Değiştrin</string>
-    <string name="genel">Genel</string>
-    <string name="bildirim">Bildirim</string>
-    <string name="Rapor_Iletildi">Raporunuz iletildi</string>
-    <string name="Raporla">Report</string>
+    <string name="kapat">Close</string>
+    <string name="Dil_degistirin">Change Lanugage</string>
+    <string name="genel">General</string>
+    <string name="bildirim">Notification</string>
 
-    <string name="yeni_gonderiler">Yeni gönderiler</string>
-    <string name="sirala">Sırala</string>
-    <string name="top_likes">En Çok Beğenilen</string>
-    <string name="tum_zamanlar">Tüm zamanlar</string>
-    <string name="son_bir_yil">Son bir yıl</string>
-    <string name="son_bir_ay">Son bir ay</string>
-    <string name="son_bir_hafta">Son bir hafta</string>
-    <string name="son_bir_gun">Son bir gün</string>
-    <string name="bir_saat_once">Bir saat önce</string>
-    <string name="yeni">Yeni</string>
+    <string name="Rapor_Iletildi">Report sended.Thank you !</string>
+    <string name="Raporla">Report post</string>
 
-    <string name="kac_tane_sigara_ictin">Kaç tane sigara içtin</string>
-    <string name="degisiklikleri_kaydet">Değişiklikleri Kaydet</string>
-    <string name="smokeCountBos">İçilen sigara sayısı boş olamaz</string>
-    <string name="smokeCountNegative">Sigara sayısı negatif olamaz</string>
-    <string name="degisikler_kaydedildi">Değişikler Kaydedildi</string>
-    <string name="tarihinde_ne_kadar_sigara_ictin">Tarihinde ne kadar sigara içtin ?</string>
-    <string name="sigara_sayis">Sigara Sayısı</string>
-    <string name="kaydet">Kaydet</string>
-    <string name="Sigara_hata_max">Sigara sayısı 2147483646 \'ü geçmemelidir</string>
-    <string name="hata_sifir">Değer 0 olamaz</string>
-    <string name="ClearDay">Temiz Gün</string>
-    <string name="BadDay">Kötü Gün</string>
-    <string name="Sigara_Sayisi">İçilen Sigara Sayısı</string>
-    <string name="ButunGunler">Bütün Günler</string>
+    <string name="yeni_gonderiler">New Posts</string>
+    <string name="sirala">Sort By</string>
+    <string name="top_likes">Top Likes</string>
+    <string name="tum_zamanlar">All Time</string>
+    <string name="son_bir_yil">Past Year</string>
+    <string name="son_bir_ay">Past Month</string>
+    <string name="son_bir_hafta">Past Week</string>
+    <string name="son_bir_gun">Past 24 Hours</string>
+    <string name="bir_saat_once">Past Hour</string>
+    <string name="yeni">New</string>
 
+    <string name="kac_tane_sigara_ictin">How many cigarettes did you smoke?</string>
+    <string name="degisiklikleri_kaydet">Save Changes</string>
+    <string name="smokeCountBos">Cigarette count cannot be empty</string>
+    <string name="smokeCountNegatif">Cigarette count cannot be negative</string>
+    <string name="degisikler_kaydedildi">Changes Saved</string>
+    <string name="tarihinde_ne_kadar_sigara_ictin">How many cigarettes did you smoke?</string>
+    <string name="sigara_sayis">Smoked Cigarettes Count</string>
+    <string name="kaydet">Save</string>
+    <string name="Sigara_hata_max">The number of cigarettes must not exceed 2147483646.</string>
+    <string name="hata_sifir">Value cannot be zero</string>
+    <string name="TemizGun">Clear Day</string>
+    <string name="KotuGun">Smoking Day</string>
+    <string name="Sigara_Sayisi">Cigarette count</string>
+    <string name="ButunGunler">All Days</string>
     <string name="rank">Rank</string>
-    <string name="username">Username</string>
-    <string name="clear_day">Clear Day</string>
+    <string name="kullaniciAdi">Username</string>
+    <string name="temiz_gun">Clear Day</string>
     <string name="Hareketlerin">Your Actions</string>
     <string name="paylasimlarin">Your Posts</string>
     <string name="en_iyi_seri">Best Strike</string>
     <string name="şuanki_seri">Current Strike</string>
     <string name="begenilerin">Your Likes</string>
-    <string name="no_data">No Data</string>
+    <string name="veri_yok">No Data</string>
 
-    <string name="Sil">Sil</string>
-    <string name="Düzenle">Düzenle</string>
-    <string name="paylasim_silindi">Paylaşım silindi</string>
-    <string name="paylasimi_güncelle">Paylaşımı güncelle</string>
+    <string name="Sil">Delete</string>
+    <string name="Düzenle">Edit</string>
+    <string name="paylasim_silindi">Post Deleted</string>
+    <string name="paylasimi_güncelle">Edit Post</string>
 
-    <string name="tarih_bilgilerini_s_f_rla">Tarih Bilgilerini Sıfırla</string>
-    <string name="hesap">Hesap</string>
-    <string name="uygulama">Uygulama</string>
-    <string name="sifre_degistir">Şifre Değiştir</string>
-    <string name="acik_kaynak_kutuphaneleri">Açık Kaynak Kütüphaneleri</string>
-    <string name="tesekkur">Teşekkür</string>
-    <string name="bize_yildiz_vererek_destek_olun">Bize yıldız vererek destek olun</string>
-    <string name="destek">Destek</string>
-    <string name="tarih_bilgilerini_sifirla">Tarih Bilgilerini Sıfırla</string>
-    <string name="Emin_Misin">Emin Misiniz ?</string>
-    <string name="Butun_tarihler_silinecek">Bütün tarihler silinecek !</string>
+    <string name="tarih_bilgilerini_s_f_rla">Reset Date Information</string>
+    <string name="hesap">Account</string>
+    <string name="uygulama">App</string>
+    <string name="sifre_degistir">Change Password</string>
+    <string name="acik_kaynak_kutuphaneleri">Open Source Libraries</string>
+    <string name="tesekkur">Special Thanks</string>
+    <string name="bize_yildiz_vererek_destek_olun">Support us by giving stars  </string>
+    <string name="destek">Support Us</string>
+    <string name="tarih_bilgilerini_sifirla">Reset Date Information</string>
+
+    <string name="Emin_Misin">Are you sure ?</string>
+    <string name="Butun_tarihler_silinecek">All the date data will be gone !</string>
 
 
-    <string name="Evet">Evet</string>
-    <string name="Hayır">Hayır</string>
-    <string name="eski_sifre">Eski Şifre</string>
-    <string name="yeni_sifre">Yeni Şifre</string>
-    <string name="yeni_sifre_tekrar">Yeni şifre tekrar</string>
-    <string name="Check_Up_Time">Check Up Time</string>
-    <string name="post_will_deleted">The post will be deleted</string>
+    <string name="Evet">Yes</string>
+    <string name="Hayır">No</string>
+    <string name="eski_sifre">Old Password</string>
+    <string name="yeni_sifre">New Password</string>
+    <string name="yeni_sifre_tekrar">New password again</string>
+    <string name="Check_Up_Time">Reminder</string>
+    <string name="post_silinecek">The post will be deleted</string>
     <string name="cikis_yapacaksin">You will be logout</string>
 
-    <string name="fill_holls_correctly">Lütfen Alanları Düzgün Girin</string>
+    <string name="bosluklari_doldur_adamgibi">Please fill all areas correctly</string>
     <string name="Bildirim_On">Notification is ON</string>
     <string name="Bildirim_OFF">Notification is OFF</string>
     <string name="saat_degisti">Check up time changed successfully</string>
     <string name="check_up">Check Up</string>
-    <string name="checkup_at">CheckUp At</string>
-    <string name="checkUp_message_notfiy">It\'s time for you to check up</string>
-    <string name="gonder">Gönder</string>
-    <string name="forget_pass_sent">Şifre sıfırlama isteği gönderildi.Mesajın size ulaşması biraz zaman alabilir.</string>
+    <string name="checkup_at">Check Up At Today </string>
+    <string name="notfiy_mesaj">How was your day ?</string>
+    <string name="gonder">Send</string>
+    <string name="mail_gonderildi">
+        Password reset mail sented.It takes a couple minutes to reach you and don\'t forget the check your spam folder.
+    </string>
+    <string name="hos_geldin">Wellcome</string>
 
 
 </resources>

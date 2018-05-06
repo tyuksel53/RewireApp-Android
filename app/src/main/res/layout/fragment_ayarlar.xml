@@ -305,41 +305,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvAyarlarOpenSource" />
 
                     <ImageView
-                        android:id="@+id/imageView28"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_group"
-                        android:tint="#439889"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvAyarlarThanks" />
-
-                    <TextView
-                        android:id="@+id/tvAyarlarThanks"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/tesekkur"
-                        android:textColor="@color/textColorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView28"
-                        app:layout_constraintTop_toBottomOf="@+id/view26" />
-
-                    <View
-                        android:id="@+id/view28"
-                        android:layout_width="0dp"
-                        android:layout_height="2dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/cardview_shadow_start_color"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView28"
-                        app:layout_constraintEnd_toEndOf="@+id/tvAyarlarThanks"
-                        app:layout_constraintStart_toStartOf="@+id/tvAyarlarThanks"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAyarlarThanks" />
-
-                    <ImageView
                         android:id="@+id/imageView19"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -361,7 +326,7 @@
                         android:textColor="@color/textColorPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView19"
-                        app:layout_constraintTop_toBottomOf="@+id/view28" />
+                        app:layout_constraintTop_toBottomOf="@+id/view26" />
 
                     <View
                         android:id="@+id/view24"

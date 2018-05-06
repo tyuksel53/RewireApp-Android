@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "app_name"> Rewire </string>
+
+        <string name = "hello_blank_fragment"> Bonjour le fragment vide </string>
+        <string name = "kullanici_adi"> Nom d\'utilisateur </string>
+        <string name = "sifre"> Mot de passe </string>
+        <string name = "giris_yap"> S\'identifier </string>
+        <string name = "yanlis_kullanici_adi_veya_sifre"> Mot de passe ou nom d\'utilisateur incorrect </string>
+        <string name = "sifremi_unuttum"> Mot de passe oublié </string>
+        <string name = "veya"> ou </string>
+        <string name = "kayit_ol"> Enregistrer </string>
+
+
+        <string name = "hataGirisKullanıcıadi"> Le nom d\'utilisateur ne peut pas être vide </string>
+        <string name = "hataGirisSifre"> Le mot de passe ne peut pas être vide </string>
+        <string name = "hataBaglantiBozuk"> Veuillez vérifier votre connexion Internet! </string>
+        <string name = "hataBirSeylerTers"> Quelque chose s\'est mal passé. Veuillez réessayer </string>
+
+        <string name = "mail_adresiniz"> Adresse e-mail </string>
+        <string name = "sifrenizi_girin"> Mot de passe </string>
+        <string name = "sifre_tekrar"> Mot de passe à nouveau </string>
+        <string name = "yeni_hesap"> Inscrivez-vous </string>
+
+        <string name = "mailHataBos"> Le courrier électronique ne peut pas être vide </string>
+        <string name = "mailHataFormat"> L\'adresse email n\'est pas valide </string>
+        <string name = "mailHataUzunluk"> La longueur de l\'adresse e-mail ne peut pas dépasser 255 caractères </string>
+        <string name = "hataKullaniciAdiMinUzunluk"> La longueur du nom d\'utilisateur ne peut pas être inférieure à 4 caractères </string>
+        <string name = "hataKullaniciAdiMaxUzunluk"> La longueur du nom d\'utilisateur ne peut pas dépasser 50 caractères </string>
+        <string name = "hataSifreUzunluk"> La longueur du mot de passe ne peut pas être inférieure à 4 </string>
+        <string name = "hataSifreEslesme"> Les mots de passe ne correspondent pas </string>
+        <string name = "kayitBasarili"> Enregistrement réussi </string>
+        <string name = "kullaniciAdiAlinmis"> Le nom d\'utilisateur est déjà pris </string>
+        <string name = "dil_secin"> Sélectionnez la langue: </string>
+        <string name = "zaman_dilimi_secin"> Sélectionnez Timezone: </string>
+
+        <string name = "cikis_basarili"> Quitter avec succès </string>
+        <string name = "anasayfa"> Accueil </string>
+        <string name = "statistikler"> Statistiques </string>
+        <string name = "grup"> Groupe </string>
+        <string name = "sorucevap"> QuestionRéponse </string>
+        <string name = "ayarlar"> Paramètres </string>
+
+    <string name = "cikis_yap"> Quitter </string>
+
+        <string name = "hataShareBaslik"> L\'en-tête ne peut pas être vide </string>
+        <string name = "hataShareBaslikUzunlukMin"> La longueur de l\'en-tête ne peut pas être inférieure à 3 caractères </string>
+        <string name = "hataShareBaslikUzunlukMax"> La longueur de l\'en-tête ne peut pas dépasser 200 caractères </string>
+        <string name = "hataShareAciklama"> Le corps ne peut pas être vide </string>
+        <string name = "hataShareAciklamaUzunlukMin"> La longueur du corps ne peut pas être inférieure à 3 caractères </string>
+        <string name = "hataShareAciklamaUzunlukMax"> La longueur du corps ne peut pas dépasser 40000 caractères </string>
+        <string name = "islem_basarili"> Réussie </string>
+        <string name = "baslik_girin"> Partagez votre avis </string>
+        <string name = "aciklama_girin"> Décrivez plus en détail </string>
+        <string name = "bir_seyler_paylas"> Partager quelque chose aujourd\'hui </string>
+
+        <string name = "Cevapla"> Répondre </string>
+        <string name = "simdi"> maintenant </string>
+        <string name = "hataYorumMinLength"> La longueur du commentaire ne peut pas être inférieure à 3 caractères </string>
+        <string name = "hataYorumBos"> Le commentaire ne peut pas être vide </string>
+        <string name = "hataYorumUzunlukMax"> La longueur de l\'en-tête ne peut pas dépasser 400 caractères </string>
+
+        <string name = "paylas"> Partager </string>
+        <string name = "CevapYaz"> Ajouter un commentaire </string>
+
+        <string name = "Ingilizce"> anglais </string>
+        <string name = "almanca"> deutsch </string>
+        <string name = "Italyanca"> italiano </string>
+        <string name = "Rusça"> русский </string>
+        <string name = "Ispanyolca"> español </string>
+        <string name = "fransizca"> français </string>
+        <string name = "Turkce"> türkçe </string>
+
+        <string name = "kapat"> Fermer </string>
+        <string name = "Dil_degistirin"> Changer le lanugage </string>
+        <string name = "genel"> Général </string>
+        <string name = "bildirim"> Notification </string>
+
+        <string name = "Rapor_Iletildi"> Rapport envoyé.Merci! </string>
+        <string name = "Raporla"> Signaler le message </string>
+
+        <string name = "yeni_gonderiler"> Nouveaux messages </string>
+        <string name = "sirala"> Trier par </string>
+        <string name = "top_likes"> Aime mieux </string>
+        <string name = "tum_zamanlar"> Tout le temps </string>
+        <string name = "son_bir_yil"> Année écoulée </string>
+        <string name = "son_bir_ay"> Mois passé </string>
+        <string name = "son_bir_hafta"> Semaine passée </string>
+        <string name = "son_bir_gun"> Dernières 24 heures </string>
+        <string name = "bir_saat_once"> Heure passée </string>
+        <string name = "yeni"> Nouveau </string>
+
+        <string name = "kac_tane_sigara_ictin"> Combien de cigarettes fumiez-vous? </string>
+        <string name = "degisiklikleri_kaydet"> Enregistrer les modifications </string>
+        <string name = "smokeCountBos"> Le nombre de cigarettes ne peut pas être vide </string>
+        <string name ="smokeCountNegatif"> Le nombre de cigarettes ne peut pas être négatif </string>
+        <string name = "degisikler_kaydedildi"> Modifications enregistrées </string>
+        <string name = "tarihinde_ne_kadar_sigara_ictin"> Combien de cigarettes as-tu fumées? </string>
+        <string name = "sigara_sayis"> Nombre de cigarettes fumées </string>
+        <string name = "kaydet"> Enregistrer </string>
+        <string name = "Sigara_hata_max"> Le nombre de cigarettes ne doit pas dépasser 2147483646. </string>
+        <string name = "hata_sifir"> La valeur ne peut pas être zéro </string>
+        <string name ="TemizGun"> Effacer le jour </string>
+        <string name ="KotuGun"> Journée du tabagisme </string>
+        <string name = "Sigara_Sayisi"> Nombre de cigarettes </string>
+        <string name = "ButunGunler"> Tous les jours </string>
+        <string name = "rank"> Rang </string>
+        <string name ="kullaniciAdi"> Nom d\'utilisateur </string>
+        <string name ="temiz_gun"> Effacer le jour </string>
+        <string name = "Hareketlerin"> Vos actions </string>
+        <string name = "paylasimlarin"> Vos publications </string>
+        <string name = "en_iyi_seri"> Meilleure attaque </string>
+        <string name = "şuanki_seri"> Grève actuelle </string>
+        <string name = "begenilerin"> Votre préférence </string>
+        <string name ="veri_yok"> Aucune donnée </string>
+
+        <string name = "Sil"> Supprimer </string>
+        <string name = "Düzenle"> Modifier </string>
+        <string name = "paylasim_silindi"> Message supprimé </string>
+        <string name = "paylasimi_güncelle"> Modifier le message </string>
+
+        <string name = "tarih_bilgilerini_s_f_rla"> Réinitialiser les informations de date </string>
+        <string name = "hesap"> Compte </string>
+        <string name = "uygulama"> App </string>
+        <string name = "sifre_degistir"> Changer le mot de passe </string>
+        <string name = "acik_kaynak_kutuphaneleri"> Bibliothèques Open Source </string>
+        <string name = "tesekkur"> Remerciements spéciaux </string>
+        <string name = "bize_yildiz_vererek_destek_olun"> Soutenez-nous en donnant des étoiles </string>
+        <string name = "destek"> Soutenez-nous </string>
+        <string name = "tarih_bilgilerini_sifirla"> Réinitialiser les informations de date </string>
+
+        <string name = "Emin_Misin"> Etes-vous sûr? </string>
+        <string name = "Butun_tarihler_silinecek"> Toutes les données de date auront disparu! </string>
+        <string name = "Evet"> Oui </string>
+        <string name = "Hayır"> Non </string>
+        <string name = "eski_sifre"> Ancien mot de passe </string>
+        <string name = "yeni_sifre"> Nouveau mot de passe </string>
+        <string name = "yeni_sifre_tekrar"> Nouveau mot de passe à nouveau </string>
+        <string name = "Check_Up_Time"> Rappel </string>
+        <string name = "post_silinecek"> Le message sera supprimé </string>
+        <string name = "cikis_yapacaksin"> Vous allez vous déconnecter </string>
+
+        <string name = "bosluklari_doldur_adamgibi"> Veuillez remplir toutes les zones correctement </string>
+        <string name = "Bildirim_On"> La notification est activée </string>
+        <string name = "Bildirim_OFF"> La notification est désactivée </string>
+        <string name = "saat_degisti"> L\'heure de la vérification a bien été changée </string>
+        <string name = "check_up"> Check Up </string>
+        <string name = "checkup_at"> Vérifier jusqu\'à aujourd'hui </string>
+        <string name = "notfiy_mesaj"> Comment sn\'est passée ta journée? </string>
+        <string name = "gonder"> Envoyer </string>
+        <string name = "mail_gonderildi">
+        Mot de passe réinitialiser le courrier envoyé.Il faut quelques minutes pour vous joindre et n\'oubliez pas le vérifier votre dossier spam.
+    </string>
+    <string name="hos_geldin">bienvenu</string>
+</resources>

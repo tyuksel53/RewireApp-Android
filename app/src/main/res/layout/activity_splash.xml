@@ -35,7 +35,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="64dp"
-         android:text="Wellcome"
+         android:text="@string/hos_geldin"
          android:textColor="@color/textColorPrimary"
          android:textSize="18sp"
          app:layout_constraintEnd_toEndOf="parent"

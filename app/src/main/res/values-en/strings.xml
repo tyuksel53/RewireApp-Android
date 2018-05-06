@@ -2,11 +2,10 @@
 <resources>
     <string name="app_name">Rewire</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kullanici_adi">Username</string>
     <string name="sifre">Password</string>
-    <string name="giris_yap">LOGIN</string>
+    <string name="giris_yap">Login</string>
     <string name="yanlis_kullanici_adi_veya_sifre">Wrong password or username</string>
     <string name="sifremi_unuttum">Forget password</string>
     <string name="veya">or</string>
@@ -93,26 +92,26 @@
     <string name="kac_tane_sigara_ictin">How many cigarettes did you smoke?</string>
     <string name="degisiklikleri_kaydet">Save Changes</string>
     <string name="smokeCountBos">Cigarette count cannot be empty</string>
-    <string name="smokeCountNegative">Cigarette count cannot be negative</string>
+    <string name="smokeCountNegatif">Cigarette count cannot be negative</string>
     <string name="degisikler_kaydedildi">Changes Saved</string>
     <string name="tarihinde_ne_kadar_sigara_ictin">How many cigarettes did you smoke?</string>
     <string name="sigara_sayis">Smoked Cigarettes Count</string>
     <string name="kaydet">Save</string>
     <string name="Sigara_hata_max">The number of cigarettes must not exceed 2147483646.</string>
     <string name="hata_sifir">Value cannot be zero</string>
-    <string name="ClearDay">Clear Day</string>
-    <string name="BadDay">Smoking Day</string>
+    <string name="TemizGun">Clear Day</string>
+    <string name="KotuGun">Smoking Day</string>
     <string name="Sigara_Sayisi">Cigarette count</string>
     <string name="ButunGunler">All Days</string>
     <string name="rank">Rank</string>
-    <string name="username">Username</string>
-    <string name="clear_day">Clear Day</string>
+    <string name="kullaniciAdi">Username</string>
+    <string name="temiz_gun">Clear Day</string>
     <string name="Hareketlerin">Your Actions</string>
     <string name="paylasimlarin">Your Posts</string>
     <string name="en_iyi_seri">Best Strike</string>
     <string name="şuanki_seri">Current Strike</string>
     <string name="begenilerin">Your Likes</string>
-    <string name="no_data">No Data</string>
+    <string name="veri_yok">No Data</string>
 
     <string name="Sil">Delete</string>
     <string name="Düzenle">Edit</string>
@@ -139,14 +138,20 @@
     <string name="yeni_sifre">New Password</string>
     <string name="yeni_sifre_tekrar">New password again</string>
     <string name="Check_Up_Time">Reminder</string>
-    <string name="post_will_deleted">The post will be deleted</string>
+    <string name="post_silinecek">The post will be deleted</string>
     <string name="cikis_yapacaksin">You will be logout</string>
 
-    <string name="fill_holls_correctly">Please fill all areas correctly</string>
+    <string name="bosluklari_doldur_adamgibi">Please fill all areas correctly</string>
     <string name="Bildirim_On">Notification is ON</string>
     <string name="Bildirim_OFF">Notification is OFF</string>
     <string name="saat_degisti">Check up time changed successfully</string>
     <string name="check_up">Check Up</string>
     <string name="checkup_at">Check Up At Today </string>
-    <string name="checkUp_message_notfiy">It\'s time for you to check up.How was your day ?</string>
-</resources>
+    <string name="notfiy_mesaj">How was your day ?</string>
+    <string name="gonder">Send</string>
+    <string name="mail_gonderildi">
+        Password reset mail sented.It takes a couple minutes to reach you and don\'t forget the check your spam folder.
+    </string>
+    <string name="hos_geldin">Wellcome</string>
+
+    </resources>

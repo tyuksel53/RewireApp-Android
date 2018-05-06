@@ -37,6 +37,7 @@ class DilSecDialog : android.app.DialogFragment() {
     }
     var isUserCanClick = true
     var dilsec:TextView? = null
+    var pb:ProgressBar? = null
     lateinit var myLangChanceInterface:onLanguageChanged
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,10 +47,15 @@ class DilSecDialog : android.app.DialogFragment() {
         val ingilizce = v.findViewById<TextView>(R.id.tvIngilizce)
         val turkce = v.findViewById<TextView>(R.id.tvTurkce)
         val kapat = v.findViewById<Button>(R.id.btnDilSecKapat)
-        val pb = v.findViewById<ProgressBar>(R.id.pbDilSec)
+        pb = v.findViewById<ProgressBar>(R.id.pbDilSec)
+        val almanca = v.findViewById<TextView>(R.id.tvAlmanca)
+        val isponyalca = v.findViewById<TextView>(R.id.tvIspanyolca)
+        val fransizca = v.findViewById<TextView>(R.id.tvFransızca)
+        val italyanca = v.findViewById<TextView>(R.id.tvItalyanca)
+        val rusca = v.findViewById<TextView>(R.id.tvRusca)
         dilsec = v.findViewById(R.id.tvDilSec)
 
-        pb.visibility = View.INVISIBLE
+        pb?.visibility = View.INVISIBLE
 
         kapat.setOnClickListener {
             if(isUserCanClick)
@@ -58,133 +64,38 @@ class DilSecDialog : android.app.DialogFragment() {
             }
         }
 
-        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
-
         updateView(Paper.book().read<String>("language"))
 
+        rusca.setOnClickListener {
+            updateLang("русский","ru")
+        }
+
+        italyanca.setOnClickListener {
+            updateLang("italiano","it")
+        }
+
+        fransizca.setOnClickListener {
+            updateLang("français","fr")
+        }
+
+        isponyalca.setOnClickListener {
+            updateLang("español","es")
+        }
+
+        almanca.setOnClickListener {
+            updateLang("deutsch","de")
+        }
+
         ingilizce.setOnClickListener {
-            if(isUserCanClick)
-            {
-                pb.visibility = View.VISIBLE
-                isUserCanClick = false
-                val result = apiInterface?.updateUserLang("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                        "english")
 
-                result!!.enqueue(object: Callback<String>{
-                    override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        if(activity != null)
-                        {
-                            Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                    Toast.LENGTH_LONG).show()
-                            if(dialog!=null)
-                            {
-                                dialog.dismiss()
-                            }
-                            isUserCanClick =  true
-                            pb.visibility = View.INVISIBLE
-                        }
-
-                    }
-
-                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                        isUserCanClick =  true
-                        pb.visibility = View.INVISIBLE
-                        if(response?.code() == 200)
-                        {
-                            if(activity != null)
-                            {
-                                Paper.book().write("language","en")
-                                LocaleHelper.setLocale(activity!!,Paper.book().read<String>("language"))
-                                updateView(Paper.book().read<String>("language"))
-                                UserPortal.shares = null
-                                Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.islem_basarili),
-                                        Toast.LENGTH_SHORT).show()
-                                myLangChanceInterface.languageChanged()
-                                if(dialog!=null)
-                                {
-                                    dialog.dismiss()
-                                }
-                            }
-
-                        }else
-                        {
-                            if(activity != null)
-                            {
-                                Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                        Toast.LENGTH_LONG).show()
-                                if(dialog!=null)
-                                {
-                                    dialog.dismiss()
-                                }
-                            }
-
-                        }
-                    }
-
-                })
-            }
-
-
+            updateLang("english","en")
         }
 
         turkce.setOnClickListener {
-            if(isUserCanClick)
-            {
-                pb.visibility = View.VISIBLE
-                isUserCanClick = false
-                val result = apiInterface?.updateUserLang("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
-                        "türkçe")
-                result?.enqueue(object:Callback<String>{
-                    override fun onFailure(call: Call<String>?, t: Throwable?) {
-                        if(activity != null)
-                        {
-                            Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                    Toast.LENGTH_SHORT).show()
-                            if(dialog!=null)
-                            {
-                                dialog.dismiss()
-                            }
-                            isUserCanClick = true
-                            pb.visibility = View.INVISIBLE
-                        }
-
-                    }
-
-                    override fun onResponse(call: Call<String>?, response: Response<String>?) {
-                        isUserCanClick = true
-                        if(activity != null)
-                        {
-                            if(response?.code() == 200)
-                            {
-                                Paper.book().write("language","tr")
-                                LocaleHelper.setLocale(activity!!,Paper.book().read<String>("language"))
-                                UserPortal.shares = null
-                                updateView(Paper.book().read<String>("language"))
-                                Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.islem_basarili),
-                                        Toast.LENGTH_SHORT).show()
-                                myLangChanceInterface.languageChanged()
-                                if(dialog!=null)
-                                {
-                                    dialog.dismiss()
-                                }
-                            }else
-                            {
-                                Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
-                                        Toast.LENGTH_SHORT).show()
-                                if(dialog!=null)
-                                {
-                                    dialog.dismiss()
-                                }
-                            }
-                        }
-
-                    }
-
-                })
-            }
-
-
+            updateLang("türkçe","tr")
         }
+
+
 
         return v
     }
@@ -222,5 +133,69 @@ class DilSecDialog : android.app.DialogFragment() {
         dilsec?.setText(UserPortal.myLangResource?.getString(R.string.dil_secin))
     }
 
+    fun updateLang(lang:String,lancode:String)
+    {
+        val apiInterface = ApiClient.client?.create(ApiInterface::class.java)
+        if(isUserCanClick)
+        {
+            pb?.visibility = View.VISIBLE
+            isUserCanClick = false
+            val result = apiInterface?.updateUserLang("Bearer ${UserPortal.loggedInUser!!.AccessToken}",
+                    lang)
+
+            result!!.enqueue(object: Callback<String>{
+                override fun onFailure(call: Call<String>?, t: Throwable?) {
+                    if(activity != null)
+                    {
+                        Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                                Toast.LENGTH_LONG).show()
+                        if(dialog!=null)
+                        {
+                            dialog.dismiss()
+                        }
+                        isUserCanClick =  true
+                        pb?.visibility = View.INVISIBLE
+                    }
+
+                }
+
+                override fun onResponse(call: Call<String>?, response: Response<String>?) {
+                    isUserCanClick =  true
+                    pb?.visibility = View.INVISIBLE
+                    if(response?.code() == 200)
+                    {
+                        if(activity != null)
+                        {
+                            Paper.book().write("language",lancode)
+                            LocaleHelper.setLocale(activity!!,Paper.book().read<String>("language"))
+                            updateView(Paper.book().read<String>("language"))
+                            UserPortal.shares = null
+                            Toasty.success(activity,UserPortal.myLangResource!!.getString(R.string.islem_basarili),
+                                    Toast.LENGTH_SHORT).show()
+                            myLangChanceInterface.languageChanged()
+                            if(dialog!=null)
+                            {
+                                dialog.dismiss()
+                            }
+                        }
+
+                    }else
+                    {
+                        if(activity != null)
+                        {
+                            Toasty.error(activity,UserPortal.myLangResource!!.getString(R.string.hataBirSeylerTers),
+                                    Toast.LENGTH_LONG).show()
+                            if(dialog!=null)
+                            {
+                                dialog.dismiss()
+                            }
+                        }
+
+                    }
+                }
+
+            })
+        }
+    }
 
 }

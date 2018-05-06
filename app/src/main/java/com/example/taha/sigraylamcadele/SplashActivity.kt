@@ -60,6 +60,7 @@ class SplashActivity : AppCompatActivity() {
         val context = LocaleHelper.setLocale(this,Paper.book().read<String>("language"))
         UserPortal.myLangResource = context.resources
 
+        tvHosGeldin.setText(context.getString(R.string.hos_geldin))
 
         val myUser = Portal.autoLogin(this)
 
@@ -94,7 +95,7 @@ class SplashActivity : AppCompatActivity() {
                                 if(response?.code() == 200) {
                                     UserPortal.userDates = response.body()
                                     Portal.updateUserSettingsCheckUpTime(this@SplashActivity,
-                                            "6:36",
+                                            "11:07",
                                             UserPortal.loggedInUser!!.Username!!)
                                     val intent = Intent(this@SplashActivity,HomeActivity::class.java)
                                     startActivity(intent)

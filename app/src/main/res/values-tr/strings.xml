@@ -98,28 +98,28 @@
     <string name="kac_tane_sigara_ictin">Kaç tane sigara içtin</string>
     <string name="degisiklikleri_kaydet">Değişiklikleri Kaydet</string>
     <string name="smokeCountBos">İçilen sigara sayısı boş olamaz</string>
-    <string name="smokeCountNegative">Sigara sayısı negatif olamaz</string>
+    <string name="smokeCountNegatif">Sigara sayısı negatif olamaz</string>
     <string name="degisikler_kaydedildi">Değişikler Kaydedildi</string>
     <string name="tarihinde_ne_kadar_sigara_ictin">Tarihinde ne kadar sigara içtin ?</string>
     <string name="sigara_sayis">Sigara Sayısı</string>
     <string name="kaydet">Kaydet</string>
     <string name="Sigara_hata_max">Sigara sayısı 2147483646 \'ü geçmemelidir</string>
     <string name="hata_sifir">Değer 0 olamaz</string>
-    <string name="ClearDay">Temiz Gün</string>
-    <string name="BadDay">Kötü Gün</string>
+    <string name="TemizGun">Temiz Gün</string>
+    <string name="KotuGun">Kötü Gün</string>
     <string name="Sigara_Sayisi">İçilen Sigara Sayısı</string>
     <string name="ButunGunler">Bütün Günler</string>
 
     <string name="rank">Sıra</string>
-    <string name="username">Kullanıcı Adı</string>
-    <string name="clear_day">Temiz Gün</string>
+    <string name="kullaniciAdi">Kullanıcı Adı</string>
+    <string name="temiz_gun">Temiz Gün</string>
 
     <string name="Hareketlerin">Geçmiş Aktivitelerin</string>
     <string name="paylasimlarin">Paylaşımların</string>
     <string name="en_iyi_seri">En iyi seri</string>
     <string name="şuanki_seri">Şuanki seri</string>
     <string name="begenilerin">Favorilerin</string>
-    <string name="no_data">Gösterilecek veri yok</string>
+    <string name="veri_yok">Gösterilecek veri yok</string>
 
     <string name="Sil">Sil</string>
     <string name="Düzenle">Düzenle</string>
@@ -146,15 +146,16 @@
     <string name="yeni_sifre_tekrar">Yeni şifre tekrar</string>
     <string name="Check_Up_Time">Hatırlatıcı</string>
 
-    <string name="post_will_deleted">Paylaşım silinecek</string>
+    <string name="post_silinecek">Paylaşım silinecek</string>
     <string name="cikis_yapacaksin">Çıkış yapacaksın</string>
 
-    <string name="fill_holls_correctly">Lütfen Alanları Düzgün Girin</string>
+    <string name="bosluklari_doldur_adamgibi">Lütfen Alanları Düzgün Girin</string>
     <string name="Bildirim_On">Bildirim Açık</string>
     <string name="Bildirim_OFF">Bildirim Kapalı</string>
     <string name="saat_degisti">Check Up zamanı başarıyla değişti</string>
     <string name="check_up">Check Up</string>
     <string name="checkup_at">Check-Up Zamanı Bugün </string>
-    <string name="checkUp_message_notfiy">Günün nasıl geçti ?</string>
+    <string name="notfiy_mesaj">Günün nasıl geçti ?</string>
+    <string name="hos_geldin">Hoş Geldiniz</string>
 
 </resources>

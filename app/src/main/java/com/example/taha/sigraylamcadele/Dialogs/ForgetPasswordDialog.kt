@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
-import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 
 import com.example.taha.sigraylamcadele.R
@@ -32,7 +31,7 @@ class ForgetPasswordDialog : DialogFragment() {
         val header = view.findViewById<TextView>(R.id.tvForgetPassHeader)
         header.setText(UserPortal.myLangResource!!.getString(R.string.sifremi_unuttum))
         btn.setText(UserPortal.myLangResource!!.getString(R.string.gonder))
-        mail.setHint(UserPortal.myLangResource!!.getString(R.string.username))
+        mail.setHint(UserPortal.myLangResource!!.getString(R.string.kullaniciAdi))
 
         btn.setOnClickListener {
 
@@ -69,7 +68,7 @@ class ForgetPasswordDialog : DialogFragment() {
 
                 })
                 Toasty.success(activity,UserPortal.myLangResource!!.
-                        getString(R.string.forget_pass_sent),
+                        getString(R.string.mail_gonderildi),
                         Toast.LENGTH_LONG).show()
                 dismiss()
             }

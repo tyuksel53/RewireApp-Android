@@ -133,7 +133,7 @@ class SoruCevapAdapter(var dataSource:ArrayList<Shares>,var context:Context): Re
                     {
                         val dialog = AlertDialog.Builder(context)
                         dialog.setTitle(UserPortal.myLangResource!!.getString(R.string.Emin_Misin))
-                        dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.post_will_deleted))
+                        dialog.setMessage(UserPortal.myLangResource!!.getString(R.string.post_silinecek))
                         dialog.setCancelable(true)
                         dialog.setPositiveButton(UserPortal.myLangResource!!.getString(R.string.Evet)) { dialog, which ->
                             Toasty.success(context,

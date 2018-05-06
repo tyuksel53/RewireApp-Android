@@ -37,9 +37,9 @@ class LeaderBoardFragment : android.app.Fragment() {
         val rank = view.findViewById<TextView>(R.id.tvR)
         rank.setText(UserPortal.myLangResource!!.getString(R.string.rank))
         val username = view.findViewById<TextView>(R.id.tvU)
-        username.setText(UserPortal.myLangResource!!.getString(R.string.username))
+        username.setText(UserPortal.myLangResource!!.getString(R.string.kullaniciAdi))
         val ClearDay = view.findViewById<TextView>(R.id.tvC)
-        ClearDay.setText(UserPortal.myLangResource!!.getString(R.string.clear_day))
+        ClearDay.setText(UserPortal.myLangResource!!.getString(R.string.temiz_gun))
 
         val recyclerV = view.findViewById<RecyclerView>(R.id.rvLeaderBoard)
         val progressBar = view.findViewById<ProgressBar>(R.id.pbLeaderBoard)

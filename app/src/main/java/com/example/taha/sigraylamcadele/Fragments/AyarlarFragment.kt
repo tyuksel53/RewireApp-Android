@@ -12,7 +12,6 @@ import android.widget.*
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Dialogs.DilSecDialog
-import com.example.taha.sigraylamcadele.Dialogs.ThanksDialog
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import com.example.taha.sigraylamcadele.LoginActivity
 import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
@@ -20,6 +19,7 @@ import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
 import com.example.taha.sigraylamcadele.R
 import com.example.taha.sigraylamcadele.ChangePasswordActivity
 import com.example.taha.sigraylamcadele.Library.Portal
+import com.example.taha.sigraylamcadele.OpenSourceActivity
 import es.dmoral.toasty.Toasty
 import io.paperdb.Paper
 import retrofit2.Call
@@ -42,7 +42,6 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
     var tvDateReset:TextView? = null
     var tvUygulama:TextView? = null
     var tvOpenSource:TextView? =null
-    var tvThanks:TextView? = null
     var tvSupport:TextView? = null
     var tvSupportAction:TextView? = null
     var tvCheckUp:TextView? = null
@@ -60,7 +59,6 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvDateReset = view.findViewById(R.id.tvAyarlarDateReset)
         tvUygulama = view.findViewById(R.id.tvAyarlarUygulama)
         tvOpenSource = view.findViewById(R.id.tvAyarlarOpenSource)
-        tvThanks = view.findViewById(R.id.tvAyarlarThanks)
         tvSupport = view.findViewById(R.id.tvAyarlarSupport)
         tvSupportAction = view.findViewById(R.id.tvayarlarSupportAction)
         tvCheckUp = view.findViewById(R.id.tvAyarlarCheckUpTime)
@@ -81,7 +79,12 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
             }
         }
 
+        tvOpenSource?.setOnClickListener {
 
+            val intent = Intent(activity,OpenSourceActivity::class.java)
+            activity.startActivity(intent)
+
+        }
         switchNotifiy?.setOnCheckedChangeListener { buttonView, isChecked ->
             if(activity != null)
             {
@@ -221,11 +224,6 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
 
         }
 
-        tvThanks?.setOnClickListener{
-            val dialog = ThanksDialog()
-            dialog.show(fragmentManager,"Thanks")
-        }
-
         return view
     }
 
@@ -244,11 +242,10 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvDateReset?.setText(UserPortal.myLangResource?.getString(R.string.tarih_bilgilerini_sifirla))
         tvSifreDegistir?.setText(UserPortal.myLangResource?.getString(R.string.sifre_degistir))
         tvHesap?.setText(UserPortal.myLangResource?.getString(R.string.hesap))
-        tvThanks?.setText(UserPortal.myLangResource?.getString(R.string.tesekkur))
         tvCheckUp?.setText(UserPortal.myLangResource?.getString(R.string.Check_Up_Time))
         tvExit?.setText(UserPortal.myLangResource!!.getString(R.string.cikis_yap))
 
     }
 
 
-}// Required empty public constructor
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name = "app_name"> Rewire </string>
+
+        <string name = "hello_blank_fragment"> Привет пустой фрагмент </string>
+        <string name = "kullanici_adi"> Имя пользователя </string>
+        <string name = "sifre"> Пароль </string>
+        <string name = "giris_yap"> ВХОД </string>
+        <string name = "yanlis_kullanici_adi_veya_sifre"> Неверный пароль или имя пользователя </string>
+        <string name = "sifremi_unuttum"> Забыть пароль </string>
+        <string name = "veya"> или </string>
+        <string name = "kayit_ol"> Зарегистрировать </string>
+
+
+        <string name = "hataGirisKullanıcıadi"> Имя пользователя не может быть пустым </string>
+        <string name = "hataGirisSifre"> Пароль не может быть пустым </string>
+        <string name = "hataBaglantiBozuk"> Проверьте подключение к Интернету! </string>
+        <string name = "hataBirSeylerTers"> Что-то пошло не так. Повторите попытку </string>
+
+        <string name = "mail_adresiniz"> Адрес электронной почты </string>
+        <string name = "sifrenizi_girin"> Пароль </string>
+        <string name = "sifre_tekrar"> Пароль снова </string>
+        <string name = "yeni_hesap"> Зарегистрироваться </string>
+
+        <string name = "mailHataBos"> Email не может быть пустым </string>
+        <string name = "mailHataFormat"> Адрес электронной почты недействителен </string>
+        <string name = "mailHataUzunluk"> Длина адреса электронной почты не может превышать 255 символов </string>
+        <string name = "hataKullaniciAdiMinUzunluk"> Длина имени пользователя не может быть меньше 4 символов </string>
+        <string name = "hataKullaniciAdiMaxUzunluk"> Длина имени пользователя не может превышать 50 символов </string>
+        <string name = "hataSifreUzunluk"> Длина пароля не может быть меньше 4 </string>
+        <string name = "hataSifreEslesme"> Пароли не совпадают </string>
+        <string name = "kayitBasarili"> Регистрация успешно </string>
+        <string name = "kullaniciAdiAlinmis"> Имя пользователя уже выполнено </string>
+        <string name = "dil_secin"> Выбрать язык: </string>
+        <string name = "zaman_dilimi_secin"> Выберите Часовой пояс: </string>
+
+        <string name = "cikis_basarili"> Выйти успешно </string>
+        <string name = "anasayfa"> Главная </string>
+        <string name = "statistikler"> Статистика </string>
+        <string name = "grup"> Группа </string>
+        <string name = "sorucevap"> Вопрос ответ </string>
+        <string name = "ayarlar"> Настройки </string>
+        <string name = "cikis_yap"> Выход </string>
+
+        <string name = "hataShareBaslik"> Заголовок не может быть пустым </string>
+        <string name = "hataShareBaslikUzunlukMin"> Длина заголовка не может быть меньше трех символов </string>
+        <string name = "hataShareBaslikUzunlukMax"> Длина заголовка не может быть длиннее 200 символов </string>
+        <string name = "hataShareAciklama"> Тело не может быть пустым </string>
+        <string name = "hataShareAciklamaUzunlukMin"> Длина тела не может быть меньше трех символов </string>
+        <string name = "hataShareAciklamaUzunlukMax"> Длина тела не может превышать 40000 символов </string>
+        <string name = "islem_basarili"> Успешно </string>
+        <string name = "baslik_girin"> Поделитесь своими мыслями </string>
+        <string name = "aciklama_girin"> Опишите более подробно </string>
+        <string name = "bir_seyler_paylas"> Поделитесь чем-нибудь сегодня </string>
+
+        <string name = "Cevapla"> Ответить </string>
+        <string name = "simdi"> now </string>
+        <string name = "hataYorumMinLength"> Длина комментария не может быть меньше 3 символов </string>
+        <string name = "hataYorumBos"> Комментарий не может быть пустым </string>
+        <string name = "hataYorumUzunlukMax"> Длина заголовка не может превышать 400 символов </string>
+
+    <string name = "paylas"> Поделиться </string>
+        <string name="CevapYaz"> Добавить комментарий </string>
+
+        <string name = "Ingilizce"> english </string>
+        <string name = "almanca"> deutsch </string>
+        <string name = "Italyanca"> italiano </string>
+        <string name = "Rusça"> русский </string>
+        <string name = "Ispanyolca"> español </string>
+        <string name = "fransizca"> français </string>
+        <string name = "Turkce"> türkçe </string>
+
+        <string name = "kapat"> Закрыть </string>
+        <string name = "Dil_degistirin"> Изменить Lanugage </string>
+        <string name = "genel"> Общие </string>
+        <string name = "bildirim"> Уведомление </string>
+
+        <string name = "Rapor_Iletildi"> Отчет отправлен. Спасибо! </string>
+        <string name = "Raporla"> Сообщение о публикации </string>
+
+        <string name = "yeni_gonderiler"> Новые сообщения </string>
+        <string name = "sirala"> Сортировать по </string>
+        <string name = "top_likes"> Лучшие Симпатии </string>
+        <string name = "tum_zamanlar"> Все время </string>
+        <string name = "son_bir_yil"> Прошлый год </string>
+        <string name = "son_bir_ay"> Прошлый месяц </string>
+        <string name = "son_bir_hafta"> Прошлая неделя </string>
+        <string name = "son_bir_gun"> Прошлое 24 часа </string>
+        <string name = "bir_saat_once"> Прошедший час </string>
+        <string name = "yeni"> Новый </string>
+
+        <string name = "kac_tane_sigara_ictin"> Сколько сигарет вы курили? </string>
+        <string name = "degisiklikleri_kaydet"> Сохранить изменения </string>
+        <string name = "smokeCountBos"> Количество сигарет не может быть пустым </string>
+        <string name ="smokeCountNegatif"> Количество сигарет не может быть отрицательным </string>
+        <string name = "degisikler_kaydedildi"> Изменения сохранены </string>
+        <string name = "tarihinde_ne_kadar_sigara_ictin"> Сколько сигарет вы курили? </string>
+        <string name = "sigara_sayis"> Копчёные сигареты </string>
+        <string name = "kaydet"> Сохранить </string>
+        <string name = "Sigara_hata_max"> Количество сигарет не должно превышать 2147483646. </string>
+        <string name = "hata_sifir"> Значение не может быть равно нулю </string>
+        <string name ="TemizGun"> Очистить день </string>
+        <string name ="KotuGun"> День курения </string>
+        <string name = "Sigara_Sayisi"> Количество сигарет </string>
+        <string name = "ButunGunler"> Все дни </string>
+        <string name = "rank"> Ранг </string>
+        <string name ="kullaniciAdi"> Имя пользователя </string>
+        <string name ="temiz_gun"> Очистить день </string>
+        <string name = "Hareketlerin"> Ваши действия </string>
+        <string name = "paylasimlarin"> Ваши сообщения </string>
+        <string name = "en_iyi_seri"> Лучший удар </string>
+        <string name = "şuanki_seri"> Текущий удар </string>
+        <string name = "begenilerin"> Ваш любимый </string>
+        <string name ="veri_yok"> Нет данных </string>
+
+        <string name = "Sil"> Удалить </string>
+        <string name = "Düzenle"> Изменить </string>
+        <string name = "paylasim_silindi"> Post Deleted </string>
+        <string name = "paylasimi_güncelle"> Редактировать сообщение </string>
+
+    <string name = "tarih_bilgilerini_s_f_rla"> Сбросить информацию о дате </string>
+        <string name = "hesap"> Аккаунт </string>
+        <string name = "uygulama"> Приложение </string>
+        <string name = "sifre_degistir"> Изменить пароль </string>
+        <string name = "acik_kaynak_kutuphaneleri"> Библиотеки с открытым исходным кодом </string>
+        <string name = "tesekkur"> Специальное спасибо </string>
+        <string name = "bize_yildiz_vererek_destek_olun"> Поддержите нас, указав звезды </string>
+        <string name = "destek"> Поддерживать нас </string>
+        <string name = "tarih_bilgilerini_sifirla"> Сведения о сбросе даты </string>
+
+        <string name="Emin_Misin"> Вы уверены? </string>
+        <string name="Butun_tarihler_silinecek"> Все данные даты исчезнут! </string>
+
+
+        <string name = "Evet"> Да </string>
+        <string name = "Hayır"> Нет </string>
+        <string name = "eski_sifre"> Старый пароль </string>
+        <string name = "yeni_sifre"> Новый пароль </string>
+        <string name = "yeni_sifre_tekrar"> Новый пароль снова </string>
+        <string name = "Check_Up_Time"> Напоминание </string>
+        <string name ="post_silinecek"> Сообщение будет удалено </string>
+        <string name = "cikis_yapacaksin"> Вы выходите из системы </string>
+
+        <string name ="bosluklari_doldur_adamgibi"> Правильно заполните все области </string>
+        <string name = "Bildirim_On"> Уведомление включено </string>
+        <string name = "Bildirim_OFF"> Уведомление выключено </string>
+        <string name = "saat_degisti"> Время проверки изменено успешно </string>
+        <string name = "check_up"> Проверить </string>
+        <string name = "checkup_at"> Проверьте сегодня </string>
+        <string name ="notfiy_mesaj"> Как прошел ваш день? </string>
+        <string name = "gonder"> Отправить </string>
+        <string name ="mail_gonderildi">
+        Сброс почты с паролем отправлен. Для вас требуется несколько минут, и не забудьте проверить папку со спамом.
+    </string>
+    <string name="hos_geldin">приветствовать</string>
+</resources>

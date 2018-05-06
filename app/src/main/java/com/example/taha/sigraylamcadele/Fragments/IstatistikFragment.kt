@@ -20,7 +20,6 @@ import com.example.taha.sigraylamcadele.Model.UserDate
 
 import com.example.taha.sigraylamcadele.R
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
@@ -516,9 +515,9 @@ class IstatistikFragment : android.app.Fragment(),SmokeDialog.onSmokeCountEntere
 
         val xVals =  isimler
 
-        val set1 =  BarDataSet(entriesGood, UserPortal.myLangResource!!.getString(R.string.ClearDay))
+        val set1 =  BarDataSet(entriesGood, UserPortal.myLangResource!!.getString(R.string.TemizGun))
         set1.setColor(ContextCompat.getColor(activity, R.color.barGreen));
-        val set2 = BarDataSet(entriesBad, UserPortal.myLangResource!!.getString(R.string.BadDay))
+        val set2 = BarDataSet(entriesBad, UserPortal.myLangResource!!.getString(R.string.KotuGun))
         set2.setColor(ContextCompat.getColor(activity, R.color.barRed));
         val data =  BarData(set1, set2)
         data.setValueTextColor(ContextCompat.getColor(activity, R.color.textColorPrimary))

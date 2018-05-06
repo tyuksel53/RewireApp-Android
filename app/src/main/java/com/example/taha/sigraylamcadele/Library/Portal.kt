@@ -1,10 +1,14 @@
 package com.example.taha.sigraylamcadele.Library
 
-import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
-import br.com.goncalves.pugnotification.notification.PugNotification
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.media.RingtoneManager
+import android.support.v4.app.NotificationCompat
 import com.example.taha.sigraylamcadele.API.ApiClient
 import com.example.taha.sigraylamcadele.API.ApiInterface
 import com.example.taha.sigraylamcadele.Database.DatabaseHelper
@@ -20,7 +24,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class Portal {
@@ -335,18 +338,49 @@ class Portal {
             {
                 Paper.book().write("language","en")
             }
-            val context = LocaleHelper.setLocale(context, Paper.book().read<String>("language"))
-            PugNotification.with(context)
-                    .load()
-                    .title(context.getString(R.string.Check_Up_Time))
-                    .message(context.getString(R.string.checkUp_message_notfiy))
-                    .smallIcon(R.mipmap.rewire_launcher)
-                    .largeIcon(R.mipmap.rewire_launcher)
-                    .flags(Notification.DEFAULT_ALL)
-                    .autoCancel(true)
-                    .click(SplashActivity::class.java)
-                    .simple()
-                    .build()
+
+            val intent = Intent(context,SplashActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            var bildirimPendding = PendingIntent.getActivity(context
+                    ,10,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+
+            val myLangcontext = LocaleHelper.setLocale(context, Paper.book().read<String>("language"))
+            showNotification(myLangcontext.getString(R.string.Check_Up_Time),
+                    myLangcontext.getString(R.string.notfiy_mesaj),
+                    context)
+        }
+
+        fun showNotification(title:String, content:String,context:Context) {
+            val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val mBuilder = NotificationCompat.Builder(context, "default")
+                    .setSmallIcon(R.mipmap.rewire_launcher)
+                    .setBadgeIconType(R.mipmap.rewire_launcher)// notification icon
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                            R.mipmap.rewire_launcher))
+                    .setContentTitle(title) // title for notification
+                    .setContentText(content)// message for notification
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)) // set alarm sound for notification
+                    .setAutoCancel(true) // clear notification after click
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            {
+                val name = "RewireApp Notification"
+                val description = "RewireApp's Notification"
+                val importance = NotificationManager.IMPORTANCE_DEFAULT
+                val channel = NotificationChannel("RewireApp-Quit Smoke Channel", name, importance)
+                channel.description = description
+                val notificationManager = context.
+                        getSystemService(NotificationManager::class.java)
+
+                notificationManager.createNotificationChannel(channel)
+                mBuilder.setChannelId("RewireApp-Quit Smoke Channel")
+            }
+
+            val intent = Intent(context, SplashActivity::class.java)
+            val pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            mBuilder.setContentIntent(pi)
+            mNotificationManager.notify(1, mBuilder.build())
         }
 
 

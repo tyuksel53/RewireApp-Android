@@ -1,14 +1,9 @@
 package com.example.taha.sigraylamcadele.Service
 
 import android.app.IntentService
-import android.app.Notification
 import android.content.Intent
 import android.util.Log
-import br.com.goncalves.pugnotification.notification.PugNotification
 import com.example.taha.sigraylamcadele.Library.Portal
-import com.example.taha.sigraylamcadele.PaperHelper.LocaleHelper
-import com.example.taha.sigraylamcadele.R
-import io.paperdb.Paper
 import java.text.SimpleDateFormat
 import java.util.*
 
