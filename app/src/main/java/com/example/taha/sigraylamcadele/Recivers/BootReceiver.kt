@@ -16,7 +16,7 @@ class BootReceiver : BroadcastReceiver() {
                 100,intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                100000,150000,
+                30000,180000,
                 pendingIntent)
     }
 }

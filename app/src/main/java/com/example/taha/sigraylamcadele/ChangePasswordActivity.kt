@@ -1,7 +1,9 @@
 package com.example.taha.sigraylamcadele
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import com.example.taha.sigraylamcadele.API.ApiClient
@@ -10,6 +12,7 @@ import com.example.taha.sigraylamcadele.Library.Portal
 import com.example.taha.sigraylamcadele.Library.UserPortal
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_sifre_degis.*
+import kotlinx.android.synthetic.main.register_toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +22,21 @@ class ChangePasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sifre_degis)
+
+
+        val inflator = this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val v = inflator.inflate(R.layout.register_toolbar, null)
+        val actionBar = supportActionBar
+        actionBar!!.setDisplayHomeAsUpEnabled(false)
+        actionBar.setDisplayShowHomeEnabled(false)
+        actionBar.setDisplayShowCustomEnabled(true)
+        actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.customView = v
+
+        ivRegisterCancel.setOnClickListener {
+            this@ChangePasswordActivity.finish()
+        }
 
         pbSifreDegis.visibility = View.INVISIBLE
 

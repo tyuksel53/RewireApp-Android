@@ -94,9 +94,9 @@ class SplashActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<ArrayList<UserDate>>?, response: Response<ArrayList<UserDate>>?) {
                                 if(response?.code() == 200) {
                                     UserPortal.userDates = response.body()
-                                    Portal.updateUserSettingsCheckUpTime(this@SplashActivity,
+                                    /*Portal.updateUserSettingsCheckUpTime(this@SplashActivity,
                                             "11:07",
-                                            UserPortal.loggedInUser!!.Username!!)
+                                            UserPortal.loggedInUser!!.Username!!)*/
                                     val intent = Intent(this@SplashActivity,HomeActivity::class.java)
                                     startActivity(intent)
                                     finish()
@@ -144,7 +144,7 @@ class SplashActivity : AppCompatActivity() {
                 100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                100000,150000,
+                30000,180000,
                 pendingIntent)
 
     }

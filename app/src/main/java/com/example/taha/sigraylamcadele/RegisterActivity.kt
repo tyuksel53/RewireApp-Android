@@ -55,6 +55,8 @@ class RegisterActivity : AppCompatActivity() {
         spLanguage.adapter = languageAdapter
 
 
+        tvRegisterSelectLanugage.setText(UserPortal.myLangResource!!.getString(R.string.dil_secin))
+
         ivRegisterCancel.setOnClickListener {
             this@RegisterActivity.finish()
         }

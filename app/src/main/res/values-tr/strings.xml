@@ -156,6 +156,9 @@
     <string name="check_up">Check Up</string>
     <string name="checkup_at">Check-Up Zamanı Bugün </string>
     <string name="notfiy_mesaj">Günün nasıl geçti ?</string>
+    <string name="mail_gonderildi">
+        Şifre sıfırlama isteği gönderildi.Size ulaşması biraz zaman alabilir.
+    </string>
     <string name="hos_geldin">Hoş Geldiniz</string>
 
 </resources>

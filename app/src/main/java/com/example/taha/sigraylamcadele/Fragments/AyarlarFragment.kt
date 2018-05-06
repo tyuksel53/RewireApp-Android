@@ -3,6 +3,7 @@ package com.example.taha.sigraylamcadele.Fragments
 
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -26,6 +27,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+
+
 
 
 class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
@@ -63,6 +66,19 @@ class AyarlarFragment : android.app.Fragment(),DilSecDialog.onLanguageChanged {
         tvSupportAction = view.findViewById(R.id.tvayarlarSupportAction)
         tvCheckUp = view.findViewById(R.id.tvAyarlarCheckUpTime)
         tvExit = view.findViewById(R.id.tvExitApp)
+
+
+        tvSupportAction?.setOnClickListener {
+
+            val appPackageName = activity.getPackageName() // getPackageName() from Context or Activity object
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+            } catch (anfe: android.content.ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+            }
+
+
+        }
 
         if(activity != null)
         {
