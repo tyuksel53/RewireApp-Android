@@ -61,9 +61,9 @@ object UserPortal {
     {
         val helper = DatabaseHelper(context)
         val db = helper.readableDatabase
-        val args = arrayOf("100")
+        val args = arrayOf("10000")
 
-        var resultCount = db.delete(DbContract.UserEntry.TABLE_NAME,
+        val resultCount = db.delete(DbContract.UserEntry.TABLE_NAME,
                 DbContract.UserEntry._ID + " < ?",
                 args)
 

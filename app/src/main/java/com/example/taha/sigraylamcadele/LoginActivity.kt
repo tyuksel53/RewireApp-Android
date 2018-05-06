@@ -87,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                                 UserPortal.loggedInUser = loggedInUser
                                 UserPortal.updateUserInfo()
                                 UserPortal.getLikes()
+                                UserPortal.deleteLoggedInUser(this@LoginActivity)
                                 UserPortal.insertNewUser(this@LoginActivity,loggedInUser)
                                 val getDates = apiInterface.getDates("Bearer ${body?.access_token}")
                                 getDates.enqueue(object:Callback<ArrayList<UserDate>>{

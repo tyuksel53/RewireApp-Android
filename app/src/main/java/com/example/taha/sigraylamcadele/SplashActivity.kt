@@ -33,7 +33,6 @@ import android.view.animation.DecelerateInterpolator
 
 class SplashActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -50,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
         aviLoading.smoothToShow()
         Portal.raiseUp()
         startService()
-        Portal.deleteNotfiy(this)
+        /*Portal.deleteNotfiy(this)*/
         Paper.init(this)
         val lang = Paper.book().read<String>("language")
         if(lang == null)
@@ -144,7 +143,7 @@ class SplashActivity : AppCompatActivity() {
                 100,intent,PendingIntent.FLAG_UPDATE_CURRENT)
 
         alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                30000,180000,
+                1000,180000,
                 pendingIntent)
 
     }
