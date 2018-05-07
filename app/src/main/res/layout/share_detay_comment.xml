@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view15" />
 
-            <com.example.taha.sigraylamcadele.Widgets.CustomSpinner
+            <com.rewire.mobile.app.Widgets.CustomSpinner
                 android:id="@+id/spComment"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

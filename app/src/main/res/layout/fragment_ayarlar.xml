@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.taha.sigraylamcadele.Fragments.AyarlarFragment">
+    tools:context="com.rewire.mobile.app.Fragments.AyarlarFragment">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

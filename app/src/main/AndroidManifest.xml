@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.taha.sigraylamcadele">
+    package="com.rewire.mobile.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -51,7 +51,9 @@
             android:name=".ChangePasswordActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="40fae35e5d9f3dddd25a027081fb743ca7e86486" />
         <service
             android:name=".Service.CheckUpService"
             android:exported="false" />
