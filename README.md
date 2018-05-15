@@ -31,7 +31,7 @@ Would you like to contribute? Fork us and send a pull request! Be sure to checko
 
 ## License
 
-RewireApp is Copyright (c) 2018 Taha. It may be redistributed under the terms specified in the [LICENSE] file.
+RewireApp is Copyright (c) 2018 Taha Yüksel. It may be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
 
